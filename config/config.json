@@ -1,0 +1,83 @@
+{
+  "environment": "development",
+  "general": {
+    "sockets_token": "fullstack-secret"
+  },
+  "development": {
+    "general": {
+      "environment": "development",
+      "clientPort": 3000
+    },
+    "express": {
+      "hostName": "localhost",
+      "port": 9000,
+      "ip": "127.0.0.1"
+    },
+    "mongodb": {
+      "connect": true,
+      "host": "localhost",
+      "name": "fullstack-seed-dev",
+      "port": 27017,
+      "options": {
+        "useMongoClient": true
+      },
+      "seedDB": false
+    },
+    "redis": {
+      "ip": "127.0.0.1",
+      "port": 3333,
+      "password": "dump_pwd"
+    }
+  },
+  "production": {
+    "general": {
+      "environment": "production"
+    },
+    "express": {
+      "hostName": "localhost",
+      "port": 3000,
+      "ip": "127.0.0.1"
+    },
+    "mongodb": {
+      "connect": true,
+      "host": "localhost",
+      "name": "fullstack-seed-prod",
+      "port": 27017,
+      "options": {
+        "useMongoClient": true
+      },
+      "seedDB": false
+    },
+    "redis": {
+      "ip": "127.0.0.1",
+      "port": 3333,
+      "password": "dump_pwd"
+    }
+  },
+  "test": {
+    "general": {
+      "environment": "test",
+      "clientPort": 3000
+    },
+    "express": {
+      "hostName": "localhost",
+      "port": 9000,
+      "ip": "127.0.0.1"
+    },
+    "mongodb": {
+      "connect": true,
+      "host": "localhost",
+      "name": "fullstack-seed-test",
+      "port": 27017,
+      "options": {
+        "useMongoClient": true
+      },
+      "seedDB": false
+    },
+    "redis": {
+      "ip": "127.0.0.1",
+      "port": 3333,
+      "password": "dump_pwd"
+    }
+  }
+}
