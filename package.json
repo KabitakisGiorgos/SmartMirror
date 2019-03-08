@@ -33,6 +33,7 @@
     "@angular/platform-browser-dynamic": "7.2.8",
     "@angular/router": "7.2.8",
     "app-root-path": "^2.0.1",
+    "artyom.js": "^1.0.6",
     "body-parser": "^1.18.3",
     "bootstrap": "^3.3.7",
     "cookie-parser": "^1.4.4",
