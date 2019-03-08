@@ -1,0 +1,20 @@
+<!-- <div class="container mycontainer">
+  <div class="row">
+    <div class="col-12"> -->
+
+<ngx-slick-carousel class="carousel" #slickModal="slick-carousel" [config]="slideConfig">
+  <div ngxSlickItem *ngFor="let slide of slides" class="slide">
+    <div style="background-color:black;height:500px;width:100%;color:white">
+      <span>{{slide.title}}</span>
+      <p>{{slide.name}}</p>
+    </div>
+
+  </div>
+</ngx-slick-carousel>
+
+<button (click)="next()">Next</button>
+<button (click)="previous()">Previous</button>
+
+<!-- </div>
+  </div>
+</div> -->
