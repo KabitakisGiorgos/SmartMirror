@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "importHelpers": true,
     "target": "es6",
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
@@ -13,7 +14,9 @@
     ],
     "typeRoots": [
       "./node_modules/@types"
-    ]
+    ],
+    "module": "es2015",
+    "baseUrl": "./"
   },
   "exclude": [
     "node_modules"

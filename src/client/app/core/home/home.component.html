@@ -1,1 +1,23 @@
-<h1>Home Component here</h1>
+<!-- <div class="container mycontainer"> -->
+  <!-- <div class="row"> -->
+    <!-- <div class="col-12"> -->
+      <ngx-slick-carousel class="carousel" #slickModal="slick-carousel" [config]="slideConfig" (init)="slickInit($event)"
+        (breakpoint)="breakpoint($event)" (afterChange)="afterChange($event)" (beforeChange)="beforeChange($event)">
+        <div ngxSlickItem *ngFor="let slide of slides" class="slide">
+          <div style="border:1px solid white;background-color:black;height:500px;width:700px">
+            <span>{{slide.title}}</span>
+            <p>{{slide.name}}</p>
+          </div>
+
+        </div>
+      </ngx-slick-carousel>
+
+
+      <button (click)="addSlide()">Add</button>
+      <button (click)="removeSlide()">Remove</button>
+      <button (click)="slickModal.slickGoTo(2)">slickGoto 2</button>
+      <button (click)="slickModal.unslick()">unslick</button>
+
+    <!-- </div> -->
+  <!-- </div> -->
+<!-- </div> -->
