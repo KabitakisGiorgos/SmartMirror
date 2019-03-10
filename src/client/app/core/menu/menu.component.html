@@ -1,23 +1,26 @@
-<ngx-slick-carousel class="carousel" #slickModal="slick-carousel" [config]="slideConfig">
-  <div ngxSlickItem class="slide" style="background-color:black;height:500px;width:100%;color:white">
-    <app-menu-calendar></app-menu-calendar>
-  </div>
-  <div ngxSlickItem class="slide" style="background-color:black;height:500px;width:100%;color:white">
-    <app-menu-notes></app-menu-notes>
-  </div>
-  <div ngxSlickItem class="slide" style="background-color:black;height:500px;width:100%;color:white">
-    <app-menu-news></app-menu-news>
-  </div>
-  <div ngxSlickItem class="slide" style="background-color:black;height:500px;width:100%;color:white">
-    <app-menu-weather></app-menu-weather>
-  </div>
-  <div ngxSlickItem class="slide" style="background-color:black;height:500px;width:100%;color:white">
-    <app-menu-health></app-menu-health>
-  </div>
-  <div ngxSlickItem class="slide" style="background-color:black;height:500px;width:100%;color:white">
-    <app-menu-media></app-menu-media>
-  </div>
-</ngx-slick-carousel>
+<div  [@enter1]>
 
-<button (click)="next()">Next</button>
-<button (click)="previous()">Previous</button>
+  <ngx-slick-carousel class="carousel" #slickModal="slick-carousel" [config]="slideConfig">
+    <div ngxSlickItem class="slide" style="background-color:black;height:500px;width:100%;color:white">
+      <app-menu-calendar></app-menu-calendar>
+    </div>
+    <div ngxSlickItem class="slide" style="background-color:black;height:500px;width:100%;color:white">
+      <app-menu-notes></app-menu-notes>
+    </div>
+    <div ngxSlickItem class="slide" style="background-color:black;height:500px;width:100%;color:white">
+      <app-menu-news></app-menu-news>
+    </div>
+    <div ngxSlickItem class="slide" style="background-color:black;height:500px;width:100%;color:white">
+      <app-menu-weather></app-menu-weather>
+    </div>
+    <div ngxSlickItem class="slide" style="background-color:black;height:500px;width:100%;color:white">
+      <app-menu-health></app-menu-health>
+    </div>
+    <div ngxSlickItem class="slide" style="background-color:black;height:500px;width:100%;color:white">
+      <app-menu-media></app-menu-media>
+    </div>
+  </ngx-slick-carousel>
+
+  <button (click)="next()">Next</button>
+  <button (click)="previous()">Previous</button>
+</div>
