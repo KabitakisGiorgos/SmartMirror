@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import Artyom from '../../../../node_modules/artyom.js/build/artyom.js';
 import { BehaviorSubject } from 'rxjs';
-
+import { Router } from '@angular/router';
 @Injectable({
   providedIn: 'root'
 })
@@ -9,7 +9,7 @@ export class AssistantService {
   Jarvis: any;
   private subject = new BehaviorSubject({});
   subjectitem = this.subject.asObservable();
-  constructor() {
+  constructor(private router: Router) {
 
   }
 
@@ -34,7 +34,13 @@ export class AssistantService {
   }
 
   test() {
-    this.Jarvis.say('Hey buddy ! How are you today?');
+    this.router.navigate(['/menu'])
+      .then(tmp => {
+        console.log(tmp);
+      })
+      .catch(err => {
+        console.log(err);
+      })
   }
 
   init() {
@@ -46,6 +52,5 @@ export class AssistantService {
       }
     };
     this.Jarvis.addCommands(commandHello);
-    // this.Jarvis.say('Hello');
   }
 }

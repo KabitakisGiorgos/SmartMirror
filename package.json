@@ -24,6 +24,7 @@
   "dependencies": {
     "@amisolertis/utils-config": "^2.0.2",
     "@amisolertis/utils-eventfederator": "^2.0.0",
+    "@angular/animations": "^7.2.8",
     "@angular/common": "7.2.8",
     "@angular/compiler": "7.2.8",
     "@angular/core": "7.2.8",
