@@ -12,16 +12,14 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.subscription = this.assistant.subjectitem.subscribe((data) => {
+    this.assistant.navigationCommands();
+    this.subscription = this.assistant.subject.subscribe((data) => {
       console.log(data);
     });
   }
 
-
-  test() {
-  }
-
   ngOnDestroy() {
     this.subscription.unsubscribe();
+    this.assistant.deleteCommands();
   }
 }

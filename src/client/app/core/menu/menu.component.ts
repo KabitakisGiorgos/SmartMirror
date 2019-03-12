@@ -1,7 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { slideInUpOnEnterAnimation } from 'angular-animations';
 import { AssistantService } from '../../services/assistant.service';
-
+import { Subscription } from 'rxjs';
+import carouselComs from '../../../types/types'
 @Component({
   selector: 'app-menu',
   templateUrl: './menu.component.html',
@@ -12,8 +13,8 @@ import { AssistantService } from '../../services/assistant.service';
 })
 export class MenuComponent implements OnInit {
   @ViewChild('slickModal') carousel: any;
-  slides: any[] = [];
   slideConfig: any;
+  subscription: Subscription;
 
   constructor(private assistant: AssistantService) {
     this.slideConfig = {
@@ -24,7 +25,17 @@ export class MenuComponent implements OnInit {
   }
 
   ngOnInit() {
-
+    this.assistant.navigationCommands();
+    this.assistant.carouselNavigationCommands();
+    this.subscription = this.assistant.subject.subscribe((data: number) => {
+      if (data === carouselComs.Next)
+        this.next();
+      else if (data === carouselComs.Previous)
+        this.previous();
+      else {
+        this.goTo(data);
+      }
+    });
   }
 
   next() {
@@ -32,6 +43,15 @@ export class MenuComponent implements OnInit {
   }
 
   previous() {
+    this.carousel.slickPrev();
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+    this.assistant.deleteCommands();
+  }
+
+  goTo(id: number) {
     this.carousel.slickPrev();
   }
 }

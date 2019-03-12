@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { ServiceXComponent } from './serviceX.component';
 import { ServiceXRoutingModule } from './serviceX.routes.module';
-import { SocketService } from '../components/socket/socket.service';
+import { SocketService } from '../services/socket.service';
 
 @NgModule({
   declarations: [

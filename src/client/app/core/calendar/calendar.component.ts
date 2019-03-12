@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AssistantService } from '../../services/assistant.service';
 
 @Component({
   selector: 'app-calendar',
@@ -7,9 +8,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CalendarComponent implements OnInit {
 
-  constructor() { }
+  constructor(private assistant: AssistantService) { }
 
   ngOnInit() {
+    this.assistant.navigationCommands();
+    this.assistant.testingCommands();
+  }
+
+  ngOnDestroy() {
+    this.assistant.deleteCommands();
   }
 
 }

@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import * as io from 'socket.io-client';
 import { Observable } from 'rxjs';
 import { noop, find, remove } from 'lodash';
-import constants from '../../app.constants';
+import constants from '../app.constants';
 
 @Injectable()
 export class SocketService {

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { SocketService } from '../components/socket/socket.service';
+import { SocketService } from '../services/socket.service';
 import { Http } from '@angular//http';
 
 @Component({
