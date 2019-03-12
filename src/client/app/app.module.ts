@@ -7,6 +7,7 @@ import { AppRoutingModule } from './app.routes.module';
 import { CoreModule } from './core/core.module';
 import { ServiceXModule } from './serviceX/serviceX.module';
 import { HttpClientModule } from '@angular/common/http';
+import { SingletonModule } from './services/singleton.module';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { HttpClientModule } from '@angular/common/http';
     CoreModule,
     ServiceXModule,
     BrowserAnimationsModule,
-    HttpClientModule
+    HttpClientModule,
+    SingletonModule.forRoot({}),
   ],
   providers: [],
   bootstrap: [AppComponent]

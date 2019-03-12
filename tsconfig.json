@@ -8,8 +8,8 @@
     "removeComments": false,
     "allowSyntheticDefaultImports": true,
     "lib": [
-      "es5",
-      "es2015",
+      "es6",
+      "es2016",
       "dom"
     ],
     "typeRoots": [

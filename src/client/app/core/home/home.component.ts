@@ -12,7 +12,6 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.assistant.assistantInit();
     this.subscription = this.assistant.subjectitem.subscribe((data) => {
       console.log(data);
     });
@@ -20,7 +19,6 @@ export class HomeComponent implements OnInit {
 
 
   test() {
-    this.assistant.test();
   }
 
   ngOnDestroy() {

@@ -1,4 +1,4 @@
-<div  [@enter1]>
+<div [@enter1]>
 
   <ngx-slick-carousel class="carousel" #slickModal="slick-carousel" [config]="slideConfig">
     <div ngxSlickItem class="slide" style="background-color:black;height:500px;width:100%;color:white">
@@ -23,4 +23,6 @@
 
   <button (click)="next()">Next</button>
   <button (click)="previous()">Previous</button>
+
+  <button [routerLink]="['/home']">Go to home</button>
 </div>

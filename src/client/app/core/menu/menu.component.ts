@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { slideInUpOnEnterAnimation } from 'angular-animations';
+import { AssistantService } from '../../services/assistant.service';
 
 @Component({
   selector: 'app-menu',
@@ -14,7 +15,7 @@ export class MenuComponent implements OnInit {
   slides: any[] = [];
   slideConfig: any;
 
-  constructor() {
+  constructor(private assistant: AssistantService) {
     this.slideConfig = {
       slidesToShow: 2,
       slidesToScroll: 2,
