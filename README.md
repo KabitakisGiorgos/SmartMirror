@@ -73,3 +73,8 @@ Part of AmI-Solertis project. See [AMI ICS-FORTH] .
    [Typescript]: <https://www.typescriptlang.org/>
    [Angular]: <https://angular.io/>
 
+
+
+Kampitakis::
+
+https://gitlab.com/logotype/LeapMotionTS.git git clone for leapmotion library

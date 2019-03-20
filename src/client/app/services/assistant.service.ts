@@ -23,7 +23,7 @@ export class AssistantService {
       lang: 'en-GB',// A lot of languages are supported. Read the docs !
       continuous: true,
       listen: true, // Start recognizing
-      debug: true, // Show everything in the console
+      debug: false, // Show everything in the console
       speed: 1,// talk normally
       name: 'Jarvis',
       soundex: true

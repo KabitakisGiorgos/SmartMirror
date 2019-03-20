@@ -1,12 +1,15 @@
 import { ModuleWithProviders, NgModule, Optional, SkipSelf } from '@angular/core';
 import { AssistantService } from './assistant.service';
 import { CommonModule } from '@angular/common';
-
+import { LeapHandlerService } from './leap-handler.service';
 @NgModule({
     imports: [CommonModule],
     declarations: [],
     exports: [],
-    providers: [AssistantService]
+    providers: [
+        AssistantService,
+        LeapHandlerService
+    ]
 })
 
 

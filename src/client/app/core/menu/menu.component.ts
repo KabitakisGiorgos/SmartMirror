@@ -3,6 +3,7 @@ import { slideInUpOnEnterAnimation } from 'angular-animations';
 import { AssistantService } from '../../services/assistant.service';
 import { Subscription } from 'rxjs';
 import carouselComs from '../../../types/types'
+import { LeapHandlerService } from '../../services/leap-handler.service';
 @Component({
   selector: 'app-menu',
   templateUrl: './menu.component.html',
@@ -16,7 +17,7 @@ export class MenuComponent implements OnInit {
   slideConfig: any;
   subscription: Subscription;
 
-  constructor(private assistant: AssistantService) {
+  constructor(private assistant: AssistantService, private leap: LeapHandlerService) {
     this.slideConfig = {
       slidesToShow: 2,
       slidesToScroll: 2,
