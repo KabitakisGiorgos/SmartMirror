@@ -3,7 +3,8 @@ import Artyom from '../../../../node_modules/artyom.js/build/artyom.js';
 import { Subject } from "rxjs";
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
-
+import { debugMode } from '../../environments/environment';
+import { LoggerService } from './logger.service.js';
 @Injectable({
   providedIn: 'root'
 })
@@ -11,11 +12,16 @@ export class AssistantService {
   private text: string;
   Jarvis: any;
   subject = new Subject();
+  debug: boolean;
   constructor(
     private router: Router,
     private http: HttpClient,
-    private ngZone: NgZone
-  ) { }
+    private ngZone: NgZone,
+    private logger: LoggerService
+  ) {
+    this.debug = debugMode['Jarvis'];
+  }
+
   assistantInit() {
     this.Jarvis = new Artyom();
 
@@ -23,16 +29,16 @@ export class AssistantService {
       lang: 'en-GB',// A lot of languages are supported. Read the docs !
       continuous: true,
       listen: true, // Start recognizing
-      debug: false, // Show everything in the console
+      debug: this.debug, // Show everything in the console
       speed: 1,// talk normally
       name: 'Jarvis',
       soundex: true
     }).then(() => {
-      console.log('Ready to work!');
+      this.logger.log('Ready to work', 'AssistantService');
       this.init();
     })
       .catch(err => {
-        console.log(err);
+        this.logger.error(err);
       });
   }
 

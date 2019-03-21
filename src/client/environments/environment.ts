@@ -6,3 +6,10 @@
 export const environment = {
   production: false
 };
+
+
+export const debugMode = {
+  AssistantService: true,
+  LeapHandlerService: true,
+  Jarvis: false
+}

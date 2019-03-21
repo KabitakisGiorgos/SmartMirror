@@ -1,12 +1,16 @@
 import { Injectable } from '@angular/core';
 import * as Leap from '../../../../LeapMotionTS/build/leapmotionts-2.2.4';
+// import { debugMode } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LeapHandlerService {
   controller: Leap.Controller;
+  debug: boolean;
+
   constructor() {
+    // this.debug = debugMode['LeapHandlerService'];
     this.init();
   }
 

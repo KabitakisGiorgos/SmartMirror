@@ -8,7 +8,7 @@ import { CoreModule } from './core/core.module';
 import { ServiceXModule } from './serviceX/serviceX.module';
 import { HttpClientModule } from '@angular/common/http';
 import { SingletonModule } from './services/singleton.module';
-
+import { LoggerModule, NgxLoggerLevel } from 'ngx-logger';
 @NgModule({
   declarations: [
     AppComponent
@@ -22,6 +22,9 @@ import { SingletonModule } from './services/singleton.module';
     BrowserAnimationsModule,
     HttpClientModule,
     SingletonModule.forRoot({}),
+    LoggerModule.forRoot({
+      level: NgxLoggerLevel.DEBUG
+    })
   ],
   providers: [],
   bootstrap: [AppComponent]
