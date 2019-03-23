@@ -6,7 +6,7 @@ import { Http } from '@angular//http';
     templateUrl: './serviceX.component.html',
     styleUrls: ['./serviceX.component.scss']
 })
-export class ServiceXComponent implements OnInit  {
+export class ServiceXComponent implements OnInit {
     constructor(private socketService: SocketService, private http: Http) { }
 
     ngOnInit() {
@@ -16,12 +16,13 @@ export class ServiceXComponent implements OnInit  {
                     this.onSocketMessage(eventType, data);
                 });
             });
-        }
+    }
 
     onSocketMessage(eventType, data) {
         console.log('Socket Message received!');
         // Uncomment the following lines to retrieve event data
-        // let event: EventType;
+        let event: any;
         // event = JSON.parse(data);
+        console.log(data);
     }
 }

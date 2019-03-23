@@ -16,7 +16,7 @@ export class SocketService {
   init(): Promise<void> {
     return new Promise((resolve, reject) => {
       this.app_name = this.activatedRoute.snapshot.queryParams['app'];
-      this.socket = io('', {
+      this.socket = io('', {//TODO: Examine this piece of code
         path: '/socket.io-client',
         query: {
           token: constants.sockets_token,
@@ -57,8 +57,8 @@ export class SocketService {
      */
     this.socket.on('message', function (event_message, item) {
 
-        cb(event_message, item);
-        
+      cb(event_message, item);
+
     });
   }
 
@@ -72,3 +72,48 @@ export class SocketService {
     this.socket.disconnect();
   }
 }
+
+/*
+//FIXME: add it to code
+  syncUpdates(modelName, array, cb) {
+      cb = cb || angular.noop;
+
+      
+      //  Syncs item creation/updates on 'model:save'
+       
+      socket.on(`${modelName}:save`, function (item) {
+        var event = 'created';
+        array.push(item);
+        cb(event, item, array);
+      });
+
+      socket.on(`${modelName}:findOneAndUpdate`, function (item) {
+        var event = 'updated';
+        var foundIndex = array.findIndex(x => x._id === item._id);
+        array[foundIndex] = item;
+        cb(event, item, array);
+      });
+
+      
+      //  Syncs removed items on 'model:remove'
+       
+      socket.on(`${modelName}:remove`, function (item) {
+        var event = 'deleted';
+        _.remove(array, {
+          _id: item._id
+        });
+        cb(event, item, array);
+      });
+    },
+
+  
+    //  Removes listeners for a models updates on the socket
+    
+    unsyncUpdates(modelName) {
+      socket.removeAllListeners(`${modelName}:save`);
+      socket.removeAllListeners(`${modelName}:remove`);
+      socket.removeAllListeners(`${modelName}:findOneAndUpdate`);
+    }
+  };
+}
+*/

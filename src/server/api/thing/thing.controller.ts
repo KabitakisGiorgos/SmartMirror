@@ -11,11 +11,7 @@
 import { Request, Response } from 'express';
 import * as jsonpatch from 'fast-json-patch';
 import * as thingEvents from './thing.events';
-import config from '../../config/environment';
 import Thing from './thing.model';
-
-const isConnectedDB = config.mongo.connect;
-let ThingsData = require('./data.json');
 
 
 /*---------------------------------------------------------
@@ -124,10 +120,6 @@ class ThingController {
    * @return {Thing[]} The list of available things
    */
   public index(req: Request, res: Response) {
-    if (isConnectedDB === false) {
-      return res.send(ThingsData);
-    }
-
     return Thing.find().exec()
       .then(respondWithResult(res, 200))
       .catch(handleError(res, 500));
@@ -141,16 +133,6 @@ class ThingController {
    * @return {Thing} A specific thing with id
    */
   public show(req: Request, res: Response) {
-    if (isConnectedDB === false) {
-      let query: number = parseInt(req.params.id, 10);
-      let thing: any = ThingsData.find(element => element._id === query);
-      if (thing) {
-        return res.status(200).send(thing);
-      } else {
-        return res.sendStatus(404).end();
-      }
-    }
-
     return Thing.findById(req.params.id).exec()
       .then(handleEntityNotFound(res))
       .then(respondWithResult(res, 200))
@@ -169,10 +151,6 @@ class ThingController {
    * @return {Thing} The created thing
    */
   public create(req: Request, res: Response) {
-    if (isConnectedDB === false) {
-      return res.sendStatus(400).end();
-    }
-
     return Thing.create(req.body)
       // .then(publishThingCreated()) // REDIS event Fedarator i might not use it
       .then(respondWithResult(res, 201))
@@ -191,10 +169,6 @@ class ThingController {
    * @return {Thing} The updated thing
    */
   public upsert(req: Request, res: Response) {
-    if (isConnectedDB === false) {
-      return res.sendStatus(400).end();
-    }
-
     if (req.body._id) {
       delete req.body._id;
     }
@@ -218,10 +192,6 @@ class ThingController {
    * @return {Thing} The updated thing
    */
   public patch(req: Request, res: Response) {
-    if (isConnectedDB === false) {
-      return res.sendStatus(400).end();
-    }
-
     if (req.body._id) {
       delete req.body._id;
     }
@@ -241,10 +211,6 @@ class ThingController {
    * @return
    */
   public destroy(req: Request, res: Response) {
-    if (isConnectedDB === false) {
-      return res.sendStatus(400).end();
-    }
-
     return Thing.findById(req.params.id).exec()
       .then(handleEntityNotFound(res))
       .then(removeEntity(res))
@@ -262,7 +228,7 @@ class ThingController {
    * @return {Thing} The updated thing
    */
   public propagateEventToUI(req: Request, res: Response) {
-    
+
     console.log('propagateEventToUI called!');
 
     let eventType = 'customEventType';

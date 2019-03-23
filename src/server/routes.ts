@@ -4,12 +4,10 @@
 import * as path from 'path';
 import * as errors from './components/errors';
 import thingRouter from './api/thing';
-import assistantRouter from './api/assistant';
 
 export default app => {
   // Insert routes below
   app.use('/api/things', thingRouter);
-  app.use('/api/assistant', assistantRouter);
 
   // All undefined asset or api routes should return a 404
   app.route('/:url(api|auth|components|app|bower_components|assets)/*')

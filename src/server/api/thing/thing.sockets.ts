@@ -11,7 +11,6 @@ var events = {
 
 function emitEvent(event) {
   return function (doc) {
-    global.__socketController.broadcastMessage(`${event}:${doc._id}`, doc);
     global.__socketController.broadcastMessage(`thing:${event}`, doc);
   };
 }
