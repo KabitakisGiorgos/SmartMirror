@@ -8,19 +8,20 @@ import { LeapHandlerService } from '../../services/leap-handler.service';
 })
 export class HomeComponent implements OnInit {
   subscription: Subscription;
-  constructor(private assistant: AssistantService, private leap: LeapHandlerService) {
+  // constructor(private assistant: AssistantService, private leap: LeapHandlerService)
+  constructor() {
     // this.leap.test();
   }
 
   ngOnInit() {
-    this.assistant.navigationCommands();
-    this.subscription = this.assistant.subject.subscribe((data) => {
-      console.log(data);
-    });
+    // this.assistant.navigationCommands();
+    // this.subscription = this.assistant.subject.subscribe((data) => {
+    //   console.log(data);
+    // });
   }
 
   ngOnDestroy() {
-    this.subscription.unsubscribe();
-    this.assistant.deleteCommands();
+    // this.subscription.unsubscribe();
+    // this.assistant.deleteCommands();
   }
 }

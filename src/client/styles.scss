@@ -1,32 +1,15 @@
-// /* You can add global styles to this file, and also import other style files */
-// @media (min-width: 992px) {
-//   .container {
-//     max-width: unset;
-//   }
-// }
+.col-10 {
+  flex: 0 0 82%;
+  max-width: 82%;
+}
 
-// @media (min-width: 768px) {
-//   .container {
-//     max-width: unset;
-//   }
-// }
-
-// @media (min-width: 1200px) {
-//   .container.mycontainer {
-//     width: unset;
-//   }
-// }
-
-// @media (min-width: 992px) {
-//   .container.mycontainer {
-//     width: unset;
-//   }
-// }
+.col-2 {
+  padding: 0px;
+  flex: 0 0 18%;
+  max-width: 18%;
+}
 
 
-
-// @media (min-width: 768px) {
-//   .container.mycontainer {
-//     width: unset;
-//   }
-// }
+body {
+  background-color: #0C3958;
+}
