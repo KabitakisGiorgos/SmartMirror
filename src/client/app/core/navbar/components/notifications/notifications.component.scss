@@ -1,0 +1,41 @@
+.container-fluid {
+  margin-top: 60px;
+  margin-bottom: 60px;
+}
+
+.notification {
+  border-radius: 10px;
+  color: black;
+  height: 105px;
+  margin-top: 25px;
+  background-color: #DBE8F0;
+}
+
+.type {
+  text-align: left;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.text {
+  padding-left: 10px;
+  text-align: left;
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.severity {
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  width: 5.5px;
+  height: 28px;
+  position: absolute;
+  top: 38%;
+}
+
+.col-1 {
+  padding-right: 0px;
+  padding-left: 0px;
+  flex: 0 0 5%;
+  max-width: 5%;
+}

@@ -1,0 +1,20 @@
+<div class="container">
+  <div *ngFor="let notification of notifications" class="row notification">
+    <div class="col-1">
+      <div [ngStyle]="{'background-color':  notification.severity }" class="severity">
+      </div>
+    </div>
+    <div class="col-11">
+      <div class="row type">
+        {{notification.type}}
+      </div>
+      <div class="row text">
+        {{notification.text}}
+      </div>
+    </div>
+
+
+    <!-- {{notification.severity}} -->
+
+  </div>
+</div>

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AssistantService } from '../../services/assistant.service';
 
 @Component({
   selector: 'app-navbar',
@@ -6,8 +7,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent implements OnInit {
-  text="Navbar"
-  constructor() { }
+  today = new Date();
+  constructor(private assistant: AssistantService) {
+    setInterval(() => {
+      this.today = new Date();
+    }, 1000)
+  }
 
   ngOnInit() {
   }

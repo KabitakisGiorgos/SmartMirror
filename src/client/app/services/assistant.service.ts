@@ -9,7 +9,7 @@ import { LoggerService } from './logger.service.js';
   providedIn: 'root'
 })
 export class AssistantService {
-  private text: string;
+  private isListening: boolean;
   Jarvis: any;
   subject = new Subject();
   debug: boolean;
@@ -21,10 +21,9 @@ export class AssistantService {
   ) {
     this.debug = debugMode['Jarvis'];
   }
-
+  //FIXME: shut up command
   assistantInit() {
     this.Jarvis = new Artyom();
-
     this.Jarvis.initialize({
       lang: 'en-GB',// A lot of languages are supported. Read the docs !
       continuous: true,
@@ -35,11 +34,12 @@ export class AssistantService {
       soundex: true
     }).then(() => {
       this.logger.log('Ready to work', 'AssistantService');
+      this.isListening = true;
       this.init();
-    })
-      .catch(err => {
-        this.logger.error(err);
-      });
+    }).catch(err => {
+      this.isListening = false;
+      this.logger.error(err);
+    });
   }
 
   init() {
@@ -132,5 +132,9 @@ export class AssistantService {
 
   deleteCommands() {//Dynamically removing commands
     this.Jarvis.emptyCommands();
+  }
+
+  IsListening() {
+    return this.isListening;
   }
 }
