@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./notifications.component.scss']
 })
 export class NotificationsComponent implements OnInit {
-  notifications: Array<any>;//FIXME: to have an interface
+  notifications: Array<any>;//FIXME: to have an interface and take events from node
   constructor() {
     this.notifications = [{
       type: "Schedule",
