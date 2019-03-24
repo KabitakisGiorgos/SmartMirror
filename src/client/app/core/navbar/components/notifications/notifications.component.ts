@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-
+import { Notification } from '../../../../../types/classes';
 @Component({
   selector: 'app-notifications',
   templateUrl: './notifications.component.html',
   styleUrls: ['./notifications.component.scss']
 })
 export class NotificationsComponent implements OnInit {
-  notifications: Array<any>;//FIXME: to have an interface and take events from node
+  notifications: Array<Notification>;//FIXME: to have an interface and take events from node
   constructor() {
     this.notifications = [{
       type: "Schedule",

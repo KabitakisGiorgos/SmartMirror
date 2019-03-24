@@ -4,9 +4,11 @@
 import * as path from 'path';
 import * as errors from './components/errors';
 import thingRouter from './api/thing';
+import notificationRouter from './api/notifications';
 
 export default app => {
   // Insert routes below
+  app.use('/api/notifications', notificationRouter);
   app.use('/api/things', thingRouter);
 
   // All undefined asset or api routes should return a 404
