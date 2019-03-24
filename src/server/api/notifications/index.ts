@@ -5,6 +5,7 @@ import controller from './notifications.controller';
 let router = Router();
 router.get('/', controller.index);
 router.post('/', controller.create);
+router.get('/last/:number', controller.retrieveLast);
 router.get('/:severity', controller.retrieve);
 router.delete('/:id', controller.delete);
 router.post('/ping', controller.ping);

@@ -2,20 +2,43 @@ import { Component, OnInit } from '@angular/core';
 import { Notification } from '../../../../../types/classes';
 import { SocketService } from '../../../../services/socket.service';
 import { LoggerService } from '../../../../services/logger.service';
+import { HttpClient } from '@angular/common/http';
+import { trigger, transition, style, animate, query, stagger, animateChild } from '@angular/animations';
+
 @Component({
+  animations: [
+    trigger('items', [
+      transition(':enter', [
+        style({ transform: 'scale(0.5)', opacity: 0 }),  // initial
+        animate('1s cubic-bezier(.8, -0.6, 0.2, 1.5)',
+          style({ transform: 'scale(1)', opacity: 1 }))  // final
+      ])
+    ])
+  ],
   selector: 'app-notifications',
   templateUrl: './notifications.component.html',
   styleUrls: ['./notifications.component.scss']
 })
 export class NotificationsComponent implements OnInit {
-  notifications: Array<Notification>;
-  constructor(private socketService: SocketService,
-    private logger: LoggerService) {
+  notifications: any;
+
+  constructor(
+    private socketService: SocketService,
+    private logger: LoggerService,
+    private http: HttpClient) {
+    this.http.get('/api/notifications/last/3').subscribe(data => {
+      this.notifications = data;
+    },
+      error => {
+        this.logger.error(error);
+      });
+
     this.socketService.init()
       .then(() => {
         this.socketService.syncUpdates('notification', null, (event, data) => {
-          delete data._id;
-          delete data.__v;
+          // FIXME: here is only for inserting regardless the event   
+          //FIXME: Maybe regarding the event we could play another sound
+          this.notificationAudio();
           this.notifications.unshift(data);
           this.logger.log(data, 'NotificationsComp');
         });
@@ -25,19 +48,20 @@ export class NotificationsComponent implements OnInit {
           // Here the data need json parse
         });
       });
-    this.notifications = [{
-      type: 'Schedule',
-      severity: 'red',
-      text: 'You must leave 10 mins earlier to be for work in time',
-    },
-    {
-      type: 'Notification',
-      severity: 'green',
-      text: 'Water heater is ready'
-    }];
   }
 
   ngOnInit() {
   }
-  //FIXME: on destroy unsyncupdate 
+
+  ngOnDestroy() {
+    this.socketService.unsyncUpdates('notification');
+    this.socketService.unsubscribeMessages();
+  }
+
+  notificationAudio() {
+    let audio = new Audio();
+    audio.src = '../../../../../assets/sounds/notification.mp3';
+    audio.load();
+    audio.play();
+  }
 }

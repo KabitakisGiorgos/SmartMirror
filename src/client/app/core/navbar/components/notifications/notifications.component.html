@@ -1,5 +1,5 @@
 <div class="container">
-  <div *ngFor="let notification of notifications;let i=index">
+  <div @items *ngFor="let notification of notifications;let i=index">
     <div *ngIf="3>i" class="row notification">
       <div class="col-1">
         <div [ngStyle]="{'background-color':  notification.severity }" class="severity">

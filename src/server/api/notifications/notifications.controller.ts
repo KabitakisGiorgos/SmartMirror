@@ -77,6 +77,12 @@ class NotificationController {
             .catch(handleError(res, 500));
     }
 
+    public retrieveLast(req: Request, res: Response) {
+        return Notification.find().sort({ $natural: -1 }).limit(parseInt(req.params.number)).exec()
+            .then(respondWithResult(res, 200))
+            .catch(handleError(res, 500));
+    }
+
     public ping(req: Request, res: Response) {
         let eventType = 'message';
         let event = {

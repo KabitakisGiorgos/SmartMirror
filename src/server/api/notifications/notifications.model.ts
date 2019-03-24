@@ -15,8 +15,19 @@ var NotificationSchema = new mongoose.Schema({
     text: {
         type: String,
         required: true
+    },
+    createdAt: {
+        type: Date,
+        default: Date.now()
     }
 });
 
+NotificationSchema.index({ createdAt: 1 }, {
+    expireAfterSeconds: 86400 //1 day in seconds
+});
+
+
 registerEvents(NotificationSchema);
-export default mongoose.model('Notification', NotificationSchema);
+var model = mongoose.model('Notification', NotificationSchema);
+model.on('index', () => { });
+export default model;
