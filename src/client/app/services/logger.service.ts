@@ -11,23 +11,23 @@ export class LoggerService {
 
   }
 
-  debug(message: string, module: string) {
+  debug(message:any, module: string) {
     if (debugMode[module]) {
       this.logger.debug(message);
     }
   }
 
-  error(message: string) {
+  error(message: any) {
     this.logger.error(message);
   }
 
-  log(message: string, module: string) {
+  log(message: any, module: string) {
     if (debugMode[module]) {
       this.logger.log(message);
     }
   }
 
-  info(message: string, module: string) {
+  info(message: any, module: string) {
     if (debugMode[module]) {
       this.logger.info(message);
     }

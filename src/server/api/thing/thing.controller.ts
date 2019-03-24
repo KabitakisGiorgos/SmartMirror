@@ -231,7 +231,7 @@ class ThingController {
 
     console.log('propagateEventToUI called!');
 
-    let eventType = 'customEventType';
+    let eventType = 'message';
     let event = {
       attribute: 'value'
     };

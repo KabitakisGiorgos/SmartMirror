@@ -11,7 +11,7 @@ export class NavbarComponent implements OnInit {
   constructor(private assistant: AssistantService) {
     setInterval(() => {
       this.today = new Date();
-    }, 1000)
+    }, 1000);
   }
 
   ngOnInit() {

@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 
 import * as mongoose from 'mongoose';
 import { registerEvents } from './notification.sockets';

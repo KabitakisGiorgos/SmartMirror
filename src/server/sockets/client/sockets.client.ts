@@ -42,7 +42,7 @@ export class SocketClient {
    * @memberof SocketClient
    */
   emitEvent(event: string, data: any) {
-    this._socket.emit('message', event, data);
+    this._socket.emit(event, data);
   }
 
 }

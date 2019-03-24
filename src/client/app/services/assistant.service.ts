@@ -1,6 +1,6 @@
 import { Injectable, NgZone } from '@angular/core';
 import Artyom from '../../../../node_modules/artyom.js/build/artyom.js';
-import { Subject } from "rxjs";
+import { Subject } from 'rxjs';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { debugMode } from '../../environments/environment';
@@ -96,14 +96,14 @@ export class AssistantService {
             'left'
           ];
           let tmp = pages.indexOf(page);
-          if (tmp != -1) {
+          if (tmp !== -1) {
             this.subject.next(tmp);
           } else {
             this.Jarvis.say('Sorry unknown slide');
           }
         }
       }
-    ]
+    ];
 
     this.Jarvis.addCommands(commands);
   }

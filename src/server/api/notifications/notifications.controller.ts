@@ -78,7 +78,7 @@ class NotificationController {
     }
 
     public ping(req: Request, res: Response) {
-        let eventType = 'Notification Ping';
+        let eventType = 'message';
         let event = {
             data: req.body
         };

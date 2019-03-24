@@ -2,14 +2,13 @@ import { ActivatedRoute, Params } from '@angular/router';
 import { Injectable } from '@angular/core';
 import * as io from 'socket.io-client';
 import { Observable } from 'rxjs';
-import { noop, find, remove } from 'lodash';
+import * as _ from 'lodash';
 import constants from '../app.constants';
 
 @Injectable()
 export class SocketService {
   socket;
   app_name: string;
-
   constructor(
     private activatedRoute: ActivatedRoute) { }
 
@@ -49,16 +48,44 @@ export class SocketService {
    * @param {Array} array
    * @param {Function} cb
    */
-  syncUpdates(cb?, modelName?, array?) {
-    cb = cb || noop;
+  syncUpdates(modelName?, array?, cb?) {
+    cb = cb || _.noop;
 
     /**
      * Syncs item creation/updates on 'model:save'
      */
+
+    this.socket.on(`${modelName}:save`, function (item) {
+      var event = 'created';
+      if (array) array.push(item);
+      cb(event, item, array);
+    });
+
+    // TODO: Not needed yet
+    // this.socket.on(`${modelName}:findOneAndUpdate`, function (item) {
+    //   var event = 'updated';
+    //   var foundIndex = array.findIndex(x => x._id === item._id);
+    //   array[foundIndex] = item;
+    //   cb(event, item, array);
+    // });
+
+    this.socket.on(`${modelName}:remove`, function (item) {
+      var event = 'deleted';
+      if (array)
+        _.remove(array, {
+          _id: item._id
+        });
+      cb(event, item, array);
+    });
+
+
+  }
+
+
+  socketMessages(cb?) {
+    cb = cb || _.noop;
     this.socket.on('message', function (event_message, item) {
-
       cb(event_message, item);
-
     });
   }
 
@@ -68,52 +95,13 @@ export class SocketService {
    * @param modelName
    */
   unsyncUpdates(modelName) {
-    this.socket.removeAllListeners(`message`);
+    this.socket.removeAllListeners(`${modelName}:save`);
+    this.socket.removeAllListeners(`${modelName}:remove`);
+    this.socket.removeAllListeners(`${modelName}:findOneAndUpdate`);
     this.socket.disconnect();
   }
+
+  unsubscribeMessages() {
+    this.socket.removeAllListeners(`message`);
+  }
 }
-
-/*
-//FIXME: add it to code
-  syncUpdates(modelName, array, cb) {
-      cb = cb || angular.noop;
-
-      
-      //  Syncs item creation/updates on 'model:save'
-       
-      socket.on(`${modelName}:save`, function (item) {
-        var event = 'created';
-        array.push(item);
-        cb(event, item, array);
-      });
-
-      socket.on(`${modelName}:findOneAndUpdate`, function (item) {
-        var event = 'updated';
-        var foundIndex = array.findIndex(x => x._id === item._id);
-        array[foundIndex] = item;
-        cb(event, item, array);
-      });
-
-      
-      //  Syncs removed items on 'model:remove'
-       
-      socket.on(`${modelName}:remove`, function (item) {
-        var event = 'deleted';
-        _.remove(array, {
-          _id: item._id
-        });
-        cb(event, item, array);
-      });
-    },
-
-  
-    //  Removes listeners for a models updates on the socket
-    
-    unsyncUpdates(modelName) {
-      socket.removeAllListeners(`${modelName}:save`);
-      socket.removeAllListeners(`${modelName}:remove`);
-      socket.removeAllListeners(`${modelName}:findOneAndUpdate`);
-    }
-  };
-}
-*/

@@ -7,6 +7,6 @@ enum carouselCommands {
     Media,
     Next,
     Previous
-};
+}
 
 export default carouselCommands;
