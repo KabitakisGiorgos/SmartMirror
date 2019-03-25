@@ -29,6 +29,7 @@ global.__socketController = socketsController;
 * and set `db.connect: false` at environment
 ------------------------------------------------------*/
 if (config.mongo.connect) {
+  mongoose.set('useCreateIndex', true);
   mongoose.connect(config.mongo.uri, config.mongo.options).then(() => {
     logger.verbose('MongoDB is connected on %s', config.mongo.uri);
   });

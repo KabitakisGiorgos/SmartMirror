@@ -10,7 +10,7 @@ export class ServiceXComponent implements OnInit {
     constructor(private socketService: SocketService, private http: Http) { }
 
     ngOnInit() {
-        this.socketService.init()
+        this.socketService.init('ServiceX')
             .then(() => {
                 this.socketService.syncUpdates((eventType, data) => {
                     this.onSocketMessage(eventType, data);

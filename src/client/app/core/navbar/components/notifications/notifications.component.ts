@@ -33,7 +33,7 @@ export class NotificationsComponent implements OnInit {
         this.logger.error(error);
       });
 
-    this.socketService.init()
+    this.socketService.init('Notifications')
       .then(() => {
         this.socketService.syncUpdates('notification', null, (event, data) => {
           // FIXME: here is only for inserting regardless the event   

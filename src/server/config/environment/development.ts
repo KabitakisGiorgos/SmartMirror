@@ -8,7 +8,8 @@ module.exports = {
   // MongoDB connection options
   mongo: {
     uri: `mongodb://${envConfig.db.getHost()}:${envConfig.db.getPort()}/${envConfig.db.getName()}`
-    || 'mongodb://localhost/fullstack-seed-dev'
+      || 'mongodb://localhost/fullstack-seed-dev',
+    options: envConfig.db.getValue('options')
   },
 
   // Seed database on startup

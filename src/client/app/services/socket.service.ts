@@ -1,4 +1,3 @@
-import { ActivatedRoute, Params } from '@angular/router';
 import { Injectable } from '@angular/core';
 import * as io from 'socket.io-client';
 import { Observable } from 'rxjs';
@@ -8,18 +7,15 @@ import constants from '../app.constants';
 @Injectable()
 export class SocketService {
   socket;
-  app_name: string;
-  constructor(
-    private activatedRoute: ActivatedRoute) { }
+  constructor() { }
 
-  init(): Promise<void> {
+  init(clientName): Promise<void> {
     return new Promise((resolve, reject) => {
-      this.app_name = this.activatedRoute.snapshot.queryParams['app'];
       this.socket = io('', {//TODO: Examine this piece of code
         path: '/socket.io-client',
         query: {
           token: constants.sockets_token,
-          app: this.app_name
+          app: clientName
         }
       });
       resolve();

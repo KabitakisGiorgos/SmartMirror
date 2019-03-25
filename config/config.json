@@ -16,10 +16,10 @@
     "mongodb": {
       "connect": true,
       "host": "localhost",
-      "name": "fullstack-seed-dev",
+      "name": "smartMirror",
       "port": 27017,
       "options": {
-        "useMongoClient": true
+        "useNewUrlParser": true
       },
       "seedDB": false
     },
@@ -41,10 +41,10 @@
     "mongodb": {
       "connect": true,
       "host": "localhost",
-      "name": "fullstack-seed-prod",
+      "name": "smartMirror",
       "port": 27017,
       "options": {
-        "useMongoClient": true
+        "useNewUrlParser": true
       },
       "seedDB": false
     },
@@ -67,10 +67,10 @@
     "mongodb": {
       "connect": true,
       "host": "localhost",
-      "name": "fullstack-seed-test",
+      "name": "smartMirror",
       "port": 27017,
       "options": {
-        "useMongoClient": true
+        "useNewUrlParser": true
       },
       "seedDB": false
     },
