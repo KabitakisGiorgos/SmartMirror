@@ -16,3 +16,6 @@ export const debugMode = {
   Navbar: true,
   NotificationsComp: true
 };
+
+
+export const CursorDebug = true;
