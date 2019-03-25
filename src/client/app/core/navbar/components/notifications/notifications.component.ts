@@ -44,7 +44,7 @@ export class NotificationsComponent implements OnInit {
         });
 
         this.socketService.socketMessages((type, data) => {
-          this.logger.log(data, 'NotificationComp');
+          this.logger.log(data, 'NotificationsComp');
           // Here the data need json parse
         });
       });

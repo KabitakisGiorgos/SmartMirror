@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { NGXLogger } from 'ngx-logger';
 import { debugMode } from '../../environments/environment';
 
 @Injectable({
@@ -7,29 +6,29 @@ import { debugMode } from '../../environments/environment';
 })
 export class LoggerService {
 
-  constructor(private logger: NGXLogger) {
+  constructor() {
 
   }
 
-  debug(message:any, module: string) {
+  debug(message: any, module: string) {
     if (debugMode[module]) {
-      this.logger.debug(message);
+      console.debug(message);
     }
   }
 
   error(message: any) {
-    this.logger.error(message);
+    console.error(message);
   }
 
   log(message: any, module: string) {
     if (debugMode[module]) {
-      this.logger.log(message);
+      console.log(message)
     }
   }
 
   info(message: any, module: string) {
     if (debugMode[module]) {
-      this.logger.info(message);
+      console.info(message);
     }
   }
 }

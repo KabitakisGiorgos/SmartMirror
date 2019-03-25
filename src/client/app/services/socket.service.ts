@@ -80,8 +80,8 @@ export class SocketService {
 
   socketMessages(cb?) {
     cb = cb || _.noop;
-    this.socket.on('message', function (event_message, item) {
-      cb(event_message, item);
+    this.socket.on('message', function (item) {
+      cb('message', item);
     });
   }
 
