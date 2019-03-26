@@ -47,6 +47,7 @@
     "font-awesome": "^4.7.0",
     "http": "0.0.0",
     "jquery": "^3.2.1",
+    "leapjs": "^0.6.4",
     "lodash": "^4.17.4",
     "lodash-es": "^4.17.4",
     "method-override": "^3.0.0",
