@@ -9,9 +9,9 @@ import { LoggerService } from '../../services/logger.service';
 })
 export class HomeComponent implements OnInit {
   subscription: Subscription;
-  // constructor(private assistant: AssistantService, private leap: LeapHandlerService)
-  constructor(private assistant: AssistantService, private logger: LoggerService) {
-    // this.leap.test();
+
+  constructor(private assistant: AssistantService, private logger: LoggerService, private leap: LeapHandlerService) {
+    // this.leap.init();//FIXME: to have a debug in order to use the mouse
   }
 
   ngOnInit() {
