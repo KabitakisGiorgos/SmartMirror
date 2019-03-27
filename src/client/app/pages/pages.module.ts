@@ -1,13 +1,28 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HomeComponent } from './home/home.component';
 import { PageRoutingModule } from './pages.routes.module';
 import { SlickCarouselModule } from 'ngx-slick-carousel';
-
+import { HealthComponent as HealthWidget } from './home/components/health/health.component';
+import { HealthComponent } from './health/health.component';
+import { NewsComponent as NewsWidget } from './home/components/news/news.component';
+import { NewsComponent } from './news/news.component';
+import { ScheduleComponent } from './home/components/schedule/schedule.component';
+import { HomeComponent } from './home/home.component';
+import { CalendarComponent } from './calendar/calendar.component';
+import { NotesComponent } from './notes/notes.component';
+import { MediaComponent } from './media/media.component';
 
 @NgModule({
   declarations: [
-    HomeComponent
+    HealthComponent,
+    NewsWidget,
+    ScheduleComponent,
+    HomeComponent,
+    CalendarComponent,
+    NewsComponent,
+    NotesComponent,
+    HealthWidget,
+    MediaComponent
   ],
   imports: [
     CommonModule,
@@ -15,7 +30,7 @@ import { SlickCarouselModule } from 'ngx-slick-carousel';
     SlickCarouselModule
   ],
   exports: [
-    PageRoutingModule,
+    PageRoutingModule
   ]
 })
 export class PageModule { }

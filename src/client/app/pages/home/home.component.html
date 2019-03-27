@@ -1,3 +1,15 @@
-<h1>Screen Saver</h1>
-
-<button [routerLink]="['/calendar']"> go to calendar</button>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-5">
+      <app-schedule-widget></app-schedule-widget>
+    </div>
+    <div class="col-7">
+      <div class="row">
+        <app-health-widget></app-health-widget>
+      </div>
+      <div class="row">
+        <app-news-widget></app-news-widget>
+      </div>
+    </div>
+  </div>
+</div>
