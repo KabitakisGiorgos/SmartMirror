@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Notification } from '../../../../../types/classes';
-import { SocketService } from '../../../../services/socket.service';
-import { LoggerService } from '../../../../services/logger.service';
 import { HttpClient } from '@angular/common/http';
 import { trigger, transition, style, animate, query, stagger, animateChild } from '@angular/animations';
+import { SocketService } from '../../../services/socket.service';
+import { LoggerService } from '../../../services/logger.service';
 
 @Component({
   animations: [

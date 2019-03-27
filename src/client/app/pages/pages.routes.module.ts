@@ -8,7 +8,7 @@ import { NotesComponent } from './notes/notes.component';
 import { HealthComponent } from './health/health.component';
 import { MediaComponent } from './media/media.component';
 
-const coreRoutes: Routes = [
+const PageRoutes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'calendar', component: CalendarComponent },
   { path: 'news', component: NewsComponent },
@@ -19,15 +19,15 @@ const coreRoutes: Routes = [
 
 @NgModule({
   imports: [
-    RouterModule.forChild(coreRoutes)
+    RouterModule.forChild(PageRoutes)
   ],
   declarations: [
     CalendarComponent,
     NewsComponent,
     NotesComponent,
-    HealthComponent, 
+    HealthComponent,
     MediaComponent
   ],
   exports: [RouterModule]
 })
-export class CoreRoutingModule { }
+export class PageRoutingModule { }
