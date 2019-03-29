@@ -57,11 +57,6 @@
     $ npm install -g gulp @angular/cli
 
     ```
-    Clone the LeapMotionTS and add it to the root of the project
-    ``` 
-    $    git clone https://gitlab.com/logotype/LeapMotionTS.git 
-    ```
-    
 
     ### 1.2 Steps to Run
 
@@ -113,10 +108,6 @@
     This project was developed with some specific library versions and tested working.Feel free to update them if they work.
 
     * The LeapMotion SDK used for developing is LeapDeveloperKit_2.3.1+31549_linux
-    * Module for using LeapMotion with Angular Typescript [Library]
-    ``` 
-        git clone https://gitlab.com/logotype/LeapMotionTS.git 
-    ```
 
     License
 
@@ -148,5 +139,3 @@
     [LeapMotion]: <https://www.leapmotion.com/>
     
     [Voice Recognition]:<https://sdkcarlos.github.io/sites/artyom.html>
-
-    [Library]: <https://gitlab.com/logotype/LeapMotionTS>

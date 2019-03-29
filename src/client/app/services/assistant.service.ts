@@ -85,7 +85,7 @@ export class AssistantService {
         indexes: ['Swipe *', 'Swipe to *'],
         action: (i, wildcard) => {
           let page = wildcard.replace(/\s+/g, '');
-          let pages = [
+          let pages = [//FIXME: these are outdated
             'calendar',
             'notes',
             'news',
