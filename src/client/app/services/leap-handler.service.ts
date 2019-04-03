@@ -3,7 +3,7 @@ import { Cursor } from '../Cursor/cursor';
 import config from './config.json';
 import * as Leap from 'leapjs'
 import { debugMode } from '../../environments/environment';
-
+import * as $ from 'jquery'
 //FIXME: start fixing the controller about which dom have i selected
 
 @Injectable({
