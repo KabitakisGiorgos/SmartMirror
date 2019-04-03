@@ -15,12 +15,12 @@ body {
   width: 100%;
   background-color: #0C3958;
   overflow: hidden;
-  color: white; // for debug
-  // cursor: none;
+  color: white;
+  cursor: none;
 }
 
 
-.cursor {
+.cursor {//FIXME: might make it even smaller for more precision
   height: 70px;
   width: 70px;
   background-size: 70px 70px;

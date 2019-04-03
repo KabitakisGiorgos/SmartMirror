@@ -60,7 +60,6 @@ export class LeapHandlerService {
           var appX = normalizedPoint[0] * appWidth;
           var appY = (1 - normalizedPoint[1]) * appHeight;
           this.cursor.Move(appY, appX);
-
         } else {
           if (!this.cursorOn)
             return;
@@ -102,5 +101,13 @@ export class LeapHandlerService {
         if (index == fingersArray.length - 1) resolve('closed');
       });
     });
+  }
+
+  registerDivs(array) {
+    this.cursor.registerSelectableDivs(array);
+  }
+
+  unregisterDivs() {
+    this.cursor.unregisterSelectableDivs();
   }
 }

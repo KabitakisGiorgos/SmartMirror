@@ -19,6 +19,7 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.leap.registerDivs(['news', 'health', 'schedule']);
     this.assistant.navigationCommands();
     this.assistant.testingCommands();
     this.subscription = this.assistant.subject.subscribe((data) => {
@@ -29,6 +30,7 @@ export class HomeComponent implements OnInit {
   ngOnDestroy() {
     this.subscription.unsubscribe();
     this.assistant.deleteCommands();
+    this.leap.unregisterDivs();
   }
 
   go2Calendar() {
