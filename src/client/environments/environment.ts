@@ -14,8 +14,6 @@ export const debugMode = {
   Jarvis: false,
   Home: true,
   Navbar: true,
-  NotificationsComp: true
+  NotificationsComp: true,
+  Cursor: false
 };
-
-
-export const CursorDebug = true;

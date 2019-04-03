@@ -2,9 +2,10 @@ import { Injectable } from '@angular/core';
 import { Cursor } from '../Cursor/cursor';
 import config from './config.json';
 import * as Leap from 'leapjs'
-//FIXME:add a controller about connected or not at the leap
+import { debugMode } from '../../environments/environment';
+
 //FIXME: start fixing the controller about which dom have i selected
-//FIXME: the debug of cursor using it without leap
+
 @Injectable({
   providedIn: 'root'
 })
@@ -18,9 +19,10 @@ export class LeapHandlerService {
   delayTimer: number = 0;
 
   constructor() {
-    this.cursor = new Cursor();
+    this.cursor = new Cursor(debugMode.Cursor);
     this.enableCursor();
-    this.init();
+    if (!debugMode.Cursor)
+      this.init();
   }
 
   init() {

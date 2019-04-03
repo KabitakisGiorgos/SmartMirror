@@ -2,11 +2,21 @@ export class Cursor {
     //REVIEW: if we need restricted buttons
     //REVIEW: click elements or somehow just use the selectable 
     //REVIEW: loading 
-    
+
     isLoadingCursor = false;  // indicates whether the cursor is loading
     LoadingTimeout;           // loading timeout until click
     private isVisible = false;        // indicates whether the cursor is visible
-    constructor() { }
+    constructor(debug?) {
+        if (debug) {
+            $(document).on('mousemove', (e) => {
+                var mousetop = e.pageY;
+                var mouseleft = e.pageX;
+                if ($('#cursor').is(":visible")) {
+                    this.Move(mousetop, mouseleft);
+                }
+            });
+        }
+    }
 
     /**
     * Indicates whether the cursor is visivle

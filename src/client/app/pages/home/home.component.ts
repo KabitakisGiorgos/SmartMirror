@@ -16,7 +16,6 @@ export class HomeComponent implements OnInit {
     private logger: LoggerService,
     private leap: LeapHandlerService,
     private router: Router) {
-    // this.leap.init();//FIXME: to have a debug in order to use the mouse
   }
 
   ngOnInit() {
