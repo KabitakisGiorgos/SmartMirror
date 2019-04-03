@@ -1,6 +1,6 @@
 export class Cursor {
     selectableDivs: Array<string>;
-    collidableElement: string;
+    private collidableElement: string;//FIXME: and some how a "forget"/ a getter to inform the other elements and a getter in leap to get from the service to the outside world
     //REVIEW: if we need restricted buttons
     //REVIEW: click elements or somehow just use the selectable 
     //REVIEW: loading 
@@ -62,8 +62,6 @@ export class Cursor {
             // Hover.Manager(); FIXME:
             if (this.collidableElement) $('#' + this.collidableElement).css({ 'outline': "none" });
             this.collidableElement = await this.checkCollisions() as string;
-            console.log(this.collidableElement);
-            
             $('#' + this.collidableElement).css({ 'outline': "3px solid red" });
         }
     }
