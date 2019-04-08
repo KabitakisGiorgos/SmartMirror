@@ -4,6 +4,8 @@ import config from './config.json';
 import * as Leap from 'leapjs'
 import { debugMode } from '../../environments/environment';
 import * as $ from 'jquery'
+import { ToastrService } from 'ngx-toastr';
+
 //FIXME: start fixing the controller about which dom have i selected
 
 @Injectable({
@@ -18,7 +20,7 @@ export class LeapHandlerService {
   cursorTimer: number = 0;
   delayTimer: number = 0;
 
-  constructor() {
+  constructor(private toastCtrl: ToastrService) {
     this.cursor = new Cursor(debugMode.Cursor);
     this.enableCursor();
     if (!debugMode.Cursor)
@@ -77,8 +79,16 @@ export class LeapHandlerService {
     });
 
     this.controller.on('gesture', (gesture, frame) => {
+
+
       if (gesture.type == 'swipe' && !this.cursorOn) {
         console.log(gesture.type + " with ID " + gesture.id + " in frame " + frame.id);
+      }
+      if (gesture.type === 'keyTap' && this.cursorOn) {//FIXME: the cursor size and the selected 
+        this.toastCtrl.show('You pressed ' + this.cursor.getSelectedElement(), 'Key Tap event', {
+          timeOut: 2000,
+          positionClass: 'toast-top-right'
+        });
       }
     });
   }
@@ -92,6 +102,7 @@ export class LeapHandlerService {
   disableCursor() {
     this.cursor.Hide();
     this.cursorOn = false;
+    this.cursor.setSelectedElement(null);
   }
 
   detectFingers(fingersArray) {

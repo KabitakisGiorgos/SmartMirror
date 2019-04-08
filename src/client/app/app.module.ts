@@ -11,6 +11,8 @@ import { SingletonModule } from './services/singleton.module';
 import { NavbarComponent } from './navbar/navbar.component';
 import { WeatherComponent } from './navbar/components/weather/weather.component';
 import { NotificationsComponent } from './navbar/components/notifications/notifications.component';
+import { ToastrModule } from 'ngx-toastr';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -19,6 +21,7 @@ import { NotificationsComponent } from './navbar/components/notifications/notifi
     NotificationsComponent
   ],
   imports: [
+    ToastrModule.forRoot(),
     BrowserModule,
     HttpModule,
     AppRoutingModule,

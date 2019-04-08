@@ -1,13 +1,10 @@
 export class Cursor {
     selectableDivs: Array<string>;
-    private collidableElement: string;//FIXME: and some how a "forget"/ a getter to inform the other elements and a getter in leap to get from the service to the outside world
-    //REVIEW: if we need restricted buttons
-    //REVIEW: click elements or somehow just use the selectable 
-    //REVIEW: loading 
-
+    private collidableElement: string;
     isLoadingCursor = false;  // indicates whether the cursor is loading
     LoadingTimeout;           // loading timeout until click
     private isVisible = false;        // indicates whether the cursor is visible
+
     constructor(debug?) {
         if (debug) {
             $(document).on('mousemove', (e) => {
@@ -58,11 +55,11 @@ export class Cursor {
             y = y - $('.cursor').width() / 2 + left;
             if (y > 1481) y = 1481;// Dont go to Navbar
             if (x > 975) x = 975;//Bottom constraint
+
             $('#cursor').css({ 'top': x, 'left': y });
-            // Hover.Manager(); FIXME:
-            if (this.collidableElement) $('#' + this.collidableElement).css({ 'outline': "none" });
-            this.collidableElement = await this.checkCollisions() as string;
-            $('#' + this.collidableElement).css({ 'outline': "3px solid red" });
+            
+            let tmpId = await this.checkCollisions() as string;
+            this.setSelectedElement(tmpId);
         }
     }
 
@@ -106,4 +103,13 @@ export class Cursor {
         });
     }
 
+    getSelectedElement() {
+        return this.collidableElement;
+    }
+
+    setSelectedElement(elementId) {
+        $('#' + this.collidableElement).css({ 'outline': "none" });
+        this.collidableElement = elementId
+        if (elementId) $('#' + this.collidableElement).css({ 'outline': "3px solid red" });
+    }
 }

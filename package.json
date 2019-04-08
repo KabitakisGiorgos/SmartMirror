@@ -54,6 +54,7 @@
     "mongoose": "^5.4.16",
     "morgan": "^1.9.1",
     "ngx-slick-carousel": "^0.4.4",
+    "ngx-toastr": "^10.0.2",
     "path": "^0.12.7",
     "rxjs": "^6.4.0",
     "slick-carousel": "^1.8.1",
