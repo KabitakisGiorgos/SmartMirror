@@ -19,7 +19,7 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.leap.registerDivs(['news', 'health', 'schedule']);
+    // this.leap.registerDivs(['news', 'health', 'schedule']);
     this.assistant.navigationCommands();
     this.assistant.testingCommands();
     this.subscription = this.assistant.subject.subscribe((data) => {
