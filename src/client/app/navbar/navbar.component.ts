@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AssistantService } from '../services/assistant.service';
 import * as $ from 'jquery';
+import * as just from 'just-animate';
 import { Http } from '@angular/http';
 
 @Component({
@@ -87,5 +88,15 @@ export class NavbarComponent {
           reject(err);
         });
     });
+  }
+
+  test() {
+    var not = $('#notification')
+    $('#notification').show();
+    // setTimeout(() => {
+    //   $('#notification').hide();
+    // }, 37000);
+    //FIXME: animate here the pop somehow and remove it from here no use anymore
+
   }
 }
