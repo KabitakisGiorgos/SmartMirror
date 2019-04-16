@@ -2,5 +2,8 @@
   "leap": {
     "hideTimer": 4500,
     "cursorHide": 1000
+  },
+  "notification":{
+    "delay":37000
   }
 }

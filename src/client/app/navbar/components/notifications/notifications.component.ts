@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { trigger, transition, style, animate, query, stagger, animateChild } from '@angular/animations';
 import { SocketService } from '../../../services/socket.service';
 import { LoggerService } from '../../../services/logger.service';
+import config from '../../../services/config.json';
 
 @Component({
   animations: [
@@ -41,7 +42,7 @@ export class NotificationsComponent implements OnInit {
           // FIXME: here is only for inserting regardless the event   
           //FIXME: Maybe regarding the event we could play another sound
           this.notifications.push(data);
-          this.newsNotifications.push(data);
+          this.newsNotifications.unshift(data);
           this.showNot();
           this.logger.log(data, 'NotificationsComp');
         });
@@ -79,6 +80,13 @@ export class NotificationsComponent implements OnInit {
     if (index != -1) {
       this.notificationAudio();
       var bubble = $('#notification' + index);
+      var message = this.newsNotifications[this.newsNotifications.length - 1].text;
+      if (message.length > 120) {
+        message = message.substring(0, 120);
+        message = message + ' ...';
+      }
+
+      $('#notification' + index + ' .message').text(message);
       bubble.show();
       this.newsNotifications.pop();//FIXME: pass the data
       setTimeout(() => {
@@ -86,8 +94,8 @@ export class NotificationsComponent implements OnInit {
 
         if (this.newsNotifications.length > 0) {
           this.showNot();
-        }
-      }, 37000);//FIXME: put this dealy of bubble showing to a config the 30s is the border to reacch the top of screen
+        }//Bubble needs approximately 30000ms to reach top
+      }, config.notification.delay);
     }
   }
 
