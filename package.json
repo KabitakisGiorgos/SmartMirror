@@ -34,6 +34,7 @@
     "@angular/platform-browser-dynamic": "7.2.8",
     "@angular/router": "7.2.8",
     "angular-animations": "0.0.9",
+    "animate.css": "^3.7.0",
     "app-root-path": "^2.0.1",
     "artyom.js": "^1.0.6",
     "axios": "^0.18.0",

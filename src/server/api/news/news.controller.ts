@@ -25,8 +25,8 @@ class NewsController {
 
     constructor() {
         var rule = new schedule.RecurrenceRule();
-        rule.hour = 12;
-        rule.minute = 30;
+        rule.hour = 15;
+        rule.minute = 32;
         rule.datOfWeek = new schedule.Range(0, 6);
 
         schedule.scheduleJob(rule, () => {

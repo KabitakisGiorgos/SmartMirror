@@ -53,7 +53,7 @@ export class Cursor {
 
             x = x - $('.cursor').height() / 2 + top;
             y = y - $('.cursor').width() / 2 + left;
-            if (y > 1481) y = 1481;// Dont go to Navbar
+            if (y > 1850) y = 1850;// Dont go to Navbar
             if (x > 975) x = 975;//Bottom constraint
 
             $('#cursor').css({ 'top': x, 'left': y });

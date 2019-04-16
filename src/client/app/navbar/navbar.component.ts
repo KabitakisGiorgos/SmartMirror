@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AssistantService } from '../services/assistant.service';
 import * as $ from 'jquery';
-import * as just from 'just-animate';
 import { Http } from '@angular/http';
 
 @Component({
@@ -12,7 +11,7 @@ import { Http } from '@angular/http';
 export class NavbarComponent {
   news: any;
   today = new Date();
-  showList: boolean = false;
+  show: boolean = true;
 
   constructor(private assistant: AssistantService, private http: Http) {
     setInterval(() => {
@@ -90,13 +89,19 @@ export class NavbarComponent {
     });
   }
 
-  test() {
-    var not = $('#notification')
-    $('#notification').show();
-    // setTimeout(() => {
-    //   $('#notification').hide();
-    // }, 37000);
-    //FIXME: animate here the pop somehow and remove it from here no use anymore
+  hide() {
+    if (this.show) {
+      this.show = !this.show;
+      $("#navbar").slideUp(() => {
+        setTimeout(() => {//Just for debbuging
+          $("#navbar").slideDown();
+        }, 2000);
+      });
+    }
+    else {
+      $("#navbar").slideDown();
+      this.show = !this.show;
+    }
 
   }
 }

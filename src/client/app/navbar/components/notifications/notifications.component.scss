@@ -114,13 +114,34 @@
 }
 
 /* ANIMATIONS */
-.x9 {
+.xright {
   display: none;
   -webkit-animation: animateBubble 29s linear, sideWays 4s ease-in-out infinite alternate;
   -moz-animation: animateBubble 29s linear, sideWays 4s ease-in-out infinite alternate;
   animation: animateBubble 29s linear, sideWays 4s ease-in-out infinite alternate;
 
   left: 85%;
+  top: 0%;
+}
+
+.xleft {
+  display: none;
+  -webkit-animation: animateBubble 29s linear, sideWays 4s ease-in-out infinite alternate;
+  -moz-animation: animateBubble 29s linear, sideWays 4s ease-in-out infinite alternate;
+  animation: animateBubble 29s linear, sideWays 4s ease-in-out infinite alternate;
+
+  left: 50%;
+  top: 0%;
+}
+
+
+.xmid {
+  display: none;
+  -webkit-animation: animateBubble 29s linear, sideWays 4s ease-in-out infinite alternate;
+  -moz-animation: animateBubble 29s linear, sideWays 4s ease-in-out infinite alternate;
+  animation: animateBubble 29s linear, sideWays 4s ease-in-out infinite alternate;
+
+  left: 10%;
   top: 0%;
 }
 

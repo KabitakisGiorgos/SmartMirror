@@ -20,16 +20,19 @@ import { LoggerService } from '../../../services/logger.service';
 })
 export class NotificationsComponent implements OnInit {
   notifications: any;
+  newsNotifications: any = [];
 
   constructor(
     private socketService: SocketService,
     private logger: LoggerService,
     private http: HttpClient) {
-    this.http.get('/api/notifications/last/3').subscribe(data => {
-      this.notifications = data;
-    },
-      error => {
-        this.logger.error(error);
+    this.http.get('/api/notifications')
+      .toPromise()
+      .then(data => {
+        this.notifications = data;
+      })
+      .catch(err => {
+        this.logger.error(err);
       });
 
     this.socketService.init('Notifications')
@@ -37,8 +40,9 @@ export class NotificationsComponent implements OnInit {
         this.socketService.syncUpdates('notification', null, (event, data) => {
           // FIXME: here is only for inserting regardless the event   
           //FIXME: Maybe regarding the event we could play another sound
-          this.notificationAudio();
-          this.notifications.unshift(data);
+          this.notifications.push(data);
+          this.newsNotifications.push(data);
+          this.showNot();
           this.logger.log(data, 'NotificationsComp');
         });
 
@@ -62,5 +66,42 @@ export class NotificationsComponent implements OnInit {
     audio.src = '../../../../../assets/sounds/notification.mp3';
     audio.load();
     audio.play();
+  }
+
+  showNot() {
+    var index = -1;
+    for (let i = 0; i < 3; i++) {
+      if ($('#notification' + i).css('display') === 'none') {
+        index = i;
+        break;
+      }
+    }
+    if (index != -1) {
+      this.notificationAudio();
+      var bubble = $('#notification' + index);
+      bubble.show();
+      this.newsNotifications.pop();//FIXME: pass the data
+      setTimeout(() => {
+        bubble.hide();
+
+        if (this.newsNotifications.length > 0) {
+          this.showNot();
+        }
+      }, 37000);//FIXME: put this dealy of bubble showing to a config the 30s is the border to reacch the top of screen
+    }
+  }
+
+  animateCSS(element, animationName, callback) {//TODO:  this works with animateCSS
+    const node = document.getElementById(element)
+    node.classList.add('animated infinite', animationName)
+
+    function handleAnimationEnd() {
+      node.classList.remove('animated', animationName)
+      node.removeEventListener('animationend', handleAnimationEnd)
+
+      if (typeof callback === 'function') callback()
+    }
+
+    node.addEventListener('animationend', handleAnimationEnd)
   }
 }
