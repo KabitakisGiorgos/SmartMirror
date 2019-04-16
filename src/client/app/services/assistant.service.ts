@@ -59,7 +59,7 @@ export class AssistantService {
       indexes: ['Go to *', 'Navigate to *', 'Show me the *', 'Show me *'],//what else could i add ? 
       action: (i, wildcard) => {
         let page = wildcard.replace(/\s+/g, '');
-        let pages = [
+        let pages = [//FIXME: these are outdated
           'home',
           'menu',
           'calendar',

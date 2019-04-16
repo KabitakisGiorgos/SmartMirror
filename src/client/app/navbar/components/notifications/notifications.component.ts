@@ -1,25 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { trigger, transition, style, animate, query, stagger, animateChild } from '@angular/animations';
 import { SocketService } from '../../../services/socket.service';
 import { LoggerService } from '../../../services/logger.service';
 import config from '../../../services/config.json';
 
 @Component({
-  animations: [
-    trigger('items', [
-      transition(':enter', [
-        style({ transform: 'scale(0.5)', opacity: 0 }),  // initial
-        animate('1s cubic-bezier(.8, -0.6, 0.2, 1.5)',
-          style({ transform: 'scale(1)', opacity: 1 }))  // final
-      ])
-    ])
-  ],
   selector: 'app-notifications',
   templateUrl: './notifications.component.html',
   styleUrls: ['./notifications.component.scss']
 })
-export class NotificationsComponent implements OnInit {
+export class NotificationsComponent {
   notifications: any;
   newsNotifications: any = [];
 
@@ -39,11 +29,9 @@ export class NotificationsComponent implements OnInit {
     this.socketService.init('Notifications')
       .then(() => {
         this.socketService.syncUpdates('notification', null, (event, data) => {
-          // FIXME: here is only for inserting regardless the event   
-          //FIXME: Maybe regarding the event we could play another sound
           this.notifications.push(data);
           this.newsNotifications.unshift(data);
-          this.showNot();
+          this.showNot();//Bubble Calling
           this.logger.log(data, 'NotificationsComp');
         });
 
@@ -52,9 +40,6 @@ export class NotificationsComponent implements OnInit {
           // Here the data need json parse
         });
       });
-  }
-
-  ngOnInit() {
   }
 
   ngOnDestroy() {
@@ -88,7 +73,7 @@ export class NotificationsComponent implements OnInit {
 
       $('#notification' + index + ' .message').text(message);
       bubble.show();
-      this.newsNotifications.pop();//FIXME: pass the data
+      this.newsNotifications.pop();
       setTimeout(() => {
         bubble.hide();
 
@@ -99,7 +84,7 @@ export class NotificationsComponent implements OnInit {
     }
   }
 
-  animateCSS(element, animationName, callback) {//TODO:  this works with animateCSS
+  animateCSS(element, animationName, callback) {//TODO:  this works with animateCSS Helper function placeholder here
     const node = document.getElementById(element)
     node.classList.add('animated infinite', animationName)
 
@@ -109,7 +94,6 @@ export class NotificationsComponent implements OnInit {
 
       if (typeof callback === 'function') callback()
     }
-
     node.addEventListener('animationend', handleAnimationEnd)
   }
 }

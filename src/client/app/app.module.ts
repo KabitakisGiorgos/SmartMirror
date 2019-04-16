@@ -9,7 +9,6 @@ import { ServiceXModule } from './serviceX/serviceX.module';
 import { HttpClientModule } from '@angular/common/http';
 import { SingletonModule } from './services/singleton.module';
 import { NavbarComponent } from './navbar/navbar.component';
-import { WeatherComponent } from './navbar/components/weather/weather.component';
 import { NotificationsComponent } from './navbar/components/notifications/notifications.component';
 import { ToastrModule } from 'ngx-toastr';
 
@@ -17,7 +16,6 @@ import { ToastrModule } from 'ngx-toastr';
   declarations: [
     AppComponent,
     NavbarComponent,
-    WeatherComponent,
     NotificationsComponent
   ],
   imports: [

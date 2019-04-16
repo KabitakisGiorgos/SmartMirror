@@ -2,7 +2,6 @@ import { Request, Response } from 'express';
 import News from './news.model';
 import * as schedule from 'node-schedule';
 import axios from 'axios';
-import { async } from 'rxjs/internal/scheduler/async';
 
 function respondWithResult(res: Response, statusCode: number) {
     statusCode = statusCode || 200;
@@ -41,18 +40,23 @@ class NewsController {
             .catch(handleError(res, 500));
     }
 
-    public retrieveNews() {//Retrieving "fresh" news
+    public retrieveNews(req?: Request, res?: Response) {//Retrieving "fresh" news
         News.collection.drop();
         let url = 'https://newsapi.org/v2/top-headlines?sources=google-news&apiKey=abbee428fc094ecd912c50d91781d817';
+        // return new Promise((resole)=>{
+
+        // });
         axios.get(url)
             .then((response: any) => {
                 var data = response.data;
                 for (let i = 0; i < data.articles.length; i++) {
                     News.create(data.articles[i]);
                 }
+                if (req) res.status(200).json('Renewed')
             })
             .catch(err => {
                 console.log(err);
+                if (req) res.status(500).json(err);
             });
     }
 }

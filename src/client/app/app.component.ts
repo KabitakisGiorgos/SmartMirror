@@ -10,7 +10,7 @@ export class AppComponent implements OnInit {
   cursor: Cursor;
   constructor(private assistant: AssistantService) { }
 
-  ngOnInit() {
+  ngOnInit() {//TODO:maybe when on demo mode running add  the retrieve news here at initialazation
     this.assistant.assistantInit();
   }
 }

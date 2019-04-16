@@ -1,8 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { AssistantService } from '../services/assistant.service';
+import { Component } from '@angular/core';
 import * as $ from 'jquery';
 import { Http } from '@angular/http';
-
+import config from '../services/config.json';
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
@@ -13,7 +12,7 @@ export class NavbarComponent {
   today = new Date();
   show: boolean = true;
 
-  constructor(private assistant: AssistantService, private http: Http) {
+  constructor(private http: Http) {
     setInterval(() => {
       this.today = new Date();
     }, 1000);
@@ -62,15 +61,12 @@ export class NavbarComponent {
         $(this).data('title', $(this).text());
       });
       loopLs($eles);
-      setInterval(function () { loopLs($eles); }, 9400);
+      setInterval(function () { loopLs($eles); }, config.news.changeDelay);
     }
 
     setTimeout(() => {
       newsTicker($('#news-ticker'));
     });
-
-
-    // newsTicker($('#news-ticker'));
   }
 
 
@@ -102,6 +98,5 @@ export class NavbarComponent {
       $("#navbar").slideDown();
       this.show = !this.show;
     }
-
   }
 }
