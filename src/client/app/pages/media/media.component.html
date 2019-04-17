@@ -1,13 +1,35 @@
 <div class="container-fluid">
-  <div class="row">
-
+  <div class="row mytitle">
+    Moods
   </div>
+</div>
+<ngx-slick-carousel class="carousel mycarousel" #slickModal="slick-carousel" [config]="slideConfig">
+  <div ngxSlickItem *ngFor="let slide of slides" class="slide myslide">
+    <img src="{{ slide.img }}" class="moods" width="100%">
+  </div>
+</ngx-slick-carousel>
+
+<button (click)="next()">Next</button>
+<button (click)="previous()">Previous</button>
+
+<div class="container-fluid">
   <div class="row">
-    <div class="col-6">
-
+    <div class="col-5 mytitle">
+      Favorites
+      <ul>
+        <li *ngFor="let song of favorites" class="mylist">
+          <div class="row">
+            <div class="col-1"><img [src]="song.image" class="thumbnail"></div>
+            <div class="col-9"> {{song.title}}</div>
+            <div class="col-1">{{song.duration}}</div>
+            <div class="col-1 repeats">#{{song.repeats}}</div>
+          </div>
+        </li>
+      </ul>
     </div>
-    <div class="col-6">
-
+    <div class="col-1"></div>
+    <div class="col-6 mytitle">
+      Playlists
     </div>
   </div>
 </div>

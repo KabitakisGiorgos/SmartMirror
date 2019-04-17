@@ -1,0 +1,59 @@
+.moods {
+  width: 243px;
+  height: 235px;
+  border-radius: 10px;
+  filter: blur(3px);
+  margin-right: 30px;
+}
+
+.mycarousel {
+  padding-left: 35px;
+}
+
+.myslide {
+  outline: none;
+}
+
+.container-fluid {
+  padding-left: 50px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.mytitle {
+  font-size: 36px;
+}
+
+ul {
+  list-style: none;
+  padding-left: 0px;
+  vertical-align: middle;
+  line-height: 61px;
+  overflow: hidden;
+  overflow-y: scroll;
+  height: 71%;
+}
+
+.mylist {
+  font-size: 24px;
+  background-color: #336181;
+  border-radius: 10px;
+  margin-bottom: 12px;
+}
+
+.thumbnail {
+  position: absolute;
+  top: 3px;
+  left: 20px;
+}
+
+.repeats {
+  font-size: 18px;
+}
+
+::-webkit-scrollbar {
+  width: 0px;
+  /* Remove scrollbar space */
+  background: transparent;
+  /* Optional: just make scrollbar invisible */
+}
