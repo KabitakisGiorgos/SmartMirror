@@ -11,9 +11,11 @@ import { SingletonModule } from './services/singleton.module';
 import { NavbarComponent } from './navbar/navbar.component';
 import { NotificationsComponent } from './navbar/components/notifications/notifications.component';
 import { ToastrModule } from 'ngx-toastr';
+import { MenuComponent } from './menu/menu.component';
 
 @NgModule({
   declarations: [
+    MenuComponent,
     AppComponent,
     NavbarComponent,
     NotificationsComponent

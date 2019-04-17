@@ -52,3 +52,11 @@ body {
 .cursor.left {
   background-image: url("./assets/images/cursor_left.png");
 }
+
+
+.footer {
+  position: absolute;
+  width: 100vw;
+  justify-content: center;
+  bottom: -130px;
+}

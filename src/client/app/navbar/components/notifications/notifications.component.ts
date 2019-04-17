@@ -10,7 +10,7 @@ import config from '../../../services/config.json';
   styleUrls: ['./notifications.component.scss']
 })
 export class NotificationsComponent {
-  notifications: any;
+  notifications: any = [];
   newsNotifications: any = [];
 
   constructor(

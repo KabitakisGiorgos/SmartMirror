@@ -1,0 +1,24 @@
+<div class="container-fluid" (click)="test()" [@openClose]="visible ? 'open' : 'closed'">
+  <div class="row">
+    Menu
+  </div>
+  <div class="row">
+
+  </div>
+  <div class="row">
+
+  </div>
+  <div class="row">
+
+  </div>
+  <div class="row">
+    <div *ngIf="assistant.IsListening(); else noAssistant">
+      <img src="../../../assets/icons/jarvis.png" class="jarvis">
+      <span class="assistant">Jarvis</span>
+    </div>
+
+    <ng-template #noAssistant>
+      <img src="../../../assets/icons/muted.png" class="jarvis">
+    </ng-template>
+  </div>
+</div>
