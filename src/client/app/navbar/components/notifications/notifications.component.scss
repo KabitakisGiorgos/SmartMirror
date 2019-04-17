@@ -47,13 +47,11 @@
 
 @-webkit-keyframes animateBubble {
   0% {
-    // margin-top: 1000px;
     top: 100%;
   }
 
   100% {
-    // margin-top: -100%;
-    top: 0%;
+    top: 15%;
   }
 }
 
@@ -63,7 +61,7 @@
   }
 
   100% {
-    top: 0%;
+    top: 15%;
   }
 }
 
@@ -73,7 +71,7 @@
   }
 
   100% {
-    top: 0%;
+    top: 15%;
   }
 }
 
@@ -115,7 +113,7 @@
   animation: animateBubble 29s linear, sideWays 4s ease-in-out infinite alternate;
 
   left: 80%;
-  top: 0%;
+  top: 15%;
 }
 
 .xleft {
@@ -125,7 +123,7 @@
   animation: animateBubble 29s linear, sideWays 4s ease-in-out infinite alternate;
 
   left: 42%;
-  top: 0%;
+  top: 15%;
 }
 
 
@@ -136,12 +134,13 @@
   animation: animateBubble 29s linear, sideWays 4s ease-in-out infinite alternate;
 
   left: 5%;
-  top: 0%;
+  top: 15%;
 }
 
 /* OBJECTS */
 
 .bubble {
+  z-index: 100;
   display: none;
   -webkit-border-radius: 50%;
   -moz-border-radius: 50%;

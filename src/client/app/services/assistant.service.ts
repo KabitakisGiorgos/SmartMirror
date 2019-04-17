@@ -2,7 +2,6 @@ import { Injectable, NgZone } from '@angular/core';
 import Artyom from '../../../../node_modules/artyom.js/build/artyom.js';
 import { Subject } from 'rxjs';
 import { Router } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
 import { debugMode } from '../../environments/environment';
 import { LoggerService } from './logger.service.js';
 @Injectable({
@@ -15,7 +14,6 @@ export class AssistantService {
   debug: boolean;
   constructor(
     private router: Router,
-    private http: HttpClient,
     private ngZone: NgZone,
     private logger: LoggerService
   ) {

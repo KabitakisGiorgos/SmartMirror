@@ -7,6 +7,6 @@
     "delay":37000
   },
   "news":{
-    "changeDelay":12000
+    "changeDelay":8000
   }
 }

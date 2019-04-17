@@ -1,24 +1,38 @@
-<div class="container-fluid" (click)="test()" [@openClose]="visible ? 'open' : 'closed'">
-  <div class="row">
+<div class="container-fluid" [@openClose]="visible ? 'open' : 'closed'">
+  <div class="row" (click)="toogleMenu()">
     Menu
   </div>
-  <div class="row">
 
+  <div class="row" style="margin-top:20px;">
+    <div class="circle" (click)="navigate(selected.component)">
+      <img class="menuItem" [src]="selected.src">
+    </div>
+    <div class="selectedCircle">
+    </div>
   </div>
-  <div class="row">
 
-  </div>
   <div class="row">
+    <div *ngFor="let item of menu1;let i = index" (click)="navigate(item.component)" class="circle"
+      [ngClass]="i==0?'alignMenu1':''">
+      <img class="menuItem" [src]="item.src">
+    </div>
+  </div>
 
+  <div class="row" style="margin-top:10px">
+    <div *ngFor="let item of menu2; let i = index" (click)="navigate(item.component)" class="circle"
+      [ngClass]="i==0?'alignMenu2':''">
+      <img class="menuItem" [src]="item.src">
+    </div>
   </div>
+
   <div class="row">
-    <div *ngIf="assistant.IsListening(); else noAssistant">
+    <div *ngIf="assistant.IsListening(); else noAssistant" class="assistanWrap">
       <img src="../../../assets/icons/jarvis.png" class="jarvis">
       <span class="assistant">Jarvis</span>
     </div>
 
     <ng-template #noAssistant>
-      <img src="../../../assets/icons/muted.png" class="jarvis">
+      <img src="../../../assets/icons/muted.png" class="jarvis assistanWrap">
     </ng-template>
   </div>
 </div>
