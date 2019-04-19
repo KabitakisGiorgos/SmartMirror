@@ -8,15 +8,15 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 export class MediaComponent implements OnInit {
   @ViewChild('slickModal') carousel: any;
   slides = [
-    { img: 'http://placehold.it/350x150/000000' },
-    { img: 'http://placehold.it/350x150/111111' },
-    { img: 'http://placehold.it/350x150/333333' },
-    { img: 'http://placehold.it/350x150/666666' },
-    { img: 'http://placehold.it/350x150/000000' },
-    { img: 'http://placehold.it/350x150/111111' },
-    { img: 'http://placehold.it/350x150/333333' },
-    { img: 'http://placehold.it/350x150/666666' },
-    { img: 'http://placehold.it/350x150/000000' }
+    { img: '../../../assets/images/rock.png' },
+    { img: '../../../assets/images/motivation.png' },
+    { img: '../../../assets/images/sleep.png ' },
+    { img: '../../../assets/images/party.png' },
+    { img: '../../../assets/images/80.png' },
+    { img: '../../../assets/images/romance.png' },
+    { img: '../../../assets/images/hiphop.png' },
+    { img: '../../../assets/images/kids.png' },
+    { img: '../../../assets/images/classical.png' }
   ];
 
   favorites = [

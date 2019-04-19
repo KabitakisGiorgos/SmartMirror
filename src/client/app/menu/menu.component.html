@@ -4,24 +4,28 @@
   </div>
 
   <div class="row" style="margin-top:20px;">
-    <div id="{{'menu-'+selected.component}}" class="circle" (click)="navigate(selected.component)">
-      <img class="menuItem" [src]="selected.src">
+    <div id="{{'menu-'+menu[2].component}}" class="circle" (click)="navigate(menu[2].component)">
+      <img class="menuItem" [src]="menu[2].src">
     </div>
     <div class="selectedCircle">
     </div>
   </div>
 
   <div class="row">
-    <div id="{{'menu-'+item.component}}" *ngFor="let item of menu1;let i = index" (click)="navigate(item.component)"
-      class="circle" [ngClass]="i==0?'alignMenu1':''">
-      <img class="menuItem" [src]="item.src">
+    <div id="{{'menu-'+menu[1].component}}" (click)="navigate(menu[1].component)" class="circle alignMenu1">
+      <img class="menuItem" [src]="menu[1].src">
+    </div>
+    <div id="{{'menu-'+menu[3].component}}" (click)="navigate(menu[3].component)" class="circle">
+      <img class="menuItem" [src]="menu[3].src">
     </div>
   </div>
 
   <div class="row" style="margin-top:10px">
-    <div id="{{'menu-'+item.component}}" *ngFor="let item of menu2; let i = index" (click)="navigate(item.component)"
-      class="circle" [ngClass]="i==0?'alignMenu2':''">
-      <img class="menuItem" [src]="item.src">
+    <div id="{{'menu-'+menu[0].component}}" (click)="navigate(menu[0].component)" class="circle alignMenu2">
+      <img class="menuItem" [src]="menu[0].src">
+    </div>
+    <div id="{{'menu-'+menu[4].component}}" (click)="navigate(menu[4].component)" class="circle">
+      <img class="menuItem" [src]="menu[4].src">
     </div>
   </div>
 

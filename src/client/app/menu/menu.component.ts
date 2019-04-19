@@ -27,11 +27,7 @@ import { LeapHandlerService } from '../services/leap-handler.service';
 })
 export class MenuComponent implements OnInit {
   visible: boolean = false;
-  selected: object = {
-    src: '../../../assets/icons/timeline.png',
-    component: 'home'
-  };
-  menu1: Array<any> = [
+  menu: Array<any> = [
     {
       src: '../../../assets/icons/news.png',
       component: 'news'
@@ -39,9 +35,11 @@ export class MenuComponent implements OnInit {
     {
       src: '../../../assets/icons/media.png',
       component: 'media'
-    }
-  ];
-  menu2: Array<any> = [
+    },
+    {
+      src: '../../../assets/icons/timeline.png',
+      component: 'home'
+    },
     {
       src: '../../../assets/icons/health.png',
       component: 'health'
@@ -69,38 +67,40 @@ export class MenuComponent implements OnInit {
   }
 
   navigate(page) {
-    let array1 = true;
-    let index = this.menu1.findIndex((element) => {
+
+    let index = this.menu.findIndex((element) => {
       return element.component === page;
     });
 
-    if (index == -1) {
-      array1 = false;
-      index = this.menu2.findIndex((element) => {
-        return element.component === page;
-      });
+    if (index != -1 && index != 2) {
+      let shift = 2 - index;
+      this.menu = this.insertAndShift(this.menu, shift);
+      this.router.navigate(['/' + page + '']);
     }
-
-    if (index == -1) {
-      console.log('Dont move');
-      return;
-    }
-
-    if (array1) {
-      let tmp = this.selected;
-      this.selected = this.menu1[index];
-      this.menu1[index] = tmp;
-    } else {
-      let tmp = this.selected;
-      this.selected = this.menu2[index];
-      this.menu2[index] = tmp;
-    }
-
-    this.router.navigate(['/' + page + '']);
     this.toogleMenu();
   }
 
   ngOnDestroy() {
     this.leap.unregisterDivs(this.clickableElements);
+  }
+
+  /**
+   * Helper Function 
+   * @param arr array for input
+   * @param move how to
+   */
+  insertAndShift(arr, move) {
+    var newarray = [0, 0, 0, 0, 0];
+    if (move < 0) move = arr.length + move;
+    for (let i = 0; i < arr.length; i++) {
+      if (i + move > 4) {
+        let tmpmove = i + move - arr.length;
+        newarray[tmpmove] = arr[i];
+      } else {
+        newarray[i + move] = arr[i];
+      }
+
+    }
+    return newarray;
   }
 }
