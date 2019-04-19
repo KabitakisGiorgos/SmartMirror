@@ -99,11 +99,21 @@ export class Cursor {
     }
 
     registerSelectableDivs(array: [string]) {
-        this.selectableDivs = array;
+        if (this.selectableDivs)
+            this.selectableDivs = this.selectableDivs.concat(array);
+        else this.selectableDivs = array;
     }
 
-    unregisterSelectableDivs() {
-        this.selectableDivs = undefined;//FIXME: to take params to remove
+    unregisterSelectableDivs(array: Array<string>) {
+        array.forEach((element) => {
+            let index = this.selectableDivs.findIndex((div) => {
+                return div === element;
+            });
+            if (index = -1)
+                this.selectableDivs.splice(index, 1);
+            console.log(this.selectableDivs);
+
+        });
     }
 
     checkCollisions() {
@@ -129,9 +139,7 @@ export class Cursor {
     }
 
     setSelectedElement(elementId) {
-        //     $('#' + this.collidableElement).css({ 'outline': "none" });
         this.collidableElement = elementId
-        // if (elementId) $('#' + this.collidableElement).css({ 'outline': "3px solid red" });
     }
 
     clickElement() {

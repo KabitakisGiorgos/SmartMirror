@@ -4,9 +4,8 @@ import config from './config.json';
 import * as Leap from 'leapjs'
 import { debugMode } from '../../environments/environment';
 import * as $ from 'jquery'
-import { ToastrService } from 'ngx-toastr';
 
-//FIXME: start fixing the controller about which dom have i selected
+//FIXME: Might also need the class in colliding cause of the overlapping doms check it, it ll be an issue
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +19,7 @@ export class LeapHandlerService {
   cursorTimer: number = 0;
   delayTimer: number = 0;
 
-  constructor(private toastCtrl: ToastrService) {
+  constructor() {
     this.cursor = new Cursor(debugMode.Cursor);
     this.enableCursor();
     if (!debugMode.Cursor)
@@ -84,11 +83,7 @@ export class LeapHandlerService {
       if (gesture.type == 'swipe' && !this.cursorOn) {
         console.log(gesture.type + " with ID " + gesture.id + " in frame " + frame.id);
       }
-      if (gesture.type === 'keyTap' && this.cursorOn) {//FIXME: the cursor size and the selected 
-        this.toastCtrl.show('You pressed ' + this.cursor.getSelectedElement(), 'Key Tap event', {
-          timeOut: 2000,
-          positionClass: 'toast-top-right'
-        });
+      if (gesture.type === 'keyTap' && this.cursorOn) {
         this.cursor.clickElement();
       }
     });
@@ -119,7 +114,7 @@ export class LeapHandlerService {
     this.cursor.registerSelectableDivs(array);
   }
 
-  unregisterDivs() {//FIXME: to take params to remove
-    this.cursor.unregisterSelectableDivs();
+  unregisterDivs(array: Array<string>) {
+    this.cursor.unregisterSelectableDivs(array);
   }
 }

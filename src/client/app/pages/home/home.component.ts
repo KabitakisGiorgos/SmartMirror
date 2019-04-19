@@ -30,7 +30,7 @@ export class HomeComponent implements OnInit {
   ngOnDestroy() {
     this.subscription.unsubscribe();
     this.assistant.deleteCommands();
-    // this.leap.unregisterDivs();
+    // this.leap.unregisterDivs(['news', 'health', 'schedule']);
   }
 
   go2Calendar() {

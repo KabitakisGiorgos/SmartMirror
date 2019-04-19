@@ -51,12 +51,13 @@ export class MenuComponent implements OnInit {
       component: 'calendar'
     }
   ];
+  clickableElements: Array<string> = ['menu', 'menu-home', 'menu-health', 'menu-news', 'menu-calendar', 'menu-media'];
 
   constructor(
     private assistant: AssistantService,
     private router: Router,
     private leap: LeapHandlerService) {
-    this.leap.registerDivs(['menu','menu-home', 'menu-health', 'menu-news', 'menu-calendar', 'menu-media']);
+    this.leap.registerDivs(this.clickableElements);
   }
 
   ngOnInit() {
@@ -100,6 +101,6 @@ export class MenuComponent implements OnInit {
   }
 
   ngOnDestroy() {
-    this.leap.unregisterDivs();//FIXME: to take params to remove
+    this.leap.unregisterDivs(this.clickableElements);
   }
 }
