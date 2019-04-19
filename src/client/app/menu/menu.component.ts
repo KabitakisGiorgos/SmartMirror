@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { trigger, transition, query, stagger, animate, style, state } from '@angular/animations';
 import { AssistantService } from '../services/assistant.service';
 import { Router } from '@angular/router';
+import { LeapHandlerService } from '../services/leap-handler.service';
 
 @Component({
   animations: [
@@ -51,8 +52,12 @@ export class MenuComponent implements OnInit {
     }
   ];
 
-  constructor(private assistant: AssistantService,
-    private router: Router, ) { }
+  constructor(
+    private assistant: AssistantService,
+    private router: Router,
+    private leap: LeapHandlerService) {
+    this.leap.registerDivs(['menu','menu-home', 'menu-health', 'menu-news', 'menu-calendar', 'menu-media']);
+  }
 
   ngOnInit() {
   }
@@ -92,5 +97,9 @@ export class MenuComponent implements OnInit {
 
     this.router.navigate(['/' + page + '']);
     this.toogleMenu();
+  }
+
+  ngOnDestroy() {
+    this.leap.unregisterDivs();//FIXME: to take params to remove
   }
 }

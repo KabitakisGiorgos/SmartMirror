@@ -22,9 +22,9 @@ body {
 
 .cursor {
   //FIXME: might make it even smaller for more precision
-  height: 70px;
-  width: 70px;
-  background-size: 70px 70px;
+  height: 40px;
+  width: 40px;
+  background-size: 40px 40px;
   position: absolute;
   top: 35px;
   left: 30px;
@@ -53,6 +53,9 @@ body {
   background-image: url("./assets/images/cursor_left.png");
 }
 
+.cursor.tap {
+  background-image: url("./assets/images/tap.png");
+}
 
 .footer {
   position: absolute;

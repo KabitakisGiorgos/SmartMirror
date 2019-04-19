@@ -89,6 +89,7 @@ export class LeapHandlerService {
           timeOut: 2000,
           positionClass: 'toast-top-right'
         });
+        this.cursor.clickElement();
       }
     });
   }
@@ -118,7 +119,7 @@ export class LeapHandlerService {
     this.cursor.registerSelectableDivs(array);
   }
 
-  unregisterDivs() {
+  unregisterDivs() {//FIXME: to take params to remove
     this.cursor.unregisterSelectableDivs();
   }
 }

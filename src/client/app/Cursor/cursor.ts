@@ -54,12 +54,17 @@ export class Cursor {
             x = x - $('.cursor').height() / 2 + top;
             y = y - $('.cursor').width() / 2 + left;
             if (y > 1850) y = 1850;// Dont go to Navbar
-            if (x > 975) x = 975;//Bottom constraint
+            if (x > 1000) x = 1000;//Bottom constraint
 
             $('#cursor').css({ 'top': x, 'left': y });
-            
+
+            this.collidableElement = undefined;
             let tmpId = await this.checkCollisions() as string;
             this.setSelectedElement(tmpId);
+            if (tmpId) {
+                //change cursor to tap
+                this.setTapIcon()
+            }
         }
     }
 
@@ -69,11 +74,27 @@ export class Cursor {
     * @param {string} pos - left | right 
     */
     SetOrientation(pos) {
+        var cursor = $('#cursor .cursor');
         if (pos == 'left') {
-            $('#cursor .cursor').removeClass('right').addClass('left');
+            if (cursor.hasClass('tap')) {
+                cursor.removeClass('tap').addClass('left');
+            } else
+                cursor.removeClass('right').addClass('left');
         }
         else if (pos == 'right') {
-            $('#cursor .cursor').removeClass('left').addClass('right');
+            if (cursor.hasClass('tap')) {
+                cursor.removeClass('tap').addClass('right');
+            } else
+                cursor.removeClass('left').addClass('right');
+        }
+    }
+
+    setTapIcon() {
+        var cursor = $('#cursor .cursor');
+        if (cursor.hasClass('right')) {
+            $('#cursor .cursor').removeClass('right').addClass('tap');
+        } else if (cursor.hasClass('left')) {
+            $('#cursor .cursor').removeClass('left').addClass('tap');
         }
     }
 
@@ -82,7 +103,7 @@ export class Cursor {
     }
 
     unregisterSelectableDivs() {
-        this.selectableDivs = undefined;
+        this.selectableDivs = undefined;//FIXME: to take params to remove
     }
 
     checkCollisions() {
@@ -108,8 +129,13 @@ export class Cursor {
     }
 
     setSelectedElement(elementId) {
-        $('#' + this.collidableElement).css({ 'outline': "none" });
+        //     $('#' + this.collidableElement).css({ 'outline': "none" });
         this.collidableElement = elementId
-        if (elementId) $('#' + this.collidableElement).css({ 'outline': "3px solid red" });
+        // if (elementId) $('#' + this.collidableElement).css({ 'outline': "3px solid red" });
+    }
+
+    clickElement() {
+        $('#' + this.collidableElement).click();
+        this.collidableElement = undefined;
     }
 }
