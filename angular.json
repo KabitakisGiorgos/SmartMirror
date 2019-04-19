@@ -21,14 +21,13 @@
               "src/client/favicon.ico"
             ],
             "styles": [
-              "node_modules/animate.css/animate.min.css",
-              "node_modules/ngx-toastr/toastr.css",
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
-              "node_modules/slick-carousel/slick/slick.scss",
-              "node_modules/slick-carousel/slick/slick.min.scss",
-              "node_modules/slick-carousel/slick/slick-theme.scss",
               "node_modules/font-awesome/css/font-awesome.min.css",
-              "src/client/styles.scss"
+              "src/client/styles.scss",
+              "node_modules/ngx-toastr/toastr.css",
+              "node_modules/slick-carousel/slick/slick.scss",
+              "node_modules/slick-carousel/slick/slick-theme.scss",
+              "node_modules/animate.css/animate.css"
             ],
             "scripts": [
               "node_modules/jquery/dist/jquery.min.js",
