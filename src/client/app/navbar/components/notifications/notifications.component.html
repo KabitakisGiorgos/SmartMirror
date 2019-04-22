@@ -1,8 +1,8 @@
  <div class="container">
-   <div id="chart" class="chart"></div>
+   <div (click)="openModal()" id="chart" class="chart"></div>
    <span style="font-size: 24px">Notifications</span>
  </div>
-
+ <!-- (click)="ngxSmartModalService.getModal('myModal').open()" -->
  <div id="notification0" class="bubble xleft">
    <div class="message"></div>
  </div>
@@ -14,3 +14,7 @@
  <div id="notification2" class="bubble xmid">
    <div class="message"></div>
  </div>
+
+ <ngx-smart-modal #myModal identifier="myModal">
+   <div id="chart2" class="chart"></div>
+ </ngx-smart-modal>

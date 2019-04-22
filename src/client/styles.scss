@@ -1,3 +1,5 @@
+@import "~ngx-smart-modal/ngx-smart-modal";
+
 .col-10 {
   flex: 0 0 82%;
   max-width: 82%;
@@ -21,7 +23,6 @@ body {
 
 
 .cursor {
-  //FIXME: might make it even smaller for more precision
   height: 40px;
   width: 40px;
   background-size: 40px 40px;
@@ -32,7 +33,7 @@ body {
 }
 
 #cursor {
-  z-index: 10;
+  z-index: 5000000;
   position: absolute;
   display: none;
 }

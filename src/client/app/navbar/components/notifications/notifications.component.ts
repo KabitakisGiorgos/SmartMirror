@@ -4,7 +4,7 @@ import { SocketService } from '../../../services/socket.service';
 import { LoggerService } from '../../../services/logger.service';
 import config from '../../../services/config.json';
 import * as d3 from 'd3';
-
+import { NgxSmartModalService } from 'ngx-smart-modal';
 @Component({
   selector: 'app-notifications',
   templateUrl: './notifications.component.html',
@@ -16,27 +16,16 @@ export class NotificationsComponent implements OnInit {
     'children': []
   };
 
-  json = {
-    'children': [
-      { 'text': 'Apples', 'severity': 70 },
-      { 'text': 'Oranges', 'severity': 44 },
-      { 'text': 'Kiwis', 'severity': 65 },
-      { 'text': 'Bananas', 'severity': 39 },
-      { 'text': 'Pears', 'severity': 10 },
-      { 'text': 'Satsumas', 'severity': 25 },
-      { 'text': 'Pineapples', 'severity': 30 }
-    ]
-  }
-
   constructor(
     private socketService: SocketService,
     private logger: LoggerService,
-    private http: HttpClient) {
+    private http: HttpClient,
+    public ngxSmartModalService: NgxSmartModalService) {
     this.http.get('/api/notifications')
       .toPromise()
       .then(data => {
         this.chartJson['children'] = data;
-        this.chartInit();
+        this.chartInit('#chart', 110);
       })
       .catch(err => {
         this.logger.error(err);
@@ -117,15 +106,15 @@ export class NotificationsComponent implements OnInit {
     node.addEventListener('animationend', handleAnimationEnd)
   }
 
-  chartInit() {
-    var diameter = 110;
+  chartInit(selector, size) {
+    var diameter = size;
     var color = d3.scaleOrdinal(d3.schemeCategory10);
 
     var bubble = d3.pack()
       .size([diameter, diameter])
       .padding(5);
 
-    var svg = d3.select('#chart').append('svg')
+    var svg = d3.select(selector).append('svg')
       .attr('viewBox', '0 0 ' + (diameter) + ' ' + diameter)
       .attr('width', (diameter))
       .attr('height', diameter)
@@ -158,7 +147,7 @@ export class NotificationsComponent implements OnInit {
 
   updateChart() {
     d3.select('#chart').select('svg').remove();
-    this.chartInit();
+    this.chartInit('#chart', 110);
     $('.chart-svg.mychart').css('border', '5px solid white')
       .css('box-shadow', '0px 0px 50px white');
 
@@ -166,5 +155,14 @@ export class NotificationsComponent implements OnInit {
       $('.chart-svg.mychart').css('border', 'unset')
         .css('box-shadow', 'unset');
     }, config.chart.animation);
+  }
+
+  openModal() {
+    //FIXME: the messages inside bubbles
+    this.ngxSmartModalService.getModal('myModal').open();
+    setTimeout(() => {//Dont remove its for async
+      d3.select('#chart2').select('svg').remove();
+      this.chartInit('#chart2', 600);
+    });
   }
 }

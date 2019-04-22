@@ -12,6 +12,7 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { NotificationsComponent } from './navbar/components/notifications/notifications.component';
 import { ToastrModule } from 'ngx-toastr';
 import { MenuComponent } from './menu/menu.component';
+import { NgxSmartModalModule } from 'ngx-smart-modal';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { MenuComponent } from './menu/menu.component';
     ServiceXModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    SingletonModule.forRoot({})
+    SingletonModule.forRoot({}),
+    NgxSmartModalModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]
