@@ -60,13 +60,13 @@ export class NavbarComponent {
       $eles.find('span').each(function () {
         $(this).data('title', $(this).text());
       });
-      loopLs($eles);
+      loopLs($eles);      
       setInterval(function () { loopLs($eles); }, config.news.changeDelay);
     }
 
     setTimeout(() => {
       newsTicker($('#news-ticker'));
-    });
+    },150);
   }
 
 
