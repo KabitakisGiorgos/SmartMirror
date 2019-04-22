@@ -11,6 +11,7 @@ import { HomeComponent } from './home/home.component';
 import { CalendarComponent } from './calendar/calendar.component';
 import { NotesComponent } from './notes/notes.component';
 import { MediaComponent } from './media/media.component';
+import { MatDialogModule } from '@angular/material'
 
 @NgModule({
   declarations: [
@@ -27,10 +28,12 @@ import { MediaComponent } from './media/media.component';
   imports: [
     CommonModule,
     PageRoutingModule,
-    SlickCarouselModule
+    SlickCarouselModule,
+    MatDialogModule
   ],
   exports: [
-    PageRoutingModule
+    PageRoutingModule,
+    MatDialogModule
   ]
 })
 export class PageModule { }

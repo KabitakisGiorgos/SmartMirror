@@ -4,34 +4,24 @@ import { SocketService } from '../../../services/socket.service';
 import { LoggerService } from '../../../services/logger.service';
 import config from '../../../services/config.json';
 import * as d3 from 'd3';
-
+import { MatDialog } from '@angular/material';
+import { NotificationModalComponent } from '../notification-modal/notification-modal.component';
 @Component({
   selector: 'app-notifications',
   templateUrl: './notifications.component.html',
   styleUrls: ['./notifications.component.scss']
 })
-export class NotificationsComponent implements OnInit {
+export class NotificationsComponent {
   newsNotifications: any = [];
   chartJson: object = {
     'children': []
   };
 
-  json = {
-    'children': [
-      { 'text': 'Apples', 'severity': 70 },
-      { 'text': 'Oranges', 'severity': 44 },
-      { 'text': 'Kiwis', 'severity': 65 },
-      { 'text': 'Bananas', 'severity': 39 },
-      { 'text': 'Pears', 'severity': 10 },
-      { 'text': 'Satsumas', 'severity': 25 },
-      { 'text': 'Pineapples', 'severity': 30 }
-    ]
-  }
-
   constructor(
     private socketService: SocketService,
     private logger: LoggerService,
-    private http: HttpClient) {
+    private http: HttpClient,
+    private modal: MatDialog) {
     this.http.get('/api/notifications')
       .toPromise()
       .then(data => {
@@ -56,10 +46,6 @@ export class NotificationsComponent implements OnInit {
           // Here the data need json parse
         });
       });
-  }
-
-  ngOnInit() {
-
   }
 
   ngOnDestroy() {
@@ -166,5 +152,12 @@ export class NotificationsComponent implements OnInit {
       $('.chart-svg.mychart').css('border', 'unset')
         .css('box-shadow', 'unset');
     }, config.chart.animation);
+  }
+
+  test() {
+    this.modal.open(NotificationModalComponent, {
+      width: '500px',
+      height: '500px'
+    });
   }
 }
