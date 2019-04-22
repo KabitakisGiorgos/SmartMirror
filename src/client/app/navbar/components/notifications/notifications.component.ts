@@ -11,8 +11,10 @@ import * as d3 from 'd3';
   styleUrls: ['./notifications.component.scss']
 })
 export class NotificationsComponent implements OnInit {
-  notifications: any = [];
   newsNotifications: any = [];
+  chartJson: object = {
+    'children': []
+  };
 
   json = {
     'children': [
@@ -33,7 +35,8 @@ export class NotificationsComponent implements OnInit {
     this.http.get('/api/notifications')
       .toPromise()
       .then(data => {
-        this.notifications = data;
+        this.chartJson['children'] = data;
+        this.chartInit();
       })
       .catch(err => {
         this.logger.error(err);
@@ -42,7 +45,7 @@ export class NotificationsComponent implements OnInit {
     this.socketService.init('Notifications')
       .then(() => {
         this.socketService.syncUpdates('notification', null, (event, data) => {
-          this.notifications.push(data);
+          this.chartJson['children'].push(data);
           this.newsNotifications.unshift(data);
           this.showNot();//Bubble Calling
           this.logger.log(data, 'NotificationsComp');
@@ -56,7 +59,7 @@ export class NotificationsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.chartInit();
+
   }
 
   ngOnDestroy() {
@@ -92,8 +95,8 @@ export class NotificationsComponent implements OnInit {
       bubble.show();
       this.newsNotifications.pop();
       setTimeout(() => {
+        this.updateChart();
         bubble.hide();
-
         if (this.newsNotifications.length > 0) {
           this.showNot();
         }//Bubble needs approximately 30000ms to reach top
@@ -128,7 +131,7 @@ export class NotificationsComponent implements OnInit {
       .attr('height', diameter)
       .attr('class', 'chart-svg mychart');
 
-    var root = d3.hierarchy(this.json)
+    var root = d3.hierarchy(this.chartJson)
       .sum(function (d) { return d.severity; })
       .sort(function (a, b) { return b.severity - a.severity; });
 
@@ -144,7 +147,7 @@ export class NotificationsComponent implements OnInit {
     node.append('circle')
       .attr('r', function (d) { return d.r; })
       .style('fill', function (d) {
-        return color(d.data.text);
+        return color(d.data.type);
       });
 
     svg.append('g')
@@ -154,7 +157,6 @@ export class NotificationsComponent implements OnInit {
 
 
   updateChart() {
-    this.json.children.push({ 'text': 'ss', 'severity': 20 });//FIXME: remove this 
     d3.select('#chart').select('svg').remove();
     this.chartInit();
     $('.chart-svg.mychart').css('border', '5px solid white')
@@ -163,6 +165,6 @@ export class NotificationsComponent implements OnInit {
     setTimeout(() => {
       $('.chart-svg.mychart').css('border', 'unset')
         .css('box-shadow', 'unset');
-    }, 2000);
+    }, config.chart.animation);
   }
 }

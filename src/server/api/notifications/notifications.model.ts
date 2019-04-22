@@ -9,7 +9,7 @@ var NotificationSchema = new mongoose.Schema({
         required: true
     },
     severity: {
-        type: String,
+        type: Number,
         required: true
     },
     text: {

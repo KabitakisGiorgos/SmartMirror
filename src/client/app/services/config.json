@@ -4,9 +4,12 @@
     "cursorHide": 1000
   },
   "notification":{
-    "delay":37000
+    "delay":33000
   },
   "news":{
     "changeDelay":8000
+  },
+  "chart":{
+    "animation":2000
   }
 }

@@ -50,7 +50,7 @@
   }
 
   100% {
-    top: 15%;
+    top: 13%;
   }
 }
 
@@ -60,7 +60,7 @@
   }
 
   100% {
-    top: 15%;
+    top: 13%;
   }
 }
 
@@ -70,7 +70,7 @@
   }
 
   100% {
-    top: 15%;
+    top: 13%;
   }
 }
 
@@ -107,33 +107,33 @@
 /* ANIMATIONS */
 .xright {
   display: none;
-  -webkit-animation: animateBubble 29s linear, sideWays 4s ease-in-out infinite alternate;
-  -moz-animation: animateBubble 29s linear, sideWays 4s ease-in-out infinite alternate;
-  animation: animateBubble 29s linear, sideWays 4s ease-in-out infinite alternate;
+  -webkit-animation: animateBubble 25s linear, sideWays 4s ease-in-out infinite alternate;
+  -moz-animation: animateBubble 25s linear, sideWays 4s ease-in-out infinite alternate;
+  animation: animateBubble 25s linear, sideWays 4s ease-in-out infinite alternate;
 
   left: 80%;
-  top: 15%;
+  top: 13%;
 }
 
 .xleft {
   display: none;
-  -webkit-animation: animateBubble 29s linear, sideWays 4s ease-in-out infinite alternate;
-  -moz-animation: animateBubble 29s linear, sideWays 4s ease-in-out infinite alternate;
-  animation: animateBubble 29s linear, sideWays 4s ease-in-out infinite alternate;
+  -webkit-animation: animateBubble 25s linear, sideWays 4s ease-in-out infinite alternate;
+  -moz-animation: animateBubble 25s linear, sideWays 4s ease-in-out infinite alternate;
+  animation: animateBubble 25s linear, sideWays 4s ease-in-out infinite alternate;
 
   left: 42%;
-  top: 15%;
+  top: 13%;
 }
 
 
 .xmid {
   display: none;
-  -webkit-animation: animateBubble 29s linear, sideWays 4s ease-in-out infinite alternate;
-  -moz-animation: animateBubble 29s linear, sideWays 4s ease-in-out infinite alternate;
-  animation: animateBubble 29s linear, sideWays 4s ease-in-out infinite alternate;
+  -webkit-animation: animateBubble 25s linear, sideWays 4s ease-in-out infinite alternate;
+  -moz-animation: animateBubble 25s linear, sideWays 4s ease-in-out infinite alternate;
+  animation: animateBubble 25s linear, sideWays 4s ease-in-out infinite alternate;
 
   left: 5%;
-  top: 15%;
+  top: 13%;
 }
 
 /* OBJECTS */
