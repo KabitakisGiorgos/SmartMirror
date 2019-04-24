@@ -4,7 +4,7 @@
     "cursorHide": 1000
   },
   "notification":{
-    "delay":33000
+    "delay":27000
   },
   "news":{
     "changeDelay":10000

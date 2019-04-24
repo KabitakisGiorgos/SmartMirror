@@ -36,6 +36,7 @@ export class NotificationsComponent implements OnInit {
         this.socketService.syncUpdates('notification', null, (event, data) => {
           this.chartJson['children'].push(data);
           this.newsNotifications.unshift(data);
+          this.updateChart('#chart2', 600, true);
           this.showNot();//Bubble Calling
           this.logger.log(data, 'NotificationsComp');
         });
@@ -84,7 +85,7 @@ export class NotificationsComponent implements OnInit {
       bubble.show();
       this.newsNotifications.pop();
       setTimeout(() => {
-        this.updateChart();
+        this.updateChart('#chart', 110);
         bubble.hide();
         if (this.newsNotifications.length > 0) {
           this.showNot();
@@ -181,16 +182,20 @@ export class NotificationsComponent implements OnInit {
   }
 
 
-  updateChart() {
-    d3.select('#chart').select('svg').remove();
-    this.chartInit('#chart', 110);
-    $('.chart-svg.mychart').css('border', '5px solid white')
-      .css('box-shadow', '0px 0px 50px white');
+  updateChart(selector, size, label?) {
+    d3.select(selector).select('svg').remove();
+    this.chartInit(selector, size, label);
 
-    setTimeout(() => {
-      $('.chart-svg.mychart').css('border', 'unset')
-        .css('box-shadow', 'unset');
-    }, config.chart.animation);
+
+    if (selector === '#chart') {
+      $('.chart-svg.mychart').css('border', '5px solid white')
+        .css('box-shadow', '0px 0px 50px white');
+      setTimeout(() => {
+        $('.chart-svg.mychart').css('border', 'unset')
+          .css('box-shadow', 'unset');
+      }, config.chart.animation);
+    }
+
   }
 
   openModal() {
