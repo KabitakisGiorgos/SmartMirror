@@ -106,7 +106,7 @@ export class NotificationsComponent implements OnInit {
     node.addEventListener('animationend', handleAnimationEnd)
   }
 
-  chartInit(selector, size) {
+  chartInit(selector, size, label?) {
     var diameter = size;
     var color = d3.scaleOrdinal(d3.schemeCategory10);
 
@@ -136,8 +136,44 @@ export class NotificationsComponent implements OnInit {
     node.append('circle')
       .attr('r', function (d) { return d.r; })
       .style('fill', function (d) {
-        return color(d.data.type);
+        return color(d.data.type);//FIXME: here you can set the color be taken maybe from the kind of notification or resolved here
       });
+
+    if (label) {
+      node.append('text')
+        .attr('x', '0')
+        .attr('y', '0')
+        .attr('text-anchor', 'middle')
+        .attr('fill', 'white')
+        .text((d) => {
+          return d.data.text;
+        })
+        .each(function (d) {
+          console.log(this)
+          console.log(d);
+          var text = d3.select(this),
+            width = d.r * 2,
+            x = 0,
+            y = 0,
+            words = text.text().split(/\s+/).reverse(),
+            word,
+            line = [],
+            lineNumber = 0,
+            lineHeight = 1.1,
+            tspan = text.text(null).append('tspan').attr('x', x).attr('y', y);
+          console.log(tspan);
+          while (word = words.pop()) {
+            line.push(word);
+            tspan.text(line.join(' '));
+            if (tspan.node().getComputedTextLength() > width) {
+              line.pop();
+              tspan.text(line.join(' '));
+              line = [word];
+              tspan = text.append('tspan').attr('x', x).attr('y', y).attr('dy', ++lineNumber * lineHeight + 'em').text(word);
+            }
+          }
+        });
+    }
 
     svg.append('g')
       .attr('class', 'legendOrdinal')
@@ -162,7 +198,7 @@ export class NotificationsComponent implements OnInit {
     this.ngxSmartModalService.getModal('myModal').open();
     setTimeout(() => {//Dont remove its for async
       d3.select('#chart2').select('svg').remove();
-      this.chartInit('#chart2', 600);
+      this.chartInit('#chart2', 600, true);
     });
   }
 }
