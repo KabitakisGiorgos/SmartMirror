@@ -1,15 +1,17 @@
 <div class="container-fluid">
-  <!-- <div class="row">
-    <div class="col-5 schedule">
-      <app-schedule-widget></app-schedule-widget>
-    </div>
-    <div class="col-7">
-      <div class="row health">
-        <app-health-widget style="width:100%"></app-health-widget>
-      </div>
-      <div class="row news">
-        <app-news-widget style="width:100%"></app-news-widget>
-      </div>
-    </div>
-  </div> -->
+  <div class="row lines">
+    <img src="../../../../../assets/icons/partly_cloudy.png" class="midday">
+    <img src="../../../../../assets/icons/cloudy.png" class="night">
+    <img src="../../../../../assets/icons/rain.png" class="morning">
+    <div class="curvedLine"></div>
+    <div class="timeLine"></div>
+    <div class="emptyEvent selected"></div>
+  </div>
+
 </div>
+
+<ngx-slick-carousel class="carousel" #slickmodal="slick-carousel" [config]="slideConfig">
+  <div ngxSlickItem *ngFor="let slide of slides" class="slide myslide">
+    <img src="{{ slide.img }}" class="moods" width="100%">
+  </div>
+</ngx-slick-carousel>

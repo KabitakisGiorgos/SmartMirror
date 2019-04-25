@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { AssistantService } from '../../services/assistant.service';
 import { Subscription } from 'rxjs';
 import { LeapHandlerService } from '../../services/leap-handler.service';
@@ -10,6 +10,25 @@ import { Router } from '@angular/router';
 })
 export class HomeComponent implements OnInit {
   subscription: Subscription;
+  @ViewChild('slickModal') carousel: any;
+  slides = [
+    { img: 'https://via.placeholder.com/150' },
+    { img: 'https://via.placeholder.com/150' },
+    { img: 'https://via.placeholder.com/150' },
+    { img: 'https://via.placeholder.com/150' },
+    { img: 'https://via.placeholder.com/150' },
+    { img: 'https://via.placeholder.com/150' },
+    { img: 'https://via.placeholder.com/150' },
+    { img: 'https://via.placeholder.com/150' },
+    { img: 'https://via.placeholder.com/150' }
+  ];
+
+  slideConfig = {
+    slidesToShow: 4,
+    slidesToScroll: 1,
+    arrows: false,
+    infinite: false
+  };
 
   constructor(
     private assistant: AssistantService,

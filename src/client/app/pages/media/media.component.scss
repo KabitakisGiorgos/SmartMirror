@@ -55,3 +55,25 @@ ul {
   background: transparent;
   /* Optional: just make scrollbar invisible */
 }
+
+.cell {
+  text-align: center;
+  width: 280px;
+  height: 144px;
+  background-color: #336181;
+  border-radius: 10px;
+}
+
+.cell.right {
+  margin-left: 19px;
+}
+
+.col-6.mytitle {
+  .col {
+    max-width: 280px;
+  }
+
+  .row {
+    margin-bottom: 19px;
+  }
+}
