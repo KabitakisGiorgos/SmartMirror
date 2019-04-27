@@ -174,8 +174,9 @@ class ThingController {
     }
     return Thing.findOneAndUpdate(
       { _id: req.params.id },
-      req.body, { new: true, upsert: true, setDefaultsOnInsert: true, runValidators: true }
+      req.body, { new: true, runValidators: true }
     ).exec()
+      .then(handleEntityNotFound(res))
       .then(respondWithResult(res, 200))
       .catch(handleError(res, 500));
   }
