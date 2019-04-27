@@ -12,6 +12,7 @@ import { Request, Response } from 'express';
 import * as jsonpatch from 'fast-json-patch';
 import * as thingEvents from './thing.events';
 import Thing from './thing.model';
+import { validationResult } from 'express-validator/check';
 
 
 /*---------------------------------------------------------
@@ -85,6 +86,15 @@ function handleEntityNotFound(res: Response) {
     }
     return entity;
   };
+}
+
+function handleRequest(req: Request, res: Response) {
+  return new Promise((resolve, reject) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      reject(errors.array())
+    } else resolve(res);
+  })
 }
 
 function handleError(res: Response, statusCode: number) {
@@ -172,13 +182,19 @@ class ThingController {
     if (req.body._id) {
       delete req.body._id;
     }
-    return Thing.findOneAndUpdate(
-      { _id: req.params.id },
-      req.body, { new: true, runValidators: true }
-    ).exec()
-      .then(handleEntityNotFound(res))
-      .then(respondWithResult(res, 200))
-      .catch(handleError(res, 500));
+    return handleRequest(req, res)
+      .then((res: any) => {
+        Thing.findOneAndUpdate(
+          { _id: req.params.id },
+          req.body, { new: true, runValidators: true }
+        ).exec()
+          .then(handleEntityNotFound(res))
+          .then(respondWithResult(res, 200))
+          .catch(handleError(res, 500));
+      })
+      .catch(err => {
+        return res.status(400).json({ error: err });
+      })
   }
 
   /**

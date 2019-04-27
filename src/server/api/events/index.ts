@@ -1,6 +1,5 @@
 import { Router } from 'express';
 import controller from './events.controller';
-
 let router = Router();
 
 router.get('/', controller.index);
