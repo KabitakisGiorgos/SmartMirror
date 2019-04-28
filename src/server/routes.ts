@@ -6,12 +6,14 @@ import * as errors from './components/errors';
 import thingRouter from './api/thing';
 import notificationRouter from './api/notifications';
 import newsRouter from './api/news'
+import eventsRouter from './api/events';
 
 export default app => {
   // Insert routes below
   app.use('/api/notifications', notificationRouter);
   app.use('/api/things', thingRouter);
   app.use('/api/news', newsRouter);
+  app.use('/api/events', eventsRouter);
 
   // All undefined asset or api routes should return a 404
   app.route('/:url(api|auth|components|app|bower_components|assets)/*')

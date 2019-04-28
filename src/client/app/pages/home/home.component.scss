@@ -15,7 +15,7 @@
 
 .lines {
   margin-top: 2%;
-
+  position: relative;
 }
 
 .myslide {
@@ -37,30 +37,26 @@
 
 .morning {
   position: absolute;
-  margin-left: -2%;
   left: 15%;
-  bottom: 73.5%;
+  bottom: 63.5%;
 }
 
 .midday {
   position: absolute;
-  margin-left: -2%;
-  left: 50%;
-  top: 14.5%;
+  left: 49%;
+  top: -9.5%;
 }
 
 .night {
   position: absolute;
-  margin-left: -2%;
   left: 86%;
-  bottom: 73.5%
+  bottom: 60.5%
 }
 
 .emptyEvent {
   border-radius: 100%;
-  top: 40.1%;
+  top: 93.1%;
   left: 0%;
-  margin-left: 0.8%;
   width: 21px;
   height: 21px;
   background-color: #C4C4C4;

@@ -45,7 +45,7 @@ class EventsController {
     constructor() { }
 
     public index(req: Request, res: Response) {
-        return Events.find.exec()
+        return Events.find().exec()
             .then(respondWithResult(res, 200))
             .catch(handleError(res, 500));
     }

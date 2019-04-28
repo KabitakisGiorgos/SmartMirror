@@ -3,13 +3,15 @@ import { AssistantService } from '../../services/assistant.service';
 import { Subscription } from 'rxjs';
 import { LeapHandlerService } from '../../services/leap-handler.service';
 import { LoggerService } from '../../services/logger.service';
-import { Router } from '@angular/router';
+import { Http } from '@angular/http';
 @Component({
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
   subscription: Subscription;
+  events: any;
+  selectedEvent: string;
   @ViewChild('slickModal') carousel: any;
   slides = [
     { img: 'https://via.placeholder.com/150' },
@@ -34,16 +36,24 @@ export class HomeComponent implements OnInit {
     private assistant: AssistantService,
     private logger: LoggerService,
     private leap: LeapHandlerService,
-    private router: Router) {
+    private http: Http
+  ) {
   }
 
-  ngOnInit() {
+  async ngOnInit() {
     // this.leap.registerDivs(['news', 'health', 'schedule']);
     this.assistant.navigationCommands();
     this.assistant.testingCommands();
     this.subscription = this.assistant.subject.subscribe((data) => {
       this.logger.log(data, 'Home');
     });
+    try {
+      this.events = await this.retrieveEvents();
+      this.selectedEvent = this.events[0];
+    } catch (e) {
+      console.error(e);
+    }
+
   }
 
   ngOnDestroy() {
@@ -52,15 +62,40 @@ export class HomeComponent implements OnInit {
     // this.leap.unregisterDivs(['news', 'health', 'schedule']);
   }
 
-  go2Calendar() {
-    this.router.navigate(['/calendar']);
+
+  retrieveEvents() {
+    return new Promise((resolve, reject) => {
+      var url = '/api/events';
+      this.http.get(url)
+        .toPromise()
+        .then((reponse: any) => {
+          console.log(reponse);
+          resolve(JSON.parse(reponse._body))
+        })
+        .catch(err => {
+          reject(err);
+        });
+    })
   }
 
-  go2news() {
-    this.router.navigate(['/calendar']);
-  }
+  setPosition(event) {
+    let dayStart = 21600000;
+    let dayEnd = 86400000;
+    let percentage = (event.start - dayStart) / (dayEnd - dayStart);
+    percentage = (percentage * 100) - 1;
 
-  go2Health() {
-
+    return percentage + '%';
   }
 }
+
+
+/**
+ * Convert the ms to hour
+ * var moment =require('moment')
+
+
+var x = 23400000;
+var tempTime = moment.duration(x);
+
+console.log(tempTime.hours()+':'+tempTime.minutes());
+ */

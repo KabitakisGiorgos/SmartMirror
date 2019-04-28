@@ -189,7 +189,7 @@
 
 
 :host ::ng-deep .nsm-content {
-  background-color: unset;
+  // background-color: unset; FIXME:check this about the modal
   border-radius: 100%;
   width: 600px;
   height: 600px;

@@ -5,9 +5,11 @@
     <img src="../../../../../assets/icons/rain.png" class="morning">
     <div class="curvedLine"></div>
     <div class="timeLine"></div>
-    <div class="emptyEvent selected"></div>
-  </div>
 
+    <div *ngFor="let event of events;let i=index">
+      <div id="{{event._id}}" [style.left]="setPosition(event)" class="emptyEvent" [ngClass]="{'selected':i==0}"></div>
+    </div>
+  </div>
 </div>
 
 <ngx-slick-carousel class="carousel" #slickmodal="slick-carousel" [config]="slideConfig">

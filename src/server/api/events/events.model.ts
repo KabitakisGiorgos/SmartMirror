@@ -5,7 +5,7 @@ import { registerEvents } from './events.sockets';
 var EventsSchema = new mongoose.Schema({
     type: {
         type: String,
-        enum: ['Commute', 'Sleep', 'Work', 'Food', 'Relax'],
+        enum: ['Commute', 'Hypnos', 'Work', 'Food', 'Relax','Sleep'],
         required: true
     },
     start: {
@@ -23,7 +23,7 @@ var EventsSchema = new mongoose.Schema({
     },
     title: {
         type: String,
-        required: true
+        required: false
     }
 });
 
