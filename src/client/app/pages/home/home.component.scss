@@ -53,14 +53,52 @@
   bottom: 60.5%
 }
 
+.eventWrapper {
+  top: 75.1%;
+  left: 0%;
+  position: absolute;
+}
+
+.eventSpanWrapper {
+  top: 75.1%;
+  left: 0%;
+  position: absolute;
+  width: 200px;
+  text-align: center;
+}
+
 .emptyEvent {
   border-radius: 100%;
-  top: 93.1%;
-  left: 0%;
   width: 21px;
   height: 21px;
   background-color: #C4C4C4;
-  position: absolute;
+  position: relative;
+
+  &.selected {
+    border: 2px solid #FFFFFF;
+  }
+}
+
+.eventSpanIcon {
+  position: relative;
+}
+
+.eventIcon {
+  position: relative;
+  right: 25%;
+}
+
+.spanEvent {
+  width: 100%;
+  height: 21px;
+  background-color: #C4C4C4;
+  position: relative;
+  border-radius: 70px;
+  text-align: center;
+  color: #0B1D2A;
+  font-size: 18px;
+  vertical-align: middle;
+  line-height: 22px;
 
   &.selected {
     border: 2px solid #FFFFFF;

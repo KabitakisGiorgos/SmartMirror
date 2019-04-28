@@ -5,9 +5,22 @@
     <img src="../../../../../assets/icons/rain.png" class="morning">
     <div class="curvedLine"></div>
     <div class="timeLine"></div>
-
+    <!-- FIXME: icons on events and titles and on weather the time and temps -->
     <div *ngFor="let event of events;let i=index">
-      <div id="{{event._id}}" [style.left]="setPosition(event)" class="emptyEvent" [ngClass]="{'selected':i==0}"></div>
+      <div class="eventWrapper" [style.left]="setPosition(event)" id="{{event._id}}" *ngIf="!event.end; else eventSpan">
+        <img class="eventIcon" src="../../../../../assets/icons/{{event.icon}}.png" alt="">
+        <div class="emptyEvent" [ngClass]="{'selected':i==0}"></div>
+      </div>
+
+
+      <ng-template #eventSpan>
+        <div class="eventSpanWrapper" id="{{event._id}}" [style.left]="setPosition(event)"
+          [style.width]="setEventWidth(event)">
+          <img class="eventSpanIcon" src="../../../../../assets/icons/{{event.icon}}.png" alt="">
+          <div class="spanEvent" [ngClass]="{'selected':i==0}">{{event.title}}
+          </div>
+        </div>
+      </ng-template>
     </div>
   </div>
 </div>

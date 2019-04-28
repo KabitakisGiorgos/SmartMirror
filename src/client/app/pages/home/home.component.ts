@@ -86,6 +86,14 @@ export class HomeComponent implements OnInit {
 
     return percentage + '%';
   }
+
+  setEventWidth(event) {
+    let dayStart = 21600000;
+    let dayEnd = 86400000;
+    let percentage = (event.end - event.start) / (dayEnd - dayStart);
+    percentage = percentage * 100;
+    return percentage + '%';
+  }
 }
 
 
