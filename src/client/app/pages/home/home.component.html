@@ -5,7 +5,7 @@
     <img src="../../../../../assets/icons/rain.png" class="morning">
     <div class="curvedLine"></div>
     <div class="timeLine"></div>
-    <!-- FIXME: icons on events and titles and on weather the time and temps -->
+    <!-- FIXME:  on weather the time and temps -->
     <div *ngFor="let event of events;let i=index">
       <div class="eventWrapper" [style.left]="setPosition(event)" id="{{event._id}}" *ngIf="!event.end; else eventSpan">
         <img class="eventIcon" src="../../../../../assets/icons/{{event.icon}}.png" alt="">
