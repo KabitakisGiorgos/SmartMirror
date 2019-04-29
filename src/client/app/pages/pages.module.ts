@@ -10,6 +10,7 @@ import { ScheduleComponent } from './home/components/schedule/schedule.component
 import { HomeComponent } from './home/home.component';
 import { CalendarComponent } from './calendar/calendar.component';
 import { MediaComponent } from './media/media.component';
+import { MediaPlayerComponent } from './media-player/media-player.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { MediaComponent } from './media/media.component';
     CalendarComponent,
     NewsComponent,
     HealthWidget,
-    MediaComponent
+    MediaComponent,
+    MediaPlayerComponent
   ],
   imports: [
     CommonModule,
