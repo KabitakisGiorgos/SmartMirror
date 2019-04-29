@@ -11,7 +11,7 @@ import { HomeComponent } from './home/home.component';
 import { CalendarComponent } from './calendar/calendar.component';
 import { MediaComponent } from './media/media.component';
 import { MediaPlayerComponent } from './media-player/media-player.component';
-
+import { PlyrModule } from 'ngx-plyr';
 @NgModule({
   declarations: [
     HealthComponent,
@@ -27,7 +27,8 @@ import { MediaPlayerComponent } from './media-player/media-player.component';
   imports: [
     CommonModule,
     PageRoutingModule,
-    SlickCarouselModule
+    SlickCarouselModule,
+    PlyrModule
   ],
   exports: [
     PageRoutingModule

@@ -1,3 +1,5 @@
-<p>
-  media-player works!
-</p>
+<plyr style="display: block; width: 640px;" plyrTitle="Video 1" [plyrSources]="videoSources"
+  (plyrInit)="player = $event" (plyrPlay)="played($event)"></plyr>
+
+<button (click)="play()">Play</button>
+<button (click)="stop()">Stop</button>
