@@ -9,7 +9,6 @@ import { NewsComponent } from './news/news.component';
 import { ScheduleComponent } from './home/components/schedule/schedule.component';
 import { HomeComponent } from './home/home.component';
 import { CalendarComponent } from './calendar/calendar.component';
-import { NotesComponent } from './notes/notes.component';
 import { MediaComponent } from './media/media.component';
 
 @NgModule({
@@ -20,7 +19,6 @@ import { MediaComponent } from './media/media.component';
     HomeComponent,
     CalendarComponent,
     NewsComponent,
-    NotesComponent,
     HealthWidget,
     MediaComponent
   ],
