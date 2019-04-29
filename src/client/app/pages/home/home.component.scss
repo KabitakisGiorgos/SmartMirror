@@ -14,7 +14,7 @@
 }
 
 .lines {
-  margin-top: 2%;
+  margin-top: 3%;
   position: relative;
 }
 
@@ -37,20 +37,33 @@
 
 .morning {
   position: absolute;
-  left: 15%;
-  bottom: 63.5%;
+  left: 18.44%;
+  bottom: 64.5%;
+}
+
+.hour {
+  display: block;
+  text-align: center;
+  font-size: 22px;
+  line-height: 15.5px;
+}
+
+.temp {
+  display: block;
+  text-align: center;
+  line-height: 13px;
 }
 
 .midday {
   position: absolute;
   left: 49%;
-  top: -9.5%;
+  bottom: 86.5%;
 }
 
 .night {
   position: absolute;
-  left: 86%;
-  bottom: 60.5%
+  left: 77.5%;
+  bottom: 68.5%
 }
 
 .eventWrapper {

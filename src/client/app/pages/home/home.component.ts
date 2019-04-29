@@ -69,7 +69,6 @@ export class HomeComponent implements OnInit {
       this.http.get(url)
         .toPromise()
         .then((reponse: any) => {
-          console.log(reponse);
           resolve(JSON.parse(reponse._body))
         })
         .catch(err => {
