@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import * as $ from 'jquery';
 import { Http } from '@angular/http';
 import config from '../services/config.json';
+import { EventsService } from '../services/events.service';
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
@@ -12,13 +13,23 @@ export class NavbarComponent {
   today = new Date();
   show: boolean = true;
 
-  constructor(private http: Http) {
+  constructor(
+    private http: Http,
+    private events: EventsService) {
+
+    this.events.subscribe('navbar-display', (data) => {
+      if (data.action) {
+        this.hide();
+      }
+    });
+
     setInterval(() => {
       this.today = new Date();
     }, 1000);
   }
 
   ngOnInit() {
+
     this.retrieveNews().then((data) => {
       this.news = data;
     });
@@ -60,13 +71,13 @@ export class NavbarComponent {
       $eles.find('span').each(function () {
         $(this).data('title', $(this).text());
       });
-      loopLs($eles);      
+      loopLs($eles);
       setInterval(function () { loopLs($eles); }, config.news.changeDelay);
     }
 
     setTimeout(() => {
       newsTicker($('#news-ticker'));
-    },150);
+    }, 150);
   }
 
 
@@ -89,14 +100,18 @@ export class NavbarComponent {
     if (this.show) {
       this.show = !this.show;
       $("#navbar").slideUp(() => {
-        setTimeout(() => {//Just for debbuging
-          $("#navbar").slideDown();
-        }, 2000);
+        // setTimeout(() => {//Just for debbuging
+        //   $("#navbar").slideDown();
+        // }, 2000);
       });
     }
     else {
       $("#navbar").slideDown();
       this.show = !this.show;
     }
+  }
+
+  ngOnDestroy() {
+    this.events.unsubscribe('navbar');
   }
 }
