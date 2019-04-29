@@ -189,14 +189,20 @@
 
 
 :host ::ng-deep .nsm-content {
-  // background-color: unset; FIXME:check this about the modal
+  background-color: unset;
   border-radius: 100%;
   width: 600px;
   height: 600px;
   position: absolute;
   right: -13%;
-  top: 34%;
+  top: 70%;
 }
+
+:host ::ng-deep .nsm-body {
+  left: -15px;
+  top: -15px;
+}
+
 
 :host ::ng-deep .nsm-dialog-btn-close.ng-star-inserted {
   display: none;

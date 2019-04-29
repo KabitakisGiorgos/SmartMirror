@@ -120,61 +120,63 @@ export class NotificationsComponent implements OnInit {
       .attr('width', (diameter))
       .attr('height', diameter)
       .attr('class', 'chart-svg mychart');
+    if (this.chartJson['children'].length > 0) {
+      var root = d3.hierarchy(this.chartJson)
+        .sum(function (d) { return d.severity; })
+        .sort(function (a, b) { return b.severity - a.severity; });
 
-    var root = d3.hierarchy(this.chartJson)
-      .sum(function (d) { return d.severity; })
-      .sort(function (a, b) { return b.severity - a.severity; });
+      bubble(root);
 
-    bubble(root);
+      var node = svg.selectAll('.node')
+        .data(root.children)
+        .enter()
+        .append('g').attr('class', 'node')
+        .attr('transform', function (d) { return 'translate(' + d.x + ' ' + d.y + ')'; })
+        .append('g').attr('class', 'graph');
 
-    var node = svg.selectAll('.node')
-      .data(root.children)
-      .enter()
-      .append('g').attr('class', 'node')
-      .attr('transform', function (d) { return 'translate(' + d.x + ' ' + d.y + ')'; })
-      .append('g').attr('class', 'graph');
-
-    node.append('circle')
-      .attr('r', function (d) { return d.r; })
-      .style('fill', function (d) {
-        return color(d.data.type);//FIXME: here you can set the color be taken maybe from the kind of notification or resolved here
-      });
-
-    if (label) {
-      node.append('text')
-        .attr('x', '0')
-        .attr('y', '0')
-        .attr('text-anchor', 'middle')
-        .attr('fill', 'white')
-        .text((d) => {
-          return d.data.text;
-        })
-        .each(function (d) {
-          console.log(this)
-          console.log(d);
-          var text = d3.select(this),
-            width = d.r * 2,
-            x = 0,
-            y = 0,
-            words = text.text().split(/\s+/).reverse(),
-            word,
-            line = [],
-            lineNumber = 0,
-            lineHeight = 1.1,
-            tspan = text.text(null).append('tspan').attr('x', x).attr('y', y);
-          console.log(tspan);
-          while (word = words.pop()) {
-            line.push(word);
-            tspan.text(line.join(' '));
-            if (tspan.node().getComputedTextLength() > width) {
-              line.pop();
-              tspan.text(line.join(' '));
-              line = [word];
-              tspan = text.append('tspan').attr('x', x).attr('y', y).attr('dy', ++lineNumber * lineHeight + 'em').text(word);
-            }
-          }
+      node.append('circle')
+        .attr('r', function (d) { return d.r; })
+        .style('fill', function (d) {
+          return color(d.data.type);//FIXME: here you can set the color be taken maybe from the kind of notification or resolved here
         });
+
+      if (label) {
+        node.append('text')
+          .attr('x', '0')
+          .attr('y', '0')
+          .attr('text-anchor', 'middle')
+          .attr('fill', 'white')
+          .text((d) => {
+            return d.data.text;
+          })
+          .each(function (d) {
+            console.log(this)
+            console.log(d);
+            var text = d3.select(this),
+              width = d.r * 2,
+              x = 0,
+              y = 0,
+              words = text.text().split(/\s+/).reverse(),
+              word,
+              line = [],
+              lineNumber = 0,
+              lineHeight = 1.1,
+              tspan = text.text(null).append('tspan').attr('x', x).attr('y', y);
+            console.log(tspan);
+            while (word = words.pop()) {
+              line.push(word);
+              tspan.text(line.join(' '));
+              if (tspan.node().getComputedTextLength() > width) {
+                line.pop();
+                tspan.text(line.join(' '));
+                line = [word];
+                tspan = text.append('tspan').attr('x', x).attr('y', y).attr('dy', ++lineNumber * lineHeight + 'em').text(word);
+              }
+            }
+          });
+      }
     }
+
 
     svg.append('g')
       .attr('class', 'legendOrdinal')
