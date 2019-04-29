@@ -1,47 +1,51 @@
-<div class="container-fluid">
-  <div class="row lines">
+<div [@enter]>
+  <div class="container-fluid">
+    <div class="row lines">
 
-    <div class="midday">
-      <span class="hour">15:00</span>
-      <img src="../../../../../assets/icons/partly_cloudy.png" class="middayIcon">
-      <span class="temp">12°-18°</span>
-    </div>
-
-    <div class="night">
-      <span class="hour">20:15</span>
-      <img src="../../../../../assets/icons/cloudy.png" class="nightIcon">
-      <span class="temp">12°-18°</span>
-    </div>
-
-    <div class="morning">
-      <span class="hour">9:30</span>
-      <img src="../../../../../assets/icons/rain.png" class="morningIcon">
-      <span class="temp">12°-18°</span>
-    </div>
-
-    <div class="curvedLine"></div>
-    <div class="timeLine"></div>
-    <div *ngFor="let event of events;let i=index">
-      <div class="eventWrapper" [style.left]="setPosition(event)" id="{{event._id}}" *ngIf="!event.end; else eventSpan">
-        <img class="eventIcon" src="../../../../../assets/icons/{{event.icon}}.png" alt="">
-        <div class="emptyEvent" [ngClass]="{'selected':i==0}"></div>
+      <div class="midday">
+        <span class="hour">15:00</span>
+        <img src="../../../../../assets/icons/partly_cloudy.png" class="middayIcon">
+        <span class="temp">12°-18°</span>
       </div>
 
+      <div class="night">
+        <span class="hour">20:15</span>
+        <img src="../../../../../assets/icons/cloudy.png" class="nightIcon">
+        <span class="temp">12°-18°</span>
+      </div>
 
-      <ng-template #eventSpan>
-        <div class="eventSpanWrapper" id="{{event._id}}" [style.left]="setPosition(event)"
-          [style.width]="setEventWidth(event)">
-          <img class="eventSpanIcon" src="../../../../../assets/icons/{{event.icon}}.png" alt="">
-          <div class="spanEvent" [ngClass]="{'selected':i==0}">{{event.title}}
-          </div>
+      <div class="morning">
+        <span class="hour">9:30</span>
+        <img src="../../../../../assets/icons/rain.png" class="morningIcon">
+        <span class="temp">12°-18°</span>
+      </div>
+
+      <div class="curvedLine"></div>
+      <div class="timeLine"></div>
+      <div *ngFor="let event of events;let i=index">
+        <div class="eventWrapper" [style.left]="setPosition(event)" id="{{event._id}}"
+          *ngIf="!event.end; else eventSpan">
+          <img class="eventIcon" src="../../../../../assets/icons/{{event.icon}}.png" alt="">
+          <div class="emptyEvent" [ngClass]="{'selected':i==0}"></div>
         </div>
-      </ng-template>
+
+
+        <ng-template #eventSpan>
+          <div class="eventSpanWrapper" id="{{event._id}}" [style.left]="setPosition(event)"
+            [style.width]="setEventWidth(event)">
+            <img class="eventSpanIcon" src="../../../../../assets/icons/{{event.icon}}.png" alt="">
+            <div class="spanEvent" [ngClass]="{'selected':i==0}">{{event.title}}
+            </div>
+          </div>
+        </ng-template>
+      </div>
     </div>
   </div>
-</div>
 
-<ngx-slick-carousel class="carousel" #slickmodal="slick-carousel" [config]="slideConfig">
-  <div ngxSlickItem *ngFor="let slide of slides" class="slide myslide">
-    <img src="{{ slide.img }}" class="moods" width="100%">
-  </div>
-</ngx-slick-carousel>
+  <ngx-slick-carousel class="carousel" #slickmodal="slick-carousel" [config]="slideConfig">
+    <div ngxSlickItem *ngFor="let slide of slides" class="slide myslide">
+      <img src="{{ slide.img }}" class="moods" width="100%">
+    </div>
+  </ngx-slick-carousel>
+
+</div>

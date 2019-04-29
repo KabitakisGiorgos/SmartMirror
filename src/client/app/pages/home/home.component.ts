@@ -4,9 +4,13 @@ import { Subscription } from 'rxjs';
 import { LeapHandlerService } from '../../services/leap-handler.service';
 import { LoggerService } from '../../services/logger.service';
 import { Http } from '@angular/http';
+import { slideInUpOnEnterAnimation } from 'angular-animations';
 @Component({
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+  styleUrls: ['./home.component.scss'],
+  animations: [
+    slideInUpOnEnterAnimation({ anchor: 'enter', duration: 1500 })
+  ]
 })
 export class HomeComponent implements OnInit {
   subscription: Subscription;

@@ -1,10 +1,14 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
+import { slideInUpOnEnterAnimation } from 'angular-animations';
 
 @Component({
   selector: 'app-media',
   templateUrl: './media.component.html',
-  styleUrls: ['./media.component.scss']
+  styleUrls: ['./media.component.scss'],
+  animations: [
+    slideInUpOnEnterAnimation({ anchor: 'enter', duration: 1500 })
+  ]
 })
 export class MediaComponent implements OnInit {
   @ViewChild('slickModal') carousel: any;
