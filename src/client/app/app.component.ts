@@ -13,9 +13,16 @@ export class AppComponent implements OnInit {
   constructor(
     private assistant: AssistantService,
     private events: EventsService) {
+    /**
+     *  togle/hide/display
+     */
     this.events.subscribe('menu-display', (data) => {
-      if (data.action) {
+      if (data.action === 'toggle') {
+        this.toggleMenu();
+      } else if (data.action === 'hide') {
         this.hideMenu();
+      } else if (data.action === 'display') {
+        this.displayMenu();
       }
     });
   }
@@ -25,12 +32,20 @@ export class AppComponent implements OnInit {
   }
 
 
-  hideMenu() {
+  toggleMenu() {
     if ($('.row.footer').css('display') === 'none') {
       $('.row.footer').css('display', 'block');
     } else {
       $('.row.footer').css('display', 'none');
     }
+  }
+
+  hideMenu() {
+    $('.row.footer').css('display', 'none');
+  }
+
+  displayMenu() {
+    $('.row.footer').css('display', 'block');
   }
 
   ngOnDestroy() {

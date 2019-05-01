@@ -18,8 +18,12 @@ export class NavbarComponent {
     private events: EventsService) {
 
     this.events.subscribe('navbar-display', (data) => {
-      if (data.action) {
-        this.hide();
+      if (data.action === 'toggle') {
+        this.toggleNavbar();
+      } else if (data.action === 'hide') {
+        this.hideNavbar();
+      } else if (data.action === 'display') {
+        this.displayNavbar();
       }
     });
 
@@ -96,19 +100,27 @@ export class NavbarComponent {
     });
   }
 
-  hide() {
+  toggleNavbar() {
     if (this.show) {
       this.show = !this.show;
       $("#navbar").slideUp(() => {
-        // setTimeout(() => {//Just for debbuging
-        //   $("#navbar").slideDown();
-        // }, 2000);
+        //Just to remember you can pass callback
       });
     }
     else {
       $("#navbar").slideDown();
       this.show = !this.show;
     }
+  }
+
+  displayNavbar() {
+    this.show = true;
+    $("#navbar").slideDown();
+  }
+
+  hideNavbar() {
+    this.show = false;
+    $("#navbar").slideUp();
   }
 
   ngOnDestroy() {

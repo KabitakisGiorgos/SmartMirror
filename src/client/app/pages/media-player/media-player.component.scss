@@ -19,6 +19,10 @@ plyr {
   }
 }
 
+:host ::ng-deep .plyr__progress__buffer {
+  display: none;
+}
+
 :host ::ng-deep .plyr__controls__item.plyr__menu {
   display: none;
 }
@@ -27,4 +31,18 @@ plyr {
   &[data-plyr="play"] {
     display: none;
   }
+}
+
+:host ::ng-deep input[type=range]::-webkit-slider-runnable-track {
+  height: 19px;
+  color: red;
+  border: none;
+}
+
+:host ::ng-deep input[type=range]::-webkit-slider-thumb {
+  visibility: hidden;
+}
+
+:host ::ng-deep .plyr__controls__item.plyr__volume {
+  display: none;
 }

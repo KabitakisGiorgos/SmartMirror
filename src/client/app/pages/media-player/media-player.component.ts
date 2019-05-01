@@ -23,6 +23,8 @@ export class MediaPlayerComponent {
     private renderer: Renderer2
   ) {
     this.renderer.setStyle(document.body, 'background-color', 'black');
+    this.events.publish('navbar-display', { action: 'hide' });
+    this.events.publish('menu-display', { action: 'hide' });
     this.url = this.route.snapshot.paramMap.get('url');
     this.title = this.route.snapshot.paramMap.get('title');
     this.videoSources.push({
@@ -32,7 +34,7 @@ export class MediaPlayerComponent {
   }
 
   //FIXME: do this change and on leap movement and add the controllers too
-
+  //FIXME: timers to hide again and see the interaction
   ngAfterViewInit() {
     this.plyr.player.play();
     this.plyr
@@ -47,16 +49,16 @@ export class MediaPlayerComponent {
   // }
 
   pause(event) {
-    this.events.publish('navbar-display', { action: 'toogle' });
-    this.events.publish('menu-display', { action: 'toogle' });
+    this.events.publish('navbar-display', { action: 'display' });
+    this.events.publish('menu-display', { action: 'display' });
     $('#plyrPlayer').css('width', '1662px')
       .css('margin', 'auto');
     $('.plyr__controls').css('display', 'flex');
   }
 
   play(event) {
-    this.events.publish('navbar-display', { action: 'toogle' });
-    this.events.publish('menu-display', { action: 'toogle' });
+    this.events.publish('navbar-display', { action: 'hide' });
+    this.events.publish('menu-display', { action: 'hide' });
     $('#plyrPlayer').css('width', '1960px')
       .css('margin', 'unset')
       .css('margin-left', '-15px');
@@ -67,8 +69,8 @@ export class MediaPlayerComponent {
 
 
   ngOnDestroy() {
-    this.events.publish('navbar-display', { action: 'toogle' });//FIXME: no toogle only open close 
-    this.events.publish('menu-display', { action: 'toogle' });
+    this.events.publish('navbar-display', { action: 'display' });
+    this.events.publish('menu-display', { action: 'display' });
     this.renderer.setStyle(document.body, 'background-color', '#0C3958');
   }
 
