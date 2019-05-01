@@ -46,3 +46,11 @@ plyr {
 :host ::ng-deep .plyr__controls__item.plyr__volume {
   display: none;
 }
+
+:host ::ng-deep .plyr_title {
+  font-size: 33px;
+  color: white;
+  position: absolute;
+  margin-top: 50px;
+  margin-left: 50px;
+}

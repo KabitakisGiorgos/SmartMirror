@@ -36,8 +36,9 @@ export class MediaPlayerComponent {
   //FIXME: do this change and on leap movement and add the controllers too
   //FIXME: timers to hide again and see the interaction
   ngAfterViewInit() {
+    $('.plyr__video-wrapper.plyr__video-wrapper--fixed-ratio').append('<div class="plyr_title">' + this.title + '</div>');
     this.plyr.player.play();
-    this.plyr
+
   }
 
   // play() {
@@ -54,6 +55,8 @@ export class MediaPlayerComponent {
     $('#plyrPlayer').css('width', '1662px')
       .css('margin', 'auto');
     $('.plyr__controls').css('display', 'flex');
+    $('.plyr_title').css('display', 'block');
+
   }
 
   play(event) {
@@ -64,6 +67,7 @@ export class MediaPlayerComponent {
       .css('margin-left', '-15px');
 
     $('.plyr__controls').css('display', 'none');//WORKS
+    $('.plyr_title').css('display', 'none');
   }
 
 
