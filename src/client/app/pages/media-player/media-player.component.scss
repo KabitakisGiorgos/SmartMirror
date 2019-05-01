@@ -1,0 +1,30 @@
+plyr {
+  margin-left: -15px;
+}
+
+:host ::ng-deep .plyr__controls {
+  background: unset !important;
+  margin-bottom: 50px !important;
+}
+
+
+:host ::ng-deep .plyr__controls__item.plyr__control {
+
+  &[data-plyr="fullscreen"] {
+    display: none;
+  }
+
+  &[data-plyr="play"] {
+    display: none;
+  }
+}
+
+:host ::ng-deep .plyr__controls__item.plyr__menu {
+  display: none;
+}
+
+:host ::ng-deep .plyr__control.plyr__control--overlaid {
+  &[data-plyr="play"] {
+    display: none;
+  }
+}

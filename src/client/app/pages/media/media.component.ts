@@ -30,7 +30,7 @@ export class MediaComponent implements OnInit {
       image: '../../../assets/images/post.png',
       repeats: '12',
       duration: '4:01',
-      url: 'test'
+      url: '../../../assets/video/postmalone.mp4'
     },
     {
       title: 'Iron Maiden - Alexander The Great',
@@ -110,7 +110,7 @@ export class MediaComponent implements OnInit {
   }
 
   go2Song(song) {
-    this.router.navigate(['/media/player', { song: song.url }]);
+    this.router.navigate(['/media/player', { url: song.url, title: song.title }]);
   }
 
 }

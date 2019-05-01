@@ -8,4 +8,4 @@ npm-debug.log
 coverage
 package-lock.json
 
-LeapMotionTS/
+src/client/assets/video/
