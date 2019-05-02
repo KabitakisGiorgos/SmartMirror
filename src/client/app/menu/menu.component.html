@@ -5,7 +5,7 @@
 
   <div class="row" style="margin-top:20px;">
     <div id="{{'menu-'+menu[2].component}}" class="circle" (click)="navigate(menu[2].component)">
-      <img class="menuItem" [src]="menu[2].src">
+      <img id="{{'menu-'+menu[2].component}}" class="menuItem" [src]="menu[2].src">
     </div>
     <div class="selectedCircle">
     </div>
@@ -13,19 +13,19 @@
 
   <div class="row">
     <div id="{{'menu-'+menu[1].component}}" (click)="navigate(menu[1].component)" class="circle alignMenu1">
-      <img class="menuItem" [src]="menu[1].src">
+      <img id="{{'menu-'+menu[1].component}}" class="menuItem" [src]="menu[1].src">
     </div>
     <div id="{{'menu-'+menu[3].component}}" (click)="navigate(menu[3].component)" class="circle">
-      <img class="menuItem" [src]="menu[3].src">
+      <img id="{{'menu-'+menu[3].component}}" class="menuItem" [src]="menu[3].src">
     </div>
   </div>
 
   <div class="row" style="margin-top:10px">
     <div id="{{'menu-'+menu[0].component}}" (click)="navigate(menu[0].component)" class="circle alignMenu2">
-      <img class="menuItem" [src]="menu[0].src">
+      <img id="{{'menu-'+menu[0].component}}" class="menuItem" [src]="menu[0].src">
     </div>
     <div id="{{'menu-'+menu[4].component}}" (click)="navigate(menu[4].component)" class="circle">
-      <img class="menuItem" [src]="menu[4].src">
+      <img id="{{'menu-'+menu[4].component}}" class="menuItem" [src]="menu[4].src">
     </div>
   </div>
 

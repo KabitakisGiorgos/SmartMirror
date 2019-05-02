@@ -118,18 +118,35 @@ export class Cursor {
 
     checkCollisions() {
         var cursorRect = document.getElementsByClassName('cursor')[0].getBoundingClientRect();
-
+        let topMost = document.elementFromPoint(cursorRect.left - 1, cursorRect.top - 1);//The minus 1 is for ignoring the cursor itself
+        //TODO: this method with id's might need refactor
         return new Promise((resolve, reject) => {
             if (this.selectableDivs) {
-                this.selectableDivs.forEach((element) => {
-                    var elementRect = document.getElementById(element).getBoundingClientRect();
-                    if (!(cursorRect.right < elementRect.left ||
-                        cursorRect.left > elementRect.right ||
-                        cursorRect.bottom < elementRect.top ||
-                        cursorRect.top > elementRect.bottom)) resolve(element.toString());
-                });
+                for (let i = 0; i < this.selectableDivs.length; i++) {
+                    try {
+                        if (topMost.id != this.selectableDivs[i]) {
+                            continue;
+                        }
+                        var elementRect = document.getElementById(this.selectableDivs[i]).getBoundingClientRect();
+                        if (!(cursorRect.right < elementRect.left ||
+                            cursorRect.left > elementRect.right ||
+                            cursorRect.bottom < elementRect.top ||
+                            cursorRect.top > elementRect.bottom)) {
+                            resolve(this.selectableDivs[i].toString());
+                            return;
+                        }
+                    }
+                    catch (e) {
+                        resolve(null);
+                        return;
+                    }
+                }
+                resolve(null);
+                return;
+
             } else {
                 resolve(null);
+                return;
             }
         });
     }
