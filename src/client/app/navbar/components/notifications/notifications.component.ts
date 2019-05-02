@@ -5,6 +5,8 @@ import { LoggerService } from '../../../services/logger.service';
 import config from '../../../services/config.json';
 import * as d3 from 'd3';
 import { NgxSmartModalService } from 'ngx-smart-modal';
+import { LeapHandlerService } from '../../../services/leap-handler.service';
+
 @Component({
   selector: 'app-notifications',
   templateUrl: './notifications.component.html',
@@ -15,12 +17,16 @@ export class NotificationsComponent implements OnInit {
   chartJson: object = {
     'children': []
   };
+  clickableElements: Array<string> = ['notifications'];
 
   constructor(
     private socketService: SocketService,
     private logger: LoggerService,
     private http: HttpClient,
-    public ngxSmartModalService: NgxSmartModalService) {
+    public ngxSmartModalService: NgxSmartModalService,
+    private leap: LeapHandlerService) {
+
+    this.leap.registerDivs(this.clickableElements);
     this.http.get('/api/notifications')
       .toPromise()
       .then(data => {
@@ -53,6 +59,7 @@ export class NotificationsComponent implements OnInit {
   }
 
   ngOnDestroy() {
+    this.leap.unregisterDivs(this.clickableElements);
     this.socketService.unsyncUpdates('notification');
     this.socketService.unsubscribeMessages();
   }

@@ -119,12 +119,11 @@ export class Cursor {
     checkCollisions() {
         var cursorRect = document.getElementsByClassName('cursor')[0].getBoundingClientRect();
         let topMost = document.elementFromPoint(cursorRect.left - 1, cursorRect.top - 1);//The minus 1 is for ignoring the cursor itself
-        //TODO: this method with id's might need refactor
         return new Promise((resolve, reject) => {
             if (this.selectableDivs) {
                 for (let i = 0; i < this.selectableDivs.length; i++) {
-                    try {
-                        if (topMost.id != this.selectableDivs[i]) {
+                    try {//FIXME: this needs fix in taking all the parent nodes and checking them and not just hardcoded taking the first 2 parents
+                        if (topMost.id != this.selectableDivs[i] && topMost.parentElement.id != this.selectableDivs[i] && topMost.parentElement.parentElement.id != this.selectableDivs[i]) {
                             continue;
                         }
                         var elementRect = document.getElementById(this.selectableDivs[i]).getBoundingClientRect();
