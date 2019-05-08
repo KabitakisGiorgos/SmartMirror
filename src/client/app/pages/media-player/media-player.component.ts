@@ -70,8 +70,9 @@ export class MediaPlayerComponent {
 
   }
 
-  //FIXME: do this change and on leap movement and add the controllers too
-  //FIXME: timers to hide again and see the interaction
+  //FIXME: do this change and on leap movement and add the controllers too event here for the cursor to appear the controlls
+  //FIXME: timers to hide again and see the interaction will be handled by leap handler
+  //FIXME: navigation to songs and add a suggested playlist
   //FIXME: make functions about all the components hide and display
   ngAfterViewInit() {
     this.plyr.player.config.autoplay = true;
@@ -115,13 +116,8 @@ export class MediaPlayerComponent {
   // }
 
   pause(event) {
-    // this.events.publish('navbar-display', { action: 'display' });
-    // this.events.publish('menu-display', { action: 'display' });
-    // $('#plyrPlayer').css('width', '1662px')//fix size
-    //   .css('margin', 'auto');
-    $('.plyr__controls').css('display', 'flex');//display controlls 
-    // $('.plyr_title').css('display', 'block');
-
+    this.ComponentsDisplay();
+    this.playerDisplayControlls();
   }
 
   play(event) {
@@ -139,5 +135,17 @@ export class MediaPlayerComponent {
     this.events.publish('navbar-display', { action: 'display' });
     this.events.publish('menu-display', { action: 'display' });
     this.renderer.setStyle(document.body, 'background-color', '#0C3958');
+  }
+
+  ComponentsDisplay() {
+    this.events.publish('navbar-display', { action: 'display' });
+    this.events.publish('menu-display', { action: 'display' });
+    $('#plyrPlayer').css('width', '1662px')//fix size
+      .css('margin', 'auto');
+  }
+
+  playerDisplayControlls() {
+    $('.plyr__controls').css('display', 'flex');//display controlls 
+    $('.plyr_title').css('display', 'block');
   }
 }

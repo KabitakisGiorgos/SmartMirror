@@ -208,7 +208,6 @@ export class NotificationsComponent implements OnInit {
   }
 
   openModal() {
-    //FIXME: the messages inside bubbles
     this.ngxSmartModalService.getModal('myModal').open();
     setTimeout(() => {//Dont remove its for async
       d3.select('#chart2').select('svg').remove();

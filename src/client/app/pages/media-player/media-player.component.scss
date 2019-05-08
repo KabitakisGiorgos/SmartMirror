@@ -17,6 +17,10 @@ plyr {
   &[data-plyr="play"] {
     display: none;
   }
+
+  &[data-plyr="pip"] {
+    display: none;
+  }
 }
 
 :host ::ng-deep .plyr__progress__buffer {

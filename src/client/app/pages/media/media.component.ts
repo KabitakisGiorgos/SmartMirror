@@ -25,7 +25,7 @@ export class MediaComponent implements OnInit {
     { img: '../../../assets/images/classical.png' }
   ];
 
-  favorites = [//FIXME: these prolly need transfer and not being hard coded
+  favorites = [
     {
       id: 1,
       title: 'Post Malone - Rockstar ft. 21 Savage',

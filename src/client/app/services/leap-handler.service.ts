@@ -5,8 +5,6 @@ import * as Leap from 'leapjs'
 import { debugMode } from '../../environments/environment';
 import * as $ from 'jquery'
 
-//FIXME: Might also need the class in colliding cause of the overlapping doms check it, it ll be an issue
-
 @Injectable({
   providedIn: 'root'
 })
@@ -28,7 +26,6 @@ export class LeapHandlerService {
 
   init() {
     this.controller = new Leap.Controller({ enableGestures: true });
-    //Not really good idea to have cursor and swipe gestures
     this.controller.loop(async (frame) => {
       var pointable = frame.hands[0];
       if (pointable) {
@@ -96,6 +93,7 @@ export class LeapHandlerService {
   }
 
   disableCursor() {
+    //FIXME: here emit event about cursor hidding and appearing to inform player
     this.cursor.Hide();
     this.cursorOn = false;
     this.cursor.setSelectedElement(null);
