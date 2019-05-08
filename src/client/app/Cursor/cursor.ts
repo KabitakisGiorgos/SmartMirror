@@ -65,8 +65,8 @@ export class Cursor {
                 //change cursor to tap
                 this.setTapIcon()
             } else this.SetOrientation('left');//TODO: this remove 
-            }
         }
+    }
 
     /**
     * Sets left or right hand orientation
@@ -123,6 +123,9 @@ export class Cursor {
             if (this.selectableDivs) {
                 for (let i = 0; i < this.selectableDivs.length; i++) {
                     try {
+                        /**
+                         *  Code for overlapping divs registered
+                         */
                         var element = topMost;
                         var found = false;
 
@@ -142,7 +145,7 @@ export class Cursor {
                         if (!found) {
                             continue;
                         }
-
+                        //END
                         var elementRect = document.getElementById(this.selectableDivs[i]).getBoundingClientRect();
                         if (!(cursorRect.right < elementRect.left ||
                             cursorRect.left > elementRect.right ||

@@ -16,8 +16,11 @@
  </div>
 
  <ngx-smart-modal #myModal identifier="myModal">
-   <div *ngIf="chartJson.children.length>0;else noNotification" id="chart2" class="chart"></div>
-   <ng-template #noNotification>
-     <img class="nonotification" src="../../../../assets/images/no_notifications.png">
-   </ng-template>
+   <div id="notification_modal" (click)="closeModal()">
+     <div *ngIf="chartJson.children.length>0;else noNotification" id="chart2" class="chart"></div>
+     <ng-template #noNotification>
+       <img class="nonotification" src="../../../../assets/images/no_notifications.png">
+     </ng-template>
+   </div>
+
  </ngx-smart-modal>

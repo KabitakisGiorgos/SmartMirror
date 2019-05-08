@@ -17,7 +17,7 @@ export class NotificationsComponent implements OnInit {
   chartJson: object = {
     'children': []
   };
-  clickableElements: Array<string> = ['notifications'];
+  clickableElements: Array<string> = ['notifications', 'notification_modal'];
 
   constructor(
     private socketService: SocketService,
@@ -214,5 +214,9 @@ export class NotificationsComponent implements OnInit {
       d3.select('#chart2').select('svg').remove();
       this.chartInit('#chart2', 600, true);
     });
+  }
+
+  closeModal() {
+    this.ngxSmartModalService.getModal('myModal').close();
   }
 }
