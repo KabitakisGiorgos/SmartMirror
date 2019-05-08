@@ -64,9 +64,9 @@ export class Cursor {
             if (tmpId) {
                 //change cursor to tap
                 this.setTapIcon()
+            } else this.SetOrientation('left');//TODO: this remove 
             }
         }
-    }
 
     /**
     * Sets left or right hand orientation
@@ -122,10 +122,27 @@ export class Cursor {
         return new Promise((resolve, reject) => {
             if (this.selectableDivs) {
                 for (let i = 0; i < this.selectableDivs.length; i++) {
-                    try {//FIXME: this needs fix in taking all the parent nodes and checking them and not just hardcoded taking the first 2 parents
-                        if (topMost.id != this.selectableDivs[i] && topMost.parentElement.id != this.selectableDivs[i] && topMost.parentElement.parentElement.id != this.selectableDivs[i]) {
+                    try {
+                        var element = topMost;
+                        var found = false;
+
+                        if (topMost.id != this.selectableDivs[i]) {
+                            for (; element.parentElement;) {
+                                if (element.parentElement.id === this.selectableDivs[i]) {
+                                    found = true;
+                                    break;
+
+                                } else {
+                                    element = element.parentElement;
+                                }
+                            }
+                        } else found = true;
+
+
+                        if (!found) {
                             continue;
                         }
+
                         var elementRect = document.getElementById(this.selectableDivs[i]).getBoundingClientRect();
                         if (!(cursorRect.right < elementRect.left ||
                             cursorRect.left > elementRect.right ||
