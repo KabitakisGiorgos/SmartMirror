@@ -44,7 +44,7 @@
 
   <ngx-slick-carousel class="carousel" #slickmodal="slick-carousel" [config]="slideConfig">
     <div ngxSlickItem *ngFor="let slide of slides" class="slide myslide">
-      <img src="{{ slide.img }}" class="moods" width="100%">
+      <img src="{{ slide.img }}" class="widget" [ngClass]="slide.class" width="100%">
     </div>
   </ngx-slick-carousel>
 

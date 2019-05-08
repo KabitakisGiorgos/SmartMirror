@@ -18,9 +18,18 @@ export class HomeComponent implements OnInit {
   selectedEvent: string;
   @ViewChild('slickModal') carousel: any;
   slides = [
-    { img: 'https://via.placeholder.com/150' },
-    { img: 'https://via.placeholder.com/150' },
-    { img: 'https://via.placeholder.com/150' },
+    {
+      img: '../../../assets/images/homeWidgets/Hypnos.png',
+      class: 'hypnos'
+    },
+    {
+      img: '../../../assets/images/homeWidgets/Traffic.png',
+      class: 'commute'
+    },
+    {
+      img: '../../../assets/images/homeWidgets/Work.png',
+      class: 'work'
+    },
     { img: 'https://via.placeholder.com/150' },
     { img: 'https://via.placeholder.com/150' },
     { img: 'https://via.placeholder.com/150' },
@@ -33,7 +42,8 @@ export class HomeComponent implements OnInit {
     slidesToShow: 4,
     slidesToScroll: 1,
     arrows: false,
-    infinite: false
+    infinite: false,
+    variableWidth: true
   };
 
   constructor(

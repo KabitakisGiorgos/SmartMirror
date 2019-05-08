@@ -22,10 +22,26 @@
   outline: none;
 }
 
-.moods {
-  width: 243px;
-  height: 235px;
-  margin-right: 30px;
+.widget {
+  height: 447px;
+  margin-right: 70px;
+
+  &.hypnos {
+    width: 304px;
+    margin-left: 30px;
+  }
+
+  &.commute {
+    width: 621px;
+  }
+
+  &.work {
+    width: 845px;
+  }
+}
+
+.slick-track {
+  width: 10000px !important;
 }
 
 .carousel {
