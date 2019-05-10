@@ -4,6 +4,7 @@ import config from './config.json';
 import * as Leap from 'leapjs'
 import { debugMode } from '../../environments/environment';
 import * as $ from 'jquery'
+import { EventsService } from './events.service';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +18,7 @@ export class LeapHandlerService {
   cursorTimer: number = 0;
   delayTimer: number = 0;
 
-  constructor() {
+  constructor(private events: EventsService) {
     this.cursor = new Cursor(debugMode.Cursor);
     this.enableCursor();
     if (!debugMode.Cursor)
@@ -90,12 +91,13 @@ export class LeapHandlerService {
   enableCursor() {
     this.cursorOn = true;
     this.cursor.Show();
+    this.events.publish('cursor', { visibility: this.cursorOn });
   }
 
   disableCursor() {
-    //FIXME: here emit event about cursor hidding and appearing to inform player
     this.cursor.Hide();
     this.cursorOn = false;
+    this.events.publish('cursor', { visibility: this.cursorOn });
     this.cursor.setSelectedElement(null);
   }
 

@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { slideInUpOnEnterAnimation } from 'angular-animations';
 import * as $ from 'jquery';
+import { LeapHandlerService } from '../../services/leap-handler.service';
 
 @Component({
   selector: 'app-media',
@@ -140,10 +141,19 @@ export class MediaComponent implements OnInit {
     infinite: false,
   };
   favoriteInDisplay: number = 1;
+  clickableElements: Array<string> = [];
 
   constructor(
-    private router: Router
-  ) { }
+    private router: Router,
+    private leap: LeapHandlerService
+  ) {
+    for (let i = 0; i < this.favorites.length; i++) {
+      this.clickableElements.push('song' + this.favorites[i].id);
+    }
+    console.log(this.clickableElements);
+
+    this.leap.registerDivs(this.clickableElements);
+  }
 
   ngOnInit() {
 
@@ -175,4 +185,7 @@ export class MediaComponent implements OnInit {
       this.router.navigate(['/media/player', { url: song.url, title: song.title }]);
   }
 
+  ngOnDestroy() {
+    this.leap.unregisterDivs(this.clickableElements);
+  }
 }

@@ -49,6 +49,13 @@ export class MediaPlayerComponent {
     private events: EventsService,
     private renderer: Renderer2
   ) {
+    this.events.subscribe('cursor', (data) => {
+      if (data.visibility) {
+        this.playerDisplayControlls();
+      } else {
+        this.playerHideControlls();
+      }
+    });
     this.renderer.setStyle(document.body, 'background-color', 'black');
     this.events.publish('navbar-display', { action: 'hide' });
     this.events.publish('menu-display', { action: 'hide' });
@@ -70,10 +77,11 @@ export class MediaPlayerComponent {
 
   }
 
-  //FIXME: do this change and on leap movement and add the controllers too event here for the cursor to appear the controlls
-  //FIXME: timers to hide again and see the interaction will be handled by leap handler
+  //TESTME: do this change and on leap movement and add the controllers too event here for the cursor to appear the controlls
+  //TESTME: timers to hide again and see the interaction will be handled by leap handler
   //FIXME: navigation to songs and add a suggested playlist
   //FIXME: make functions about all the components hide and display
+  //FIXME: clickable songs
   ngAfterViewInit() {
     this.plyr.player.config.autoplay = true;
     this.player.on('ended', () => {
@@ -115,20 +123,14 @@ export class MediaPlayerComponent {
   //   this.plyr.player.stop() // or this.plyr.player.play()
   // }
 
-  pause(event) {
+  pause(event) {//Eventlisteners
     this.ComponentsDisplay();
     this.playerDisplayControlls();
   }
 
-  play(event) {
-    this.events.publish('navbar-display', { action: 'hide' });
-    this.events.publish('menu-display', { action: 'hide' });
-    $('#plyrPlayer').css('width', '1960px')
-      .css('margin', 'unset')
-      .css('margin-left', '-15px');
-
-    $('.plyr__controls').css('display', 'none');//hide controlls
-    $('.plyr_title').css('display', 'none');
+  play(event) {//Eventlisteners
+    this.ComponentsHide();
+    this.playerHideControlls();
   }
 
   ngOnDestroy() {
@@ -144,8 +146,21 @@ export class MediaPlayerComponent {
       .css('margin', 'auto');
   }
 
+  ComponentsHide() {
+    this.events.publish('navbar-display', { action: 'hide' });
+    this.events.publish('menu-display', { action: 'hide' });
+    $('#plyrPlayer').css('width', '1960px')
+      .css('margin', 'unset')
+      .css('margin-left', '-15px');
+  }
+
   playerDisplayControlls() {
     $('.plyr__controls').css('display', 'flex');//display controlls 
     $('.plyr_title').css('display', 'block');
+  }
+
+  playerHideControlls() {
+    $('.plyr__controls').css('display', 'none');//hide controlls
+    $('.plyr_title').css('display', 'none');
   }
 }
