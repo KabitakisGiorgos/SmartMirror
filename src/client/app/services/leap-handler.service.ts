@@ -91,7 +91,7 @@ export class LeapHandlerService {
   enableCursor() {
     this.cursorOn = true;
     this.cursor.Show();
-    this.events.publish('cursor', { visibility: this.cursorOn });
+    this.events.publish('cursor', { visibility: this.cursorOn });//TESTME: or move it to the cursor.ts
   }
 
   disableCursor() {

@@ -32,7 +32,7 @@ import { ParticlesModule } from 'angular-particle';
     BrowserAnimationsModule,
     HttpClientModule,
     ParticlesModule,
-    SingletonModule.forRoot({}),
+    SingletonModule.forRoot(),
     NgxSmartModalModule.forRoot()
   ],
   providers: [],

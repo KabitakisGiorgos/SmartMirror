@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { slideInUpOnEnterAnimation } from 'angular-animations';
 import * as $ from 'jquery';
 import { LeapHandlerService } from '../../services/leap-handler.service';
+import { AssistantService } from '../../services/assistant.service';
 
 @Component({
   selector: 'app-media',
@@ -33,7 +34,8 @@ export class MediaComponent implements OnInit {
       image: '../../../assets/images/post.png',
       repeats: '12',
       duration: '4:01',
-      url: '../../../assets/video/postmalone.mp4'
+      url: '../../../assets/video/postmalone.mp4',
+      abbrev: 'rockstar'
     },
     {
       id: 2,
@@ -41,7 +43,8 @@ export class MediaComponent implements OnInit {
       image: '../../../assets/images/vengful.png',
       repeats: '22',
       duration: '4:22',
-      url: '../../../assets/video/vengful.mp4'
+      url: '../../../assets/video/vengful.mp4',
+      abbrev: 'the vengful one'
     },
     {
       id: 3,
@@ -49,7 +52,8 @@ export class MediaComponent implements OnInit {
       image: '../../../assets/images/dream.png',
       repeats: '11',
       duration: '6:38',
-      url: '../../../assets/video/dream.mp4'
+      url: '../../../assets/video/dream.mp4',
+      abbrev: 'dream no more'
     },
     {
       id: 4,
@@ -57,7 +61,8 @@ export class MediaComponent implements OnInit {
       image: '../../../assets/images/sad.png',
       repeats: '9',
       duration: '5:28',
-      url: '../../../assets/video/sad.mp4'
+      url: '../../../assets/video/sad.mp4',
+      abbrev: 'sad bad true'
     },
     {
       id: 5,
@@ -65,7 +70,8 @@ export class MediaComponent implements OnInit {
       image: '../../../assets/images/lex.png',
       repeats: '11',
       duration: '3:19',
-      url: '../../../assets/video/lex.mp4'
+      url: '../../../assets/video/lex.mp4',
+      abbrev: 'lex'
     },
     {
       id: 6,
@@ -145,8 +151,16 @@ export class MediaComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private leap: LeapHandlerService
+    private leap: LeapHandlerService,
+    private assistant: AssistantService
   ) {
+    this.assistant.playSongs(['rockstar', 'the vengful one', 'dream no more', 'sad but true', 'lex']);
+    this.assistant.subscribe('song', (data) => {
+      let song = this.favorites.find((element) => {
+        return element.abbrev === data;
+      });
+      this.go2Song(song);
+    });
     for (let i = 0; i < this.favorites.length; i++) {
       this.clickableElements.push('song' + this.favorites[i].id);
     }
@@ -187,5 +201,6 @@ export class MediaComponent implements OnInit {
 
   ngOnDestroy() {
     this.leap.unregisterDivs(this.clickableElements);
+    this.assistant.unsubscribe('song');
   }
 }

@@ -1,6 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { AssistantService } from '../../services/assistant.service';
-import { Subscription } from 'rxjs';
 import { LeapHandlerService } from '../../services/leap-handler.service';
 import { LoggerService } from '../../services/logger.service';
 import { Http } from '@angular/http';
@@ -13,7 +12,6 @@ import { slideInUpOnEnterAnimation } from 'angular-animations';
   ]
 })
 export class HomeComponent implements OnInit {
-  subscription: Subscription;
   events: any;
   selectedEvent: number;
   clickableElements: Array<string> = [];
@@ -56,11 +54,6 @@ export class HomeComponent implements OnInit {
   }
 
   async ngOnInit() {
-    this.assistant.navigationCommands();
-    this.assistant.testingCommands();
-    this.subscription = this.assistant.subject.subscribe((data) => {
-      this.logger.log(data, 'Home');
-    });
     try {
       this.events = await this.retrieveEvents();
       this.selectedEvent = 0;
@@ -75,8 +68,6 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnDestroy() {
-    this.subscription.unsubscribe();
-    this.assistant.deleteCommands();
     this.leap.unregisterDivs(this.clickableElements);
   }
 

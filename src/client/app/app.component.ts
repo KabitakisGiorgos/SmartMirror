@@ -68,6 +68,12 @@ export class AppComponent implements OnInit {
         this.screenSaver = true;
       }
     });
+
+    this.assistant.subscribe('interaction', (data) => {
+      if (data) {
+        this.screenSaver = false;
+      }
+    });
   }
 
   ngOnInit() {//TODO:maybe when on demo mode running add  the retrieve news here at initialazation

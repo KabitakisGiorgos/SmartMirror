@@ -11,12 +11,8 @@ export class CalendarComponent implements OnInit {
   constructor(private assistant: AssistantService) { }
 
   ngOnInit() {
-    this.assistant.navigationCommands();
-    this.assistant.testingCommands();
   }
 
   ngOnDestroy() {
-    this.assistant.deleteCommands();
   }
-
 }

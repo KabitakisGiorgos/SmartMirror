@@ -4,11 +4,13 @@ import { CommonModule } from '@angular/common';
 import { LeapHandlerService } from './leap-handler.service';
 import { LoggerService } from './logger.service';
 import { SocketService } from './socket.service';
+import { EventsService } from './events.service';
 @NgModule({
     imports: [CommonModule],
     declarations: [],
     exports: [],
     providers: [
+        EventsService,
         AssistantService,
         LeapHandlerService,
         LoggerService,
@@ -25,11 +27,11 @@ export class SingletonModule {
         }
     }
 
-    static forRoot(config: SingletonModule): ModuleWithProviders {
+    static forRoot(): ModuleWithProviders {
         return {
             ngModule: SingletonModule,
             providers: [
-                { provide: SingletonModule, useValue: config }
+                { provide: SingletonModule }
             ]
         };
     }
