@@ -15,7 +15,8 @@ import { slideInUpOnEnterAnimation } from 'angular-animations';
 export class HomeComponent implements OnInit {
   subscription: Subscription;
   events: any;
-  selectedEvent: string;
+  selectedEvent: number;
+  clickableElements: Array<string> = [];
   @ViewChild('slickModal') carousel: any;
   slides = [
     {
@@ -55,7 +56,6 @@ export class HomeComponent implements OnInit {
   }
 
   async ngOnInit() {
-    // this.leap.registerDivs(['news', 'health', 'schedule']);
     this.assistant.navigationCommands();
     this.assistant.testingCommands();
     this.subscription = this.assistant.subject.subscribe((data) => {
@@ -63,7 +63,11 @@ export class HomeComponent implements OnInit {
     });
     try {
       this.events = await this.retrieveEvents();
-      this.selectedEvent = this.events[0];
+      this.selectedEvent = 0;
+      for (let i = 0; i < this.events.length; i++) {
+        this.clickableElements.push(this.events[i]._id);
+      }
+      this.leap.registerDivs(this.clickableElements);
     } catch (e) {
       console.error(e);
     }
@@ -73,7 +77,7 @@ export class HomeComponent implements OnInit {
   ngOnDestroy() {
     this.subscription.unsubscribe();
     this.assistant.deleteCommands();
-    // this.leap.unregisterDivs(['news', 'health', 'schedule']);
+    this.leap.unregisterDivs(this.clickableElements);
   }
 
 
@@ -106,6 +110,19 @@ export class HomeComponent implements OnInit {
     let percentage = (event.end - event.start) / (dayEnd - dayStart);
     percentage = percentage * 100;
     return percentage + '%';
+  }
+
+  select(slide) {
+    this.carousel.slickGoTo(slide);
+    this.selectedEvent = slide;
+  }
+
+  nextEvent() {//TODO: will be used from Jarvis
+    this.carousel.slickNext();
+  }
+
+  prevEvent() {
+    this.carousel.slickPrev();
   }
 }
 

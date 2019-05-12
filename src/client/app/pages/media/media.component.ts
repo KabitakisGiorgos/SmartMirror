@@ -171,13 +171,13 @@ export class MediaComponent implements OnInit {
   nextList() {
     this.favoriteInDisplay = this.favoriteInDisplay + 8;
     if (this.favoriteInDisplay > 14) this.favoriteInDisplay = 14;
-    document.getElementById(this.favoriteInDisplay.toString()).scrollIntoView({ block: 'nearest', inline: 'start', behavior: 'smooth' });
+    document.getElementById('song' + this.favoriteInDisplay.toString()).scrollIntoView({ block: 'nearest', inline: 'start', behavior: 'smooth' });
   }
 
-  previousList() {
+  previousList() {//For leap and assisant
     this.favoriteInDisplay = this.favoriteInDisplay - 8;
     if (this.favoriteInDisplay < 1) this.favoriteInDisplay = 1;
-    document.getElementById(this.favoriteInDisplay.toString()).scrollIntoView({ block: 'nearest', inline: 'start', behavior: 'smooth' });
+    document.getElementById('song' + this.favoriteInDisplay.toString()).scrollIntoView({ block: 'nearest', inline: 'start', behavior: 'smooth' });
   }
 
   go2Song(song) {

@@ -23,18 +23,18 @@
       <div class="curvedLine"></div>
       <div class="timeLine"></div>
       <div *ngFor="let event of events;let i=index">
-        <div class="eventWrapper" [style.left]="setPosition(event)" id="{{event._id}}"
+        <div class="eventWrapper" (click)="select(i)" [style.left]="setPosition(event)" id="{{event._id}}"
           *ngIf="!event.end; else eventSpan">
           <img class="eventIcon" src="../../../../../assets/icons/{{event.icon}}.png" alt="">
-          <div class="emptyEvent" [ngClass]="{'selected':i==0}"></div>
+          <div class="emptyEvent" [ngClass]="{'selected':i==selectedEvent}"></div>
         </div>
 
 
         <ng-template #eventSpan>
-          <div class="eventSpanWrapper" id="{{event._id}}" [style.left]="setPosition(event)"
+          <div class="eventSpanWrapper" (click)="select(i)" id="{{event._id}}" [style.left]="setPosition(event)"
             [style.width]="setEventWidth(event)">
             <img class="eventSpanIcon" src="../../../../../assets/icons/{{event.icon}}.png" alt="">
-            <div class="spanEvent" [ngClass]="{'selected':i==0}">{{event.title}}
+            <div class="spanEvent" [ngClass]="{'selected':i==selectedEvent}">{{event.title}}
             </div>
           </div>
         </ng-template>
@@ -42,10 +42,9 @@
     </div>
   </div>
 
-  <ngx-slick-carousel class="carousel" #slickmodal="slick-carousel" [config]="slideConfig">
+  <ngx-slick-carousel class="carousel" #slickModal="slick-carousel" [config]="slideConfig">
     <div ngxSlickItem *ngFor="let slide of slides" class="slide myslide">
       <img src="{{ slide.img }}" class="widget" [ngClass]="slide.class" width="100%">
     </div>
   </ngx-slick-carousel>
-
 </div>
