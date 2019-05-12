@@ -157,8 +157,6 @@ export class NotificationsComponent implements OnInit {
             return d.data.text;
           })
           .each(function (d) {
-            console.log(this)
-            console.log(d);
             var text = d3.select(this),
               width = d.r * 2,
               x = 0,
@@ -169,7 +167,6 @@ export class NotificationsComponent implements OnInit {
               lineNumber = 0,
               lineHeight = 1.1,
               tspan = text.text(null).append('tspan').attr('x', x).attr('y', y);
-            console.log(tspan);
             while (word = words.pop()) {
               line.push(word);
               tspan.text(line.join(' '));

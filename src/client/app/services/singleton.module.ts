@@ -3,6 +3,7 @@ import { AssistantService } from './assistant.service';
 import { CommonModule } from '@angular/common';
 import { LeapHandlerService } from './leap-handler.service';
 import { LoggerService } from './logger.service';
+import { SocketService } from './socket.service';
 @NgModule({
     imports: [CommonModule],
     declarations: [],
@@ -10,7 +11,8 @@ import { LoggerService } from './logger.service';
     providers: [
         AssistantService,
         LeapHandlerService,
-        LoggerService
+        LoggerService,
+        SocketService
     ]
 })
 

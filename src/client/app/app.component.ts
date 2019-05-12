@@ -61,6 +61,13 @@ export class AppComponent implements OnInit {
         this.displayMenu();
       }
     });
+    this.events.subscribe('screensaver', (data) => {
+      if (data.action === 'hide') {
+        this.screenSaver = false;
+      } else if (data.action === 'display') {
+        this.screenSaver = true;
+      }
+    });
   }
 
   ngOnInit() {//TODO:maybe when on demo mode running add  the retrieve news here at initialazation

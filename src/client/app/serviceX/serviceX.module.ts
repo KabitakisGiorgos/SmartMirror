@@ -1,9 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
 import { ServiceXComponent } from './serviceX.component';
 import { ServiceXRoutingModule } from './serviceX.routes.module';
-import { SocketService } from '../services/socket.service';
 
 @NgModule({
   declarations: [
@@ -14,7 +12,6 @@ import { SocketService } from '../services/socket.service';
     ServiceXRoutingModule
   ],
   providers: [
-    SocketService,
   ]
 })
 export class ServiceXModule { }
