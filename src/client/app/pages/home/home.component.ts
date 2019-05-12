@@ -9,7 +9,7 @@ import { slideInUpOnEnterAnimation } from 'angular-animations';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
   animations: [
-    slideInUpOnEnterAnimation({ anchor: 'enter', duration: 1500 })
+    slideInUpOnEnterAnimation({ anchor: 'enter', duration: 1200 })
   ]
 })
 export class HomeComponent implements OnInit {

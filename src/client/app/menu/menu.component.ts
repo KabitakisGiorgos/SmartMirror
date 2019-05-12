@@ -3,9 +3,11 @@ import { trigger, transition, query, stagger, animate, style, state } from '@ang
 import { AssistantService } from '../services/assistant.service';
 import { Router } from '@angular/router';
 import { LeapHandlerService } from '../services/leap-handler.service';
+import { slideInUpOnEnterAnimation } from 'angular-animations';
 
 @Component({
   animations: [
+    slideInUpOnEnterAnimation({ anchor: 'enter', duration: 800 }),
     trigger('openClose', [
       state('open', style({
         bottom: '360px'

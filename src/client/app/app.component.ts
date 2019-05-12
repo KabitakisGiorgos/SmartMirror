@@ -10,9 +10,45 @@ import { EventsService } from './services/events.service';
 })
 export class AppComponent implements OnInit {
   cursor: Cursor;
+  screenSaver: boolean = true;
+  today = new Date();
+  particlesStyles: object = {};
+  particlesParams: object = {
+    particles: {
+      size: {
+        value: 30
+      },
+      number: {
+        value: 20
+      },
+      line_linked: {
+        enable: false
+      },
+      move: {
+        speed: 3,
+        direction: 'top'
+      }
+    },
+    interactivity: {
+      events: {
+        onhover: {
+          enable: false,
+          mode: 'bubble'
+        },
+        onclick: {
+          enable: false,
+
+        }
+      }
+    }
+  };
+
   constructor(
     private assistant: AssistantService,
     private events: EventsService) {
+    setInterval(() => {
+      this.today = new Date();
+    }, 1000);
     /**
      *  togle/hide/display
      */
@@ -48,6 +84,9 @@ export class AppComponent implements OnInit {
     $('.row.footer').css('display', 'block');
   }
 
+  open() {
+    this.screenSaver = false;
+  }
   ngOnDestroy() {
     this.events.unsubscribe('menu-display');
   }

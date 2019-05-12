@@ -13,6 +13,7 @@ import { NotificationsComponent } from './navbar/components/notifications/notifi
 import { ToastrModule } from 'ngx-toastr';
 import { MenuComponent } from './menu/menu.component';
 import { NgxSmartModalModule } from 'ngx-smart-modal';
+import { ParticlesModule } from 'angular-particle';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { NgxSmartModalModule } from 'ngx-smart-modal';
     ServiceXModule,
     BrowserAnimationsModule,
     HttpClientModule,
+    ParticlesModule,
     SingletonModule.forRoot({}),
     NgxSmartModalModule.forRoot()
   ],

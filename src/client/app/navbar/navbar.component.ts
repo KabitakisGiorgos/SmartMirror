@@ -3,10 +3,15 @@ import * as $ from 'jquery';
 import { Http } from '@angular/http';
 import config from '../services/config.json';
 import { EventsService } from '../services/events.service';
+import { slideInDownOnEnterAnimation } from 'angular-animations';
+
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.scss']
+  styleUrls: ['./navbar.component.scss'],
+  animations: [
+    slideInDownOnEnterAnimation({ anchor: 'enter', duration: 800 })
+  ]
 })
 export class NavbarComponent {
   news: any;
@@ -16,7 +21,9 @@ export class NavbarComponent {
   constructor(
     private http: Http,
     private events: EventsService) {
-
+    this.retrieveNews().then((data) => {
+      this.news = data;
+    });
     this.events.subscribe('navbar-display', (data) => {
       if (data.action === 'toggle') {
         this.toggleNavbar();
@@ -34,9 +41,6 @@ export class NavbarComponent {
 
   ngOnInit() {
 
-    this.retrieveNews().then((data) => {
-      this.news = data;
-    });
   }
 
   ngAfterViewInit() {
@@ -81,7 +85,7 @@ export class NavbarComponent {
 
     setTimeout(() => {
       newsTicker($('#news-ticker'));
-    }, 150);
+    });
   }
 
 
