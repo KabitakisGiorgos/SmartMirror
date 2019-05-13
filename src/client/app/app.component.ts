@@ -3,6 +3,7 @@ import { AssistantService } from './services/assistant.service';
 import { Cursor } from './Cursor/cursor';
 import * as $ from 'jquery';
 import { EventsService } from './services/events.service';
+import { LeapHandlerService } from './services/leap-handler.service';
 
 @Component({
   selector: 'app-root',
@@ -42,16 +43,20 @@ export class AppComponent implements OnInit {
       }
     }
   };
+  clickableElements: Array<string> = ['screensaver'];
 
   constructor(
     private assistant: AssistantService,
-    private events: EventsService) {
+    private events: EventsService,
+    private leap: LeapHandlerService) {
     setInterval(() => {
       this.today = new Date();
     }, 1000);
     /**
      *  togle/hide/display
      */
+
+    this.leap.registerDivs(this.clickableElements);
     this.events.subscribe('menu-display', (data) => {
       if (data.action === 'toggle') {
         this.toggleMenu();
@@ -100,7 +105,10 @@ export class AppComponent implements OnInit {
   open() {
     this.screenSaver = false;
   }
+
   ngOnDestroy() {
     this.events.unsubscribe('menu-display');
+    this.assistant.unsubscribe('interaction');
+    this.leap.unregisterDivs(this.clickableElements);
   }
 }

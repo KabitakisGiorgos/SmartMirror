@@ -164,8 +164,6 @@ export class MediaComponent implements OnInit {
     for (let i = 0; i < this.favorites.length; i++) {
       this.clickableElements.push('song' + this.favorites[i].id);
     }
-    console.log(this.clickableElements);
-
     this.leap.registerDivs(this.clickableElements);
   }
 

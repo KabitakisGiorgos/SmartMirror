@@ -10,13 +10,13 @@ import { EventsService } from './events.service';
   providedIn: 'root'
 })
 export class LeapHandlerService {
-  controller: Leap.Controller;
-  leapTimer: number = 0;
-  cursorOn: boolean = false;
-  leapLastTimeNoHand: number = 0;
-  cursor: Cursor;
-  cursorTimer: number = 0;
-  delayTimer: number = 0;
+  private controller: Leap.Controller;
+  private leapTimer: number = 0;
+  private cursorOn: boolean = false;
+  private leapLastTimeNoHand: number = 0;
+  private cursor: Cursor;
+  private cursorTimer: number = 0;
+  private delayTimer: number = 0;
 
   constructor(private events: EventsService) {
     this.cursor = new Cursor(debugMode.Cursor);
@@ -116,5 +116,9 @@ export class LeapHandlerService {
 
   unregisterDivs(array: Array<string>) {
     this.cursor.unregisterSelectableDivs(array);
+  }
+
+  isCursorVisible() {
+    return this.cursor.IsVisible();
   }
 }

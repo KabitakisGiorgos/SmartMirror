@@ -15,8 +15,8 @@
       <div class="col-5 mytitle">
         Favorites
         <ul>
-          <li *ngFor="let song of favorites" class="mylist" id="song{{song.id}}">
-            <div class="row" (click)="go2Song(song)">
+          <li *ngFor="let song of favorites" class="mylist" (click)="go2Song(song)" id="song{{song.id}}">
+            <div class="row">
               <div class="col-1"><img [src]="song.image" class="thumbnail"></div>
               <div class="col-9"> {{song.title}}</div>
               <div class="col-1">{{song.duration}}</div>

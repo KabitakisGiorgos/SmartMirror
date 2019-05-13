@@ -53,7 +53,7 @@ export class AssistantService {
     return true;
   }
 
-  publish(topic: string, ...args: any[]): any[] | null {
+  private publish(topic: string, ...args: any[]): any[] | null {
     const topics = this.c.get(topic);
     if (!topics) {
       return null;

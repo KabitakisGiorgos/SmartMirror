@@ -15,5 +15,5 @@ export const debugMode = {
   Home: true,
   Navbar: true,
   NotificationsComp: true,
-  Cursor: true
+  Cursor: false
 };

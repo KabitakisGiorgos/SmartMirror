@@ -1,6 +1,3 @@
-<plyr id="plyrPlayer" style="display: block; width: 1920px;" plyrTitle="Video 1"
+<plyr id="plyrPlayer" style="display: block; width: 1920px;" plyrTitle="Video 1" (click)="togglePlayer()"
   [plyrSources]="videoSources" (plyrInit)="player = $event" (plyrPlay)="play($event)" (plyrPause)="pause($event)">test
 </plyr>
-
-<!-- <button (click)="play()">Play</button>
-<button (click)="stop()">Stop</button> -->

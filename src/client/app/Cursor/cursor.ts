@@ -64,7 +64,7 @@ export class Cursor {
             if (tmpId) {
                 //change cursor to tap
                 this.setTapIcon()
-            } else this.SetOrientation('left');//TODO: this remove 
+            }
         }
     }
 
@@ -111,8 +111,6 @@ export class Cursor {
             });
             if (index = -1)
                 this.selectableDivs.splice(index, 1);
-            console.log(this.selectableDivs);
-
         });
     }
 

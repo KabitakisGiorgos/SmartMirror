@@ -4,7 +4,8 @@ import { EventsService } from '../../services/events.service';
 import { PlyrComponent } from 'ngx-plyr';
 import Plyr from 'plyr';
 import * as $ from 'jquery';
-
+import { LeapHandlerService } from '../../services/leap-handler.service';
+import { debugMode } from '../../../environments/environment';
 @Component({
   selector: 'app-media-player',
   templateUrl: './media-player.component.html',
@@ -16,6 +17,8 @@ export class MediaPlayerComponent {
   url: string;
   title: string;
   autoplay: number = 0;
+  fullScreen: boolean = true;
+
   videoSources = [
     {
       title: 'Post Malone - Rockstar ft. 21 Savage',
@@ -43,17 +46,22 @@ export class MediaPlayerComponent {
     }
   ];
   player: Plyr;
+  clickableElements: Array<string> = ['plyrPlayer'];//FIXME: the suggested to
 
   constructor(
     private route: ActivatedRoute,
     private events: EventsService,
-    private renderer: Renderer2
+    private renderer: Renderer2,
+    private leap: LeapHandlerService
   ) {
+    this.leap.registerDivs(this.clickableElements);
     this.events.subscribe('cursor', (data) => {
-      if (data.visibility) {
-        this.playerDisplayControlls();
-      } else {
-        this.playerHideControlls();
+      if (this.fullScreen) {
+        if (data.visibility) {
+          this.playerDisplayControlls();
+        } else {
+          this.playerHideControlls();
+        }
       }
     });
     this.renderer.setStyle(document.body, 'background-color', 'black');
@@ -77,13 +85,10 @@ export class MediaPlayerComponent {
 
   }
 
-  //TESTME: do this change and on leap movement and add the controllers too event here for the cursor to appear the controlls
-  //TESTME: timers to hide again and see the interaction will be handled by leap handler
   //FIXME: navigation to songs and add a suggested playlist
-  //FIXME: make functions about all the components hide and display
-  //FIXME: clickable songs
   ngAfterViewInit() {
     this.plyr.player.config.autoplay = true;
+    this.plyr.player.config.hideControls = false;
     this.player.on('ended', () => {
       this.autoplay++;
       try {
@@ -123,14 +128,30 @@ export class MediaPlayerComponent {
   //   this.plyr.player.stop() // or this.plyr.player.play()
   // }
 
-  pause(event) {//Eventlisteners
+  // player.volume = 0.5; // Sets volume at 50%
+  // player.currentTime = 10; // Seeks to 10 seconds
+
+  pause(event?) {//Eventlisteners
     this.ComponentsDisplay();
     this.playerDisplayControlls();
   }
 
-  play(event) {//Eventlisteners
+  play(event?) {//Eventlisteners
     this.ComponentsHide();
     this.playerHideControlls();
+  }
+
+  togglePlayer() {
+    if (!debugMode.Cursor) {//When we dont have leap
+      if (this.plyr.player.playing) {
+        this.pause();
+        this.plyr.player.pause()
+      }
+      else {
+        this.play();
+        this.plyr.player.play()
+      }
+    }
   }
 
   ngOnDestroy() {
@@ -140,6 +161,7 @@ export class MediaPlayerComponent {
   }
 
   ComponentsDisplay() {
+    this.fullScreen = false;
     this.events.publish('navbar-display', { action: 'display' });
     this.events.publish('menu-display', { action: 'display' });
     $('#plyrPlayer').css('width', '1662px')//fix size
@@ -147,9 +169,10 @@ export class MediaPlayerComponent {
   }
 
   ComponentsHide() {
+    this.fullScreen = true;
     this.events.publish('navbar-display', { action: 'hide' });
     this.events.publish('menu-display', { action: 'hide' });
-    $('#plyrPlayer').css('width', '1960px')
+    $('#plyrPlayer').css('width', '1920px')
       .css('margin', 'unset')
       .css('margin-left', '-15px');
   }
