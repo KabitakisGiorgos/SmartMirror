@@ -59,3 +59,36 @@ plyr {
   margin-left: 50px;
   display: none;
 }
+
+.suggested {
+  position: absolute;
+  top: 200px;
+  right: 100px;
+  background-color: #ffffff38;
+  width: 350px;
+  
+  ul {
+    margin: auto;
+    padding-left: 0px;
+    margin-top: 20px;
+  }
+
+  li {
+    margin-bottom: 20px;
+    list-style: none;
+  }
+
+  img {
+    width: 250px;
+    height: 160px;
+    margin: auto;
+    display: block;
+  }
+
+  span {
+    text-align: center;
+    display: block;
+    word-break: break-word;
+    width: 250px;
+  }
+}

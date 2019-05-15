@@ -14,7 +14,6 @@ import { debugMode } from '../../../environments/environment';
 export class MediaPlayerComponent {
   @ViewChild(PlyrComponent)
   plyr: PlyrComponent;
-  url: string;
   title: string;
   autoplay: number = 0;
   fullScreen: boolean = true;
@@ -22,27 +21,33 @@ export class MediaPlayerComponent {
   videoSources = [
     {
       title: 'Post Malone - Rockstar ft. 21 Savage',
-      src: '../../../assets/video/postmalone.mp4'
+      src: '../../../assets/video/postmalone.mp4',
+      img: '../../../assets/images/post2.jpg'
     },
     {
       title: 'Disturbed - The Vengeful One',
-      src: '../../../assets/video/vengful.mp4'
+      src: '../../../assets/video/vengful.mp4',
+      img: '../../../assets/images/vengful2.jpg'
     },
     {
       title: 'Metallica: Dream No More',
-      src: '../../../assets/video/dream.mp4'
+      src: '../../../assets/video/dream.mp4',
+      img: '../../../assets/images/dream2.jpg'
     },
     {
       title: 'Metallica - Sad But True',
-      src: '../../../assets/video/sad.mp4'
+      src: '../../../assets/video/sad.mp4',
+      img: '../../../assets/images/sad2.jpg'
     },
     {
       title: 'ΛΕΞ - ΤΙΠΟΤΑ ΣΤΟΝ ΚΟΣΜΟ',
-      src: '../../../assets/video/lex.mp4'
+      src: '../../../assets/video/lex.mp4',
+      img: '../../../assets/images/lex2.jpg'
     },
     {
       title: 'Will Smith - The Greatest Motivational Speech Ever',
-      src: '../../../assets/video/smith.mp4'
+      src: '../../../assets/video/smith.mp4',
+      img: '../../../assets/images/smith2.jpg'
     }
   ];
   player: Plyr;
@@ -67,18 +72,15 @@ export class MediaPlayerComponent {
     this.renderer.setStyle(document.body, 'background-color', 'black');
     this.events.publish('navbar-display', { action: 'hide' });
     this.events.publish('menu-display', { action: 'hide' });
-    this.url = this.route.snapshot.paramMap.get('url');
     this.title = this.route.snapshot.paramMap.get('title');
 
     let index = this.videoSources.findIndex((element: any) => {
       return element.title == this.title;
     });
 
+    let element = this.videoSources[index];
     this.videoSources.splice(index, 1);
-    this.videoSources.unshift({
-      src: this.url,
-      title: this.title
-    });
+    this.videoSources.unshift(element);
   }
 
   ngOnInit() {
@@ -92,28 +94,11 @@ export class MediaPlayerComponent {
     this.player.on('ended', () => {
       this.autoplay++;
       try {
-        this.player.source = {
-          type: 'video',
-          title: 'Example title',
-          sources: [
-            {
-              src: this.videoSources[this.autoplay].src
-            }
-          ]
-        };
+        this.playSong(this.videoSources[this.autoplay]);
       } catch (e) {
         this.autoplay = 0;
-        this.player.source = {
-          type: 'video',
-          title: 'Example title',
-          sources: [
-            {
-              src: this.videoSources[this.autoplay].src
-            }
-          ]
-        };
+        this.playSong(this.videoSources[this.autoplay]);
       }
-      $('.plyr__video-wrapper.plyr__video-wrapper--fixed-ratio').append('<div class="plyr_title">' + this.videoSources[this.autoplay].title + '</div>');
       this.plyr.player.play()
     });
     $('.plyr__video-wrapper.plyr__video-wrapper--fixed-ratio').append('<div class="plyr_title">' + this.title + '</div>');//Add title 
@@ -185,5 +170,26 @@ export class MediaPlayerComponent {
   playerHideControlls() {
     $('.plyr__controls').css('display', 'none');//hide controlls
     $('.plyr_title').css('display', 'none');
+  }
+
+  playSong(song) {
+    let index = this.videoSources.findIndex((element: any) => {
+      return element.title == song.title;
+    });
+
+    let element = this.videoSources[index];
+    this.videoSources.splice(index, 1);
+    this.videoSources.unshift(element);
+
+    this.player.source = {
+      type: 'video',
+      title: 'Example title',
+      sources: [
+        {
+          src: element.src
+        }
+      ]
+    };
+    $('.plyr__video-wrapper.plyr__video-wrapper--fixed-ratio').append('<div class="plyr_title">' + element.title + '</div>');
   }
 }

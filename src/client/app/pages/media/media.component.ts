@@ -194,7 +194,7 @@ export class MediaComponent implements OnInit {
 
   go2Song(song) {
     if (song.url)
-      this.router.navigate(['/media/player', { url: song.url, title: song.title }]);
+      this.router.navigate(['/media/player', { title: song.title }]);
   }
 
   ngOnDestroy() {

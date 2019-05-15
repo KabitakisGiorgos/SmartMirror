@@ -1,3 +1,17 @@
 <plyr id="plyrPlayer" style="display: block; width: 1920px;" plyrTitle="Video 1" (click)="togglePlayer()"
   [plyrSources]="videoSources" (plyrInit)="player = $event" (plyrPlay)="play($event)" (plyrPause)="pause($event)">test
 </plyr>
+
+
+<div class="suggested">
+  <div class="row">
+    <ul>
+      <div *ngFor="let suggestion of videoSources; let i=index">
+        <li *ngIf="i>1 && 6>i" (click)="playSong(suggestion)">
+          <img src=" {{ suggestion.img }}">
+          <span>{{suggestion.title}}</span>
+        </li>
+      </div>
+    </ul>
+  </div>
+</div>
