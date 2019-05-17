@@ -67,7 +67,7 @@ export class Cursor {
             if (tmpId) {
                 //change cursor to tap
                 this.setTapIcon()
-            }
+            }else this.SetOrientation('left');//TODO: this remove it when having leap
         }
     }
 

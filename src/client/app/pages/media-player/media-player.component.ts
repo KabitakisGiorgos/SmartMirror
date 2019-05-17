@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, Renderer2 } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { EventsService } from '../../services/events.service';
 import { PlyrComponent } from 'ngx-plyr';
 import Plyr from 'plyr';
@@ -17,48 +17,59 @@ export class MediaPlayerComponent {
   title: string;
   autoplay: number = 0;
   fullScreen: boolean = true;
+  controllers: boolean = false;
 
   videoSources = [
     {
+      id: 0,
       title: 'Post Malone - Rockstar ft. 21 Savage',
       src: '../../../assets/video/postmalone.mp4',
       img: '../../../assets/images/post2.jpg'
     },
     {
+      id: 1,
       title: 'Disturbed - The Vengeful One',
       src: '../../../assets/video/vengful.mp4',
       img: '../../../assets/images/vengful2.jpg'
     },
     {
+      id: 2,
       title: 'Metallica: Dream No More',
       src: '../../../assets/video/dream.mp4',
       img: '../../../assets/images/dream2.jpg'
     },
     {
+      id: 3,
       title: 'Metallica - Sad But True',
       src: '../../../assets/video/sad.mp4',
       img: '../../../assets/images/sad2.jpg'
     },
     {
+      id: 4,
       title: 'ΛΕΞ - ΤΙΠΟΤΑ ΣΤΟΝ ΚΟΣΜΟ',
       src: '../../../assets/video/lex.mp4',
       img: '../../../assets/images/lex2.jpg'
     },
     {
+      id: 5,
       title: 'Will Smith - The Greatest Motivational Speech Ever',
       src: '../../../assets/video/smith.mp4',
       img: '../../../assets/images/smith2.jpg'
     }
   ];
   player: Plyr;
-  clickableElements: Array<string> = ['plyrPlayer'];//FIXME: the suggested to
+  clickableElements: Array<string> = ['plyrPlayer', 'back'];
 
   constructor(
     private route: ActivatedRoute,
     private events: EventsService,
     private renderer: Renderer2,
-    private leap: LeapHandlerService
+    private leap: LeapHandlerService,
+    private router: Router
   ) {
+    this.videoSources.forEach((song) => {
+      this.clickableElements.push('suggestion' + song.id);
+    });
     this.leap.registerDivs(this.clickableElements);
     this.events.subscribe('cursor', (data) => {
       if (this.fullScreen) {
@@ -87,7 +98,6 @@ export class MediaPlayerComponent {
 
   }
 
-  //FIXME: navigation to songs and add a suggested playlist
   ngAfterViewInit() {
     this.plyr.player.config.autoplay = true;
     this.plyr.player.config.hideControls = false;
@@ -143,6 +153,7 @@ export class MediaPlayerComponent {
     this.events.publish('navbar-display', { action: 'display' });
     this.events.publish('menu-display', { action: 'display' });
     this.renderer.setStyle(document.body, 'background-color', '#0C3958');
+    this.leap.unregisterDivs(this.clickableElements);
   }
 
   ComponentsDisplay() {
@@ -163,11 +174,13 @@ export class MediaPlayerComponent {
   }
 
   playerDisplayControlls() {
+    this.controllers = true;
     $('.plyr__controls').css('display', 'flex');//display controlls 
     $('.plyr_title').css('display', 'block');
   }
 
   playerHideControlls() {
+    this.controllers = false;
     $('.plyr__controls').css('display', 'none');//hide controlls
     $('.plyr_title').css('display', 'none');
   }
@@ -191,5 +204,9 @@ export class MediaPlayerComponent {
       ]
     };
     $('.plyr__video-wrapper.plyr__video-wrapper--fixed-ratio').append('<div class="plyr_title">' + element.title + '</div>');
+  }
+
+  goBack() {
+    this.router.navigate(['/media']);
   }
 }

@@ -10,7 +10,7 @@ import { AssistantService } from '../../services/assistant.service';
   templateUrl: './media.component.html',
   styleUrls: ['./media.component.scss'],
   animations: [
-    slideInUpOnEnterAnimation({ anchor: 'enter', duration: 1500 })
+    slideInUpOnEnterAnimation({ anchor: 'enter', duration: 1000 })
   ]
 })
 export class MediaComponent implements OnInit {

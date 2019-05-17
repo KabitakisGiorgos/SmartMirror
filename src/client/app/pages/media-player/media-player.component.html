@@ -3,15 +3,19 @@
 </plyr>
 
 
-<div class="suggested">
+<div class="suggested" *ngIf="controllers">
   <div class="row">
     <ul>
       <div *ngFor="let suggestion of videoSources; let i=index">
-        <li *ngIf="i>1 && 6>i" (click)="playSong(suggestion)">
+        <li *ngIf="i>1 && 6>i" (click)="playSong(suggestion)" id="suggestion{{suggestion.id}}">
           <img src=" {{ suggestion.img }}">
           <span>{{suggestion.title}}</span>
         </li>
       </div>
     </ul>
   </div>
+</div>
+
+<div id="back" (click)="goBack()" *ngIf="!fullScreen" class="backIcon">
+  <img src="/assets/icons/back.svg">
 </div>

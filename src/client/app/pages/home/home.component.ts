@@ -9,7 +9,7 @@ import { EventsService } from '../../services/events.service';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
   animations: [
-    slideInUpOnEnterAnimation({ anchor: 'enter', duration: 1200 })
+    slideInUpOnEnterAnimation({ anchor: 'enter', duration: 1000 })
   ]
 })
 export class HomeComponent implements OnInit {
