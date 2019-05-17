@@ -3,7 +3,7 @@
 </plyr>
 
 
-<div class="suggested" *ngIf="controllers">
+<div class="suggested" [ngClass]="!fullScreen?'minimized':''">
   <div class="row">
     <ul>
       <div *ngFor="let suggestion of videoSources; let i=index">
