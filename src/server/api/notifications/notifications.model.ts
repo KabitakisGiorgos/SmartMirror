@@ -9,7 +9,8 @@ var NotificationSchema = new mongoose.Schema({
         required: true
     },
     severity: {
-        type: Number,
+        enum: ['Urgent', 'High', 'Normal', 'Low'],
+        type: String,
         required: true
     },
     text: {

@@ -152,6 +152,22 @@
   height: 250px;
   position: absolute;
   width: 250px;
+
+  &.Urgent {
+    background-color: rgba(255, 0, 0, 0.75);
+  }
+
+  &.High {
+    background-color: rgba(255, 166, 0, 0.75);
+  }
+
+  &.Normal {
+    background-color: rgba(0, 0, 255, 0.75);
+  }
+
+  &.Low {
+    background-color: rgba(0, 128, 0, 0.75);
+  }
 }
 
 .bubble:after {

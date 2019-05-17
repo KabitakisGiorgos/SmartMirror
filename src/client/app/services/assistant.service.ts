@@ -117,7 +117,7 @@ export class AssistantService {
           'news',
         ];
         if (pages.includes(page))
-          this.ngZone.run(async () => this.router.navigate(['/' + page + '']));
+          this.publish('navigate', { page: page });
         else this.Jarvis.say('Sorry unknown page');
       }
     }

@@ -6,6 +6,7 @@ import config from '../../../services/config.json';
 import * as d3 from 'd3';
 import { NgxSmartModalService } from 'ngx-smart-modal';
 import { LeapHandlerService } from '../../../services/leap-handler.service';
+import { BrowserPlatformLocation } from '@angular/platform-browser/src/browser/location/browser_platform_location';
 
 @Component({
   selector: 'app-notifications',
@@ -82,6 +83,7 @@ export class NotificationsComponent implements OnInit {
     if (index != -1) {
       this.notificationAudio();
       var bubble = $('#notification' + index);
+      bubble.addClass(this.newsNotifications[this.newsNotifications.length - 1].severity);
       var message = this.newsNotifications[this.newsNotifications.length - 1].text;
       if (message.length > 120) {
         message = message.substring(0, 120);
@@ -129,8 +131,21 @@ export class NotificationsComponent implements OnInit {
       .attr('class', 'chart-svg mychart');
     if (this.chartJson['children'].length > 0) {
       var root = d3.hierarchy(this.chartJson)
-        .sum(function (d) { return d.severity; })
-        .sort(function (a, b) { return b.severity - a.severity; });
+        .sum(function (d) {
+          switch (d.severity) {
+            case 'Urgent':
+              return 100;
+            case 'High':
+              return 75;
+            case 'Normal':
+              return 50;
+            case 'Low':
+              return 25;
+            default:
+              return 10;
+          }
+        })
+        .sort(function (a, b) { return 10 });
 
       bubble(root);
 
@@ -144,7 +159,18 @@ export class NotificationsComponent implements OnInit {
       node.append('circle')
         .attr('r', function (d) { return d.r; })
         .style('fill', function (d) {
-          return color(d.data.type);//FIXME: here you can set the color be taken maybe from the kind of notification or resolved here
+          switch (d.data.severity) {
+            case 'Urgent':
+              return '#ff0000';
+            case 'High':
+              return '#ffa500';
+            case 'Normal':
+              return '#000ff0';
+            case 'Low':
+              return '#008000';
+            default:
+              return '#808080';
+          }
         });
 
       if (label) {

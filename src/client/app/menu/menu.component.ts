@@ -58,6 +58,9 @@ export class MenuComponent implements OnInit {
     private router: Router,
     private leap: LeapHandlerService) {
     this.leap.registerDivs(this.clickableElements);
+    this.assistant.subscribe('navigate', (data) => {
+      this.navigate(data.page);
+    });
   }
 
   ngOnInit() {
@@ -84,6 +87,7 @@ export class MenuComponent implements OnInit {
 
   ngOnDestroy() {
     this.leap.unregisterDivs(this.clickableElements);
+    this.assistant.unsubscribe('navigate');
   }
 
   /**
