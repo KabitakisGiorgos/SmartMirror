@@ -19,7 +19,7 @@ export class LeapHandlerService {
   private delayTimer: number = 0;
 
   constructor(private events: EventsService) {
-    this.cursor = new Cursor(debugMode.Cursor);
+    this.cursor = new Cursor(events, debugMode.Cursor);
     this.enableCursor();
     if (!debugMode.Cursor)
       this.init();
@@ -110,12 +110,20 @@ export class LeapHandlerService {
     });
   }
 
-  registerDivs(array) {
+  registerDivs(array: Array<string>) {
     this.cursor.registerSelectableDivs(array);
   }
 
   unregisterDivs(array: Array<string>) {
     this.cursor.unregisterSelectableDivs(array);
+  }
+
+  registerAnimatingDivs(array: Array<string>) {
+    this.cursor.registerAnimatingDivs(array);
+  }
+
+  unregisterAnimatingDivs(array: Array<string>) {
+    this.cursor.unregisterAnimatingDivs(array);
   }
 
   isCursorVisible() {

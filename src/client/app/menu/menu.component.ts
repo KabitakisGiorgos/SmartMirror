@@ -4,6 +4,7 @@ import { AssistantService } from '../services/assistant.service';
 import { Router } from '@angular/router';
 import { LeapHandlerService } from '../services/leap-handler.service';
 import { slideInUpOnEnterAnimation } from 'angular-animations';
+import { EventsService } from '../services/events.service';
 
 @Component({
   animations: [
@@ -52,14 +53,21 @@ export class MenuComponent implements OnInit {
     }
   ];
   clickableElements: Array<string> = ['menu', 'menu-home', 'menu-health', 'menu-news', 'menu-calendar', 'menu-media'];
-
+  animatingElements: Array<string> = ['menu-home', 'menu-health', 'menu-news', 'menu-calendar', 'menu-media'];
   constructor(
     private assistant: AssistantService,
     private router: Router,
-    private leap: LeapHandlerService) {
+    private leap: LeapHandlerService,
+    private events: EventsService) {
     this.leap.registerDivs(this.clickableElements);
+    this.leap.registerAnimatingDivs(this.animatingElements);//Clickable are also animating
     this.assistant.subscribe('navigate', (data) => {
       this.navigate(data.page);
+    });
+    this.events.subscribe('animate', (data) => {
+      if (this.animatingElements.includes(data.element)) {
+        this.animateCSS(data.element, 'pulse');
+      }
     });
   }
 
@@ -87,6 +95,8 @@ export class MenuComponent implements OnInit {
 
   ngOnDestroy() {
     this.leap.unregisterDivs(this.clickableElements);
+    this.leap.unregisterAnimatingDivs(this.animatingElements);
+    this.events.unsubscribe('animate');
     this.assistant.unsubscribe('navigate');
   }
 
@@ -108,5 +118,18 @@ export class MenuComponent implements OnInit {
 
     }
     return newarray;
+  }
+
+  animateCSS(element, animationName, callback?) {//TODO:  this works with animateCSS Helper function placeholder here
+    const node = document.getElementById(element)
+    node.classList.add('animated', animationName)
+
+    function handleAnimationEnd() {
+      node.classList.remove('animated', animationName)
+      node.removeEventListener('animationend', handleAnimationEnd)
+
+      if (typeof callback === 'function') callback()
+    }
+    node.addEventListener('animationend', handleAnimationEnd)
   }
 }

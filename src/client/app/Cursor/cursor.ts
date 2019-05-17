@@ -1,11 +1,14 @@
+import { EventsService } from '../services/events.service';
+
 export class Cursor {
     selectableDivs: Array<string>;
+    animatingDivs: Array<string>;
     private collidableElement: string;
     isLoadingCursor = false;  // indicates whether the cursor is loading
     LoadingTimeout;           // loading timeout until click
     private isVisible = false;        // indicates whether the cursor is visible
 
-    constructor(debug?) {
+    constructor(private events: EventsService, debug?) {
         if (debug) {
             $(document).on('mousemove', (e) => {
                 var mousetop = e.pageY;
@@ -98,7 +101,7 @@ export class Cursor {
         }
     }
 
-    registerSelectableDivs(array: [string]) {
+    registerSelectableDivs(array: Array<string>) {
         if (this.selectableDivs)
             this.selectableDivs = this.selectableDivs.concat(array);
         else this.selectableDivs = array;
@@ -111,6 +114,22 @@ export class Cursor {
             });
             if (index = -1)
                 this.selectableDivs.splice(index, 1);
+        });
+    }
+
+    registerAnimatingDivs(array: Array<string>) {
+        if (this.animatingDivs)
+            this.animatingDivs = this.animatingDivs.concat(array);
+        else this.animatingDivs = array;
+    }
+
+    unregisterAnimatingDivs(array: Array<string>) {
+        array.forEach((element) => {
+            let index = this.animatingDivs.findIndex((div) => {
+                return div === element;
+            });
+            if (index = -1)
+                this.animatingDivs.splice(index, 1);
         });
     }
 
@@ -149,6 +168,9 @@ export class Cursor {
                             cursorRect.left > elementRect.right ||
                             cursorRect.bottom < elementRect.top ||
                             cursorRect.top > elementRect.bottom)) {
+                            if (this.animatingDivs && this.animatingDivs.includes(this.selectableDivs[i].toString())) {
+                                this.events.publish('animate', { element: this.selectableDivs[i].toString() });
+                            }
                             resolve(this.selectableDivs[i].toString());
                             return;
                         }

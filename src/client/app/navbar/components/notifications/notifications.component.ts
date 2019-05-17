@@ -103,19 +103,6 @@ export class NotificationsComponent implements OnInit {
     }
   }
 
-  animateCSS(element, animationName, callback) {//TODO:  this works with animateCSS Helper function placeholder here
-    const node = document.getElementById(element)
-    node.classList.add('animated infinite', animationName)
-
-    function handleAnimationEnd() {
-      node.classList.remove('animated', animationName)
-      node.removeEventListener('animationend', handleAnimationEnd)
-
-      if (typeof callback === 'function') callback()
-    }
-    node.addEventListener('animationend', handleAnimationEnd)
-  }
-
   chartInit(selector, size, label?) {
     var diameter = size;
     var color = d3.scaleOrdinal(d3.schemeCategory10);

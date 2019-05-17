@@ -4,6 +4,7 @@ import { LeapHandlerService } from '../../services/leap-handler.service';
 import { LoggerService } from '../../services/logger.service';
 import { Http } from '@angular/http';
 import { slideInUpOnEnterAnimation } from 'angular-animations';
+import { EventsService } from '../../services/events.service';
 @Component({
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
@@ -15,6 +16,7 @@ export class HomeComponent implements OnInit {
   events: any;
   selectedEvent: number;
   clickableElements: Array<string> = [];
+  animatingElements: Array<string> = [];
   @ViewChild('slickModal') carousel: any;
   slides = [
     {
@@ -49,7 +51,8 @@ export class HomeComponent implements OnInit {
     private assistant: AssistantService,
     private logger: LoggerService,
     private leap: LeapHandlerService,
-    private http: Http
+    private http: Http,
+    private Events: EventsService
   ) {
   }
 
@@ -59,8 +62,14 @@ export class HomeComponent implements OnInit {
       this.selectedEvent = 0;
       for (let i = 0; i < this.events.length; i++) {
         this.clickableElements.push(this.events[i]._id);
+        this.animatingElements.push(this.events[i]._id);
       }
       this.leap.registerDivs(this.clickableElements);
+      this.leap.registerAnimatingDivs(this.animatingElements);
+      this.Events.subscribe('animate', (data) => {
+        if (this.animatingElements.includes(data.element))
+          this.animateCSS(data.element, 'pulse');
+      })
     } catch (e) {
       console.error(e);
     }
@@ -69,6 +78,7 @@ export class HomeComponent implements OnInit {
 
   ngOnDestroy() {
     this.leap.unregisterDivs(this.clickableElements);
+    this.leap.unregisterAnimatingDivs(this.animatingElements);
   }
 
 
@@ -103,7 +113,7 @@ export class HomeComponent implements OnInit {
     return percentage + '%';
   }
 
-  select(slide) {
+  select(slide, id) {
     this.carousel.slickGoTo(slide);
     this.selectedEvent = slide;
   }
@@ -114,6 +124,19 @@ export class HomeComponent implements OnInit {
 
   prevEvent() {
     this.carousel.slickPrev();
+  }
+
+  animateCSS(element, animationName, callback?) {
+    const node = document.getElementById(element)
+    node.classList.add('animated', animationName)
+
+    function handleAnimationEnd() {
+      node.classList.remove('animated', animationName)
+      node.removeEventListener('animationend', handleAnimationEnd)
+
+      if (typeof callback === 'function') callback()
+    }
+    node.addEventListener('animationend', handleAnimationEnd)
   }
 }
 

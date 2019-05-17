@@ -23,7 +23,7 @@
       <div class="curvedLine"></div>
       <div class="timeLine"></div>
       <div *ngFor="let event of events;let i=index">
-        <div class="eventWrapper" (click)="select(i)" [style.left]="setPosition(event)" id="{{event._id}}"
+        <div class="eventWrapper" (click)="select(i,event._id)" [style.left]="setPosition(event)" id="{{event._id}}"
           *ngIf="!event.end; else eventSpan">
           <img class="eventIcon" src="../../../../../assets/icons/{{event.icon}}.png" alt="">
           <div class="emptyEvent" [ngClass]="{'selected':i==selectedEvent}"></div>
@@ -31,8 +31,8 @@
 
 
         <ng-template #eventSpan>
-          <div class="eventSpanWrapper" (click)="select(i)" id="{{event._id}}" [style.left]="setPosition(event)"
-            [style.width]="setEventWidth(event)">
+          <div class="eventSpanWrapper" (click)="select(i,event._id)" id="{{event._id}}"
+            [style.left]="setPosition(event)" [style.width]="setEventWidth(event)">
             <img class="eventSpanIcon" src="../../../../../assets/icons/{{event.icon}}.png" alt="">
             <div class="spanEvent" [ngClass]="{'selected':i==selectedEvent}">{{event.title}}
             </div>
