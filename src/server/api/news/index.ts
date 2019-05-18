@@ -5,5 +5,6 @@ let router = Router();
 
 router.get('/', controller.index);
 router.get('/renew', controller.retrieveNews);
+router.get('/retrieve', controller.retrieveTopic);
 
 export default router;
