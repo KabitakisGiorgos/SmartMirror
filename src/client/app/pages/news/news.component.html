@@ -1,3 +1,25 @@
-<p>
-  news works!
-</p>
+<div [@enter]>
+  <div class="container-fluid">
+    <div class="row central" *ngIf="news">
+      <div class="col-8">
+        <img src="{{news[0].urlToImage}}">
+      </div>
+      <div class="col-4">
+        {{news[0].title}}
+      </div>
+    </div>
+
+    <div class="row list">
+      <div *ngFor="let article of news;let i=index">
+        <div *ngIf="i!=0" [ngClass]="i%3===0?'grid':''" class="news">
+          <div class="row">
+            <img src="{{article.urlToImage}}">
+          </div>
+          <div class="row">
+            <span>{{article.title}}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

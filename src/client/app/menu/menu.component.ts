@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { trigger, transition, query, stagger, animate, style, state } from '@angular/animations';
+import { trigger, transition, animate, style, state } from '@angular/animations';
 import { AssistantService } from '../services/assistant.service';
 import { Router } from '@angular/router';
 import { LeapHandlerService } from '../services/leap-handler.service';
