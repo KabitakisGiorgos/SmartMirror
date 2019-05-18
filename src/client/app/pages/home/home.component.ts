@@ -68,8 +68,8 @@ export class HomeComponent implements OnInit {
       this.leap.registerAnimatingDivs(this.animatingElements);
       this.Events.subscribe('animate', (data) => {
         if (this.animatingElements.includes(data.element))
-          this.animateCSS(data.element, 'pulse');
-      })
+          this.animateCSS(data.element, 'menu');
+      });
     } catch (e) {
       console.error(e);
     }

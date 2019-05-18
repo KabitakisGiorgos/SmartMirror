@@ -60,13 +60,13 @@ export class MenuComponent implements OnInit {
     private leap: LeapHandlerService,
     private events: EventsService) {
     this.leap.registerDivs(this.clickableElements);
-    this.leap.registerAnimatingDivs(this.animatingElements);//Clickable are also animating
+    this.leap.registerAnimatingDivs(this.animatingElements);
     this.assistant.subscribe('navigate', (data) => {
       this.navigate(data.page);
     });
     this.events.subscribe('animate', (data) => {
       if (this.animatingElements.includes(data.element)) {
-        this.animateCSS(data.element, 'pulse');
+        this.animateCSS(data.element, 'menu');
       }
     });
   }

@@ -24,10 +24,11 @@
 
 .list {
   overflow-y: auto;
-  height: 45vh;
+  height: 47vh;
   width: 975px;
   margin: auto;
   margin-top: 10px;
+  scroll-behavior: smooth;
 }
 
 .news {
@@ -65,8 +66,6 @@
     margin-right: 0px !important;
   }
 }
-
-
 
 .news>* {
   box-sizing: border-box;

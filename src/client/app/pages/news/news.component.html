@@ -1,19 +1,19 @@
 <div [@enter]>
   <div class="container-fluid">
-    <div class="row central" *ngIf="news">
+    <div class="row central" *ngIf="news" id="news{{news[0]._id}}">
       <div class="col-8">
-        <img src="{{news[0].urlToImage}}">
+        <img id="Imagenews{{news[0]._id}}" src="{{news[0].urlToImage}}">
       </div>
       <div class="col-4">
         {{news[0].title}}
       </div>
     </div>
 
-    <div class="row list">
+    <div class="row list" id="newslist">
       <div *ngFor="let article of news;let i=index">
-        <div *ngIf="i!=0" [ngClass]="i%3===0?'grid':''" class="news">
+        <div *ngIf="i!=0" [ngClass]="i%3===0?'grid':''" class="news" id="news{{news[i]._id}}">
           <div class="row">
-            <img src="{{article.urlToImage}}">
+            <img id="Imagenews{{news[i]._id}}" src="{{article.urlToImage}}">
           </div>
           <div class="row">
             <span>{{article.title}}</span>
@@ -22,4 +22,8 @@
       </div>
     </div>
   </div>
+
+  <!-- TODO: Placeholder for leap -->
+  <button style="position: absolute;top:10px;" (click)="up()">Up</button>
+  <button style="position: absolute;top:30px" (click)="down()">Down</button>
 </div>
