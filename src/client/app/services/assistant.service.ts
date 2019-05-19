@@ -10,12 +10,12 @@ export type EventHandler = (...args: any[]) => any;
 })
 export class AssistantService {
   private isListening: boolean;
-  Jarvis: any;
-  debug: boolean;
+  private Jarvis: any;
+  private debug: boolean;
   constructor(
     private router: Router,
     private ngZone: NgZone,
-    private logger: LoggerService
+    private logger: LoggerService,
   ) {
     this.debug = debugMode['Jarvis'];
   }
@@ -98,6 +98,8 @@ export class AssistantService {
     });
     this.navigationCommands();
     this.testingCommands();
+    this.playSongs();
+    this.NewsSearch();
   }
 
 
@@ -148,15 +150,42 @@ export class AssistantService {
     this.Jarvis.addCommands(commandHello);
   }
 
-  playSongs(songs) {
+  NewsSearch() {
+    let searchNews = {
+      smart: true,
+      indexes: ['Find news about *', 'What about *', 'Search for *'],
+      action: (i, wildcard) => {
+        console.log(this.router.url);
+
+        let index = wildcard.indexOf(' ');
+        let topic = wildcard.slice(0, index) + wildcard.slice(index + ' '.length);
+        if (this.router.url === '/news') {
+          this.Jarvis.say('Searching for ' + topic);
+          this.publish('search', { topic: topic });
+        } else this.Jarvis.say('Sorry cant help you, you must go to news');
+
+      }
+    };
+    this.Jarvis.addCommands(searchNews);
+  }
+
+  playSongs() {
+    let songs = ['rockstar', 'the vengful one', 'dream no more', 'sad but true', 'lex', 'the greatest motivational speech ever'];
     let command = {
       smart: true,
       indexes: ['Play *', 'I want to hear *'],//what else could i add ? 
       action: (i, wildcard) => {
         let index = wildcard.indexOf(' ');
         let song = wildcard.slice(0, index) + wildcard.slice(index + ' '.length);
-        console.log(song);
+        console.log(this.router.url);
+        index = this.router.url.indexOf(';');
+        let url = this.router.url.slice(0, index);
+        console.log(url);
 
+        if (url !== '/media/player' && url !== '/media/player') {
+          this.Jarvis.say('Sorry cant help you, you must go to media or player');
+          return;
+        }
         if (songs.includes(song)) this.publish('song', song);
         else this.Jarvis.say('Sorry unknown song');
       }
@@ -166,6 +195,10 @@ export class AssistantService {
 
   deleteCommands() {//Dynamically removing commands
     this.Jarvis.emptyCommands();
+  }
+
+  say(string) {
+    this.Jarvis.say(string);
   }
 
   IsListening() {

@@ -30,7 +30,7 @@ class NewsController {
 
         schedule.scheduleJob(rule, () => {
             this.retrieveNews();
-            console.log('Schedule Job Run');
+            console.log('Schedule Job Run');//FIXME: to run every four hours
         });
     }
 

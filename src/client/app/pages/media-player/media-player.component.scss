@@ -112,3 +112,8 @@ plyr {
     width: 100px;
   }
 }
+
+
+:host ::ng-deep .plyr__controls {
+  // display: none; FIXME:
+}

@@ -79,7 +79,8 @@ export class MediaComponent implements OnInit {
       image: '../../../assets/images/smith.png',
       repeats: '22',
       duration: '10:17',
-      url: '../../../assets/video/smith.mp4'
+      url: '../../../assets/video/smith.mp4',
+      abbrev: 'the greatest motivational speech ever'
     },
     {
       id: 7,
@@ -154,7 +155,6 @@ export class MediaComponent implements OnInit {
     private leap: LeapHandlerService,
     private assistant: AssistantService
   ) {
-    this.assistant.playSongs(['rockstar', 'the vengful one', 'dream no more', 'sad but true', 'lex']);
     this.assistant.subscribe('song', (data) => {
       let song = this.favorites.find((element) => {
         return element.abbrev === data;

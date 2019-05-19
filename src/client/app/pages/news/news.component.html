@@ -1,17 +1,22 @@
 <div [@enter]>
   <div class="container-fluid">
-    <div class="row central" *ngIf="news" id="news{{news[0]._id}}">
-      <div class="col-8">
-        <img id="Imagenews{{news[0]._id}}" src="{{news[0].urlToImage}}">
-      </div>
-      <div class="col-4">
-        {{news[0].title}}
-      </div>
-    </div>
 
+    <ngx-slick-carousel class="carousel mycarousel" #slickModal="slick-carousel" [config]="slideConfig">
+      <div ngxSlickItem *ngFor="let article of news;let i=index" class="slide myslide"  id="Slidenews{{news[i]._id}}">
+        <div class="row">
+          <div class="col-8">
+            <img id="ImageSlidenews{{article._id}}" src="{{article.urlToImage}}">
+          </div>
+          <div class="col-4">
+            {{article.title}}
+          </div>
+        </div>
+      </div>
+    </ngx-slick-carousel>
+   
     <div class="row list" id="newslist">
       <div *ngFor="let article of news;let i=index">
-        <div *ngIf="i!=0" [ngClass]="i%3===0?'grid':''" class="news" id="news{{news[i]._id}}">
+        <div [ngClass]="(i+1)%3===0?'grid':''" class="news" id="news{{news[i]._id}}">
           <div class="row">
             <img id="Imagenews{{news[i]._id}}" src="{{article.urlToImage}}">
           </div>

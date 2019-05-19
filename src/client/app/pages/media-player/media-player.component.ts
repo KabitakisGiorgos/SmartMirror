@@ -6,6 +6,7 @@ import Plyr from 'plyr';
 import * as $ from 'jquery';
 import { LeapHandlerService } from '../../services/leap-handler.service';
 import { debugMode } from '../../../environments/environment';
+import { AssistantService } from '../../services/assistant.service';
 @Component({
   selector: 'app-media-player',
   templateUrl: './media-player.component.html',
@@ -24,37 +25,43 @@ export class MediaPlayerComponent {
       id: 0,
       title: 'Post Malone - Rockstar ft. 21 Savage',
       src: '../../../assets/video/postmalone.mp4',
-      img: '../../../assets/images/post2.jpg'
+      img: '../../../assets/images/post2.jpg',
+      abbrev: 'rockstar'
     },
     {
       id: 1,
       title: 'Disturbed - The Vengeful One',
       src: '../../../assets/video/vengful.mp4',
-      img: '../../../assets/images/vengful2.jpg'
+      img: '../../../assets/images/vengful2.jpg',
+      abbrev: 'the vengful one'
     },
     {
       id: 2,
       title: 'Metallica: Dream No More',
       src: '../../../assets/video/dream.mp4',
-      img: '../../../assets/images/dream2.jpg'
+      img: '../../../assets/images/dream2.jpg',
+      abbrev: 'dream no more'
     },
     {
       id: 3,
       title: 'Metallica - Sad But True',
       src: '../../../assets/video/sad.mp4',
-      img: '../../../assets/images/sad2.jpg'
+      img: '../../../assets/images/sad2.jpg',
+      abbrev: 'sad bad true'
     },
     {
       id: 4,
       title: 'ΛΕΞ - ΤΙΠΟΤΑ ΣΤΟΝ ΚΟΣΜΟ',
       src: '../../../assets/video/lex.mp4',
-      img: '../../../assets/images/lex2.jpg'
+      img: '../../../assets/images/lex2.jpg',
+      abbrev: 'lex'
     },
     {
       id: 5,
       title: 'Will Smith - The Greatest Motivational Speech Ever',
       src: '../../../assets/video/smith.mp4',
-      img: '../../../assets/images/smith2.jpg'
+      img: '../../../assets/images/smith2.jpg',
+      abbrev: 'the greatest motivational speech ever'
     }
   ];
   player: Plyr;
@@ -65,8 +72,16 @@ export class MediaPlayerComponent {
     private events: EventsService,
     private renderer: Renderer2,
     private leap: LeapHandlerService,
-    private router: Router
+    private router: Router,
+    private assistant: AssistantService
   ) {
+    this.assistant.subscribe('song', (data) => {
+      let song = this.videoSources.find((element) => {
+        return element.abbrev === data;
+      });
+      this.playSong(song);
+    });
+
     this.videoSources.forEach((song) => {
       this.clickableElements.push('suggestion' + song.id);
     });
@@ -127,13 +142,15 @@ export class MediaPlayerComponent {
   // player.currentTime = 10; // Seeks to 10 seconds
 
   pause(event?) {//Eventlisteners
-    this.ComponentsDisplay();
-    this.playerDisplayControlls();
+    if (event && !event.detail.plyr.ended) {
+      this.ComponentsDisplay();
+      this.playerDisplayControlls();
+    }
   }
 
   play(event?) {//Eventlisteners
     this.ComponentsHide();
-    this.playerHideControlls();
+    // this.playerHideControlls(); FIXME:
   }
 
   togglePlayer() {
@@ -154,6 +171,7 @@ export class MediaPlayerComponent {
     this.events.publish('menu-display', { action: 'display' });
     this.renderer.setStyle(document.body, 'background-color', '#0C3958');
     this.leap.unregisterDivs(this.clickableElements);
+    this.assistant.unsubscribe('song');
   }
 
   ComponentsDisplay() {

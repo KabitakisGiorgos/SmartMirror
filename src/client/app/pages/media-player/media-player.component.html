@@ -2,8 +2,8 @@
   [plyrSources]="videoSources" (plyrInit)="player = $event" (plyrPlay)="play($event)" (plyrPause)="pause($event)">test
 </plyr>
 
-
-<div class="suggested" [ngClass]="!fullScreen?'minimized':''">
+<!-- *ngIf="controllers" FIXME: -->
+<div class="suggested"  [ngClass]="!fullScreen?'minimized':''">
   <div class="row">
     <ul>
       <div *ngFor="let suggestion of videoSources; let i=index">
