@@ -5,6 +5,7 @@ import { EventsService } from '../../services/events.service';
 import * as $ from 'jquery';
 import { LeapHandlerService } from '../../services/leap-handler.service';
 import { AssistantService } from '../../services/assistant.service';
+import { NgxSmartModalService } from 'ngx-smart-modal';
 
 @Component({
   animations: [
@@ -18,10 +19,12 @@ export class NewsComponent implements OnInit {
   news: any;
   clickableElements: Array<string> = [];
   @ViewChild('slickModal') carousel: any;
+  modalTitle: string;
+
   slideConfig = {
     slidesToShow: 1,
     slidesToScroll: 1,
-    dots: true,
+    dots: true,//TODO: Create problem to the click of the leap
     arrows: false,
     autoplay: true,
     autoplaySpeed: 5000,
@@ -33,7 +36,8 @@ export class NewsComponent implements OnInit {
     private events: EventsService,
     private leap: LeapHandlerService,
     private Events: EventsService,
-    private assistant: AssistantService
+    private assistant: AssistantService,
+    public ngxSmartModalService: NgxSmartModalService,
   ) {
     this.retrieveNews().then((data: Array<any>) => {
       this.news = data;
@@ -47,7 +51,9 @@ export class NewsComponent implements OnInit {
 
     this.assistant.subscribe('search', (data) => {
       console.log(data.topic);
+      this.modalTitle = data.topic;
       this.assistant.say('Fuck you');
+      this.openModal();
       // this.searchNews(data.topic)
       //   .then((news) => {
       //     console.log(news);
@@ -128,12 +134,20 @@ export class NewsComponent implements OnInit {
     }
     node.addEventListener('animationend', handleAnimationEnd)
   }
-
+  // <!-- TODO: Placeholder for leap 
   next() {
     this.carousel.slickNext();
   }
 
   previous() {
     this.carousel.slickPrev();
+  }
+
+  openModal() {
+    this.ngxSmartModalService.getModal('searchModal').open();
+  }
+
+  closeModal() {
+    this.ngxSmartModalService.getModal('searchModal').close();
   }
 }

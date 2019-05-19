@@ -122,3 +122,64 @@
   margin: auto;
   margin-top: 24px;
 }
+
+/*
+* MODAL
+*/
+:host ::ng-deep .nsm-content {
+  width: 900px;
+  height: 800px;
+  position: absolute;
+  left: calc(50% - (900px/2));
+  top: 60%;
+
+  ::-webkit-scrollbar {
+    width: 0px;
+    /* Remove scrollbar space */
+    background: transparent;
+    /* Optional: just make scrollbar invisible */
+  }
+}
+
+:host ::ng-deep .nsm-body {
+
+  ::-webkit-scrollbar {
+    width: 0px;
+    /* Remove scrollbar space */
+    background: transparent;
+    /* Optional: just make scrollbar invisible */
+  }
+
+  h1 {
+    color: black;
+    text-align: center;
+    padding-bottom: 20px;
+  }
+
+  .newslist {
+    overflow-y: auto;
+    height: 680px;
+    color: black;
+  }
+
+  .row.customContainer {
+    -webkit-box-shadow: 0px 0px 5px 4px rgba(194, 194, 194, 0.62);
+    -moz-box-shadow: 0px 0px 5px 4px rgba(194, 194, 194, 0.62);
+    box-shadow: 0px 0px 5px 4px rgba(194, 194, 194, 0.62);
+    margin: auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: 99%;
+
+    .col-4 {
+      img {
+        width: 230px;
+        height: 150px;
+      }
+    }
+  }
+}
+
+:host ::ng-deep .nsm-dialog-btn-close.ng-star-inserted {
+  display: none;
+}

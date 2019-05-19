@@ -2,7 +2,7 @@
   <div class="container-fluid">
 
     <ngx-slick-carousel class="carousel mycarousel" #slickModal="slick-carousel" [config]="slideConfig">
-      <div ngxSlickItem *ngFor="let article of news;let i=index" class="slide myslide"  id="Slidenews{{news[i]._id}}">
+      <div ngxSlickItem *ngFor="let article of news;let i=index" class="slide myslide" id="Slidenews{{news[i]._id}}">
         <div class="row">
           <div class="col-8">
             <img id="ImageSlidenews{{article._id}}" src="{{article.urlToImage}}">
@@ -13,7 +13,7 @@
         </div>
       </div>
     </ngx-slick-carousel>
-   
+
     <div class="row list" id="newslist">
       <div *ngFor="let article of news;let i=index">
         <div [ngClass]="(i+1)%3===0?'grid':''" class="news" id="news{{news[i]._id}}">
@@ -29,6 +29,29 @@
   </div>
 
   <!-- TODO: Placeholder for leap -->
-  <button style="position: absolute;top:10px;" (click)="up()">Up</button>
-  <button style="position: absolute;top:30px" (click)="down()">Down</button>
+  <!-- <button style="position: absolute;top:10px;" (click)="up()">Up</button>
+  <button style="position: absolute;top:30px" (click)="down()">Down</button> -->
+  <ngx-smart-modal #searchModal identifier="searchModal">
+    <h1 *ngIf="modalTitle">Results for {{modalTitle}}</h1>
+    <!-- FIXME:retrieved -->
+
+    <div class="newslist" (click)="closeModal()">
+      <div *ngFor="let article of news" class="row customContainer">
+        <div class="col-4">
+          <img src="{{article.urlToImage}}">
+        </div>
+        <div class="col-8">
+          <div class="row">
+            {{article.title}}
+          </div>
+          <div class="row">
+            {{article.description}}
+          </div>
+        </div>
+      </div>
+    </div>
+  </ngx-smart-modal>
+
+  <button style="position: absolute;top:10px;" (click)="openModal()">Modal</button>
+
 </div>
