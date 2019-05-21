@@ -62,7 +62,7 @@ export class MenuComponent implements OnInit {
     this.leap.registerDivs(this.clickableElements);
     this.leap.registerAnimatingDivs(this.animatingElements);
     this.assistant.subscribe('navigate', (data) => {
-      this.navigate(data.page);
+      this.navigate(data.page, true);
     });
     this.events.subscribe('animate', (data) => {
       if (this.animatingElements.includes(data.element)) {
@@ -79,7 +79,8 @@ export class MenuComponent implements OnInit {
     this.visible = !this.visible;
   }
 
-  navigate(page) {
+
+  navigate(page, flag?) {
 
     let index = this.menu.findIndex((element) => {
       return element.component === page;
@@ -90,7 +91,8 @@ export class MenuComponent implements OnInit {
       this.menu = this.insertAndShift(this.menu, shift);
       this.router.navigate(['/' + page + '']);
     }
-    this.toogleMenu();
+    if (!flag)
+      this.toogleMenu();
   }
 
   ngOnDestroy() {

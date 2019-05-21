@@ -72,13 +72,14 @@ export class AssistantService {
   assistantInit() {
     this.Jarvis = new Artyom();
     this.Jarvis.initialize({
+      soundex: true,
       lang: 'en-GB',// A lot of languages are supported. Read the docs !
       continuous: true,
       listen: true, // Start recognizing
       debug: this.debug, // Show everything in the console
       speed: 1,// talk normally
       name: 'Jarvis',
-      soundex: true
+     
     }).then(() => {
       this.logger.log('Ready to work', 'AssistantService');
       this.isListening = true;
@@ -100,6 +101,7 @@ export class AssistantService {
     this.testingCommands();
     this.playSongs();
     this.NewsSearch();
+    this.mediaPlayerControlling();
   }
 
 
@@ -182,12 +184,29 @@ export class AssistantService {
         let url = this.router.url.slice(0, index);
         console.log(url);
 
-        if (url !== '/media/player' && url !== '/media/player') {
+        if (url !== '/media' && url !== '/media/player') {
           this.Jarvis.say('Sorry cant help you, you must go to media or player');
           return;
         }
         if (songs.includes(song)) this.publish('song', song);
         else this.Jarvis.say('Sorry unknown song');
+      }
+    }
+    this.Jarvis.addCommands(command);
+  }
+
+  mediaPlayerControlling() {
+    let command = {//Cant understand :Previous
+      indexes: ['Next', 'Previews', 'Play', 'Pause'],//FIXME:Seek time too maybe and volume
+      action: (i) => {
+        let index = this.router.url.indexOf(';');
+        let url = this.router.url.slice(0, index);
+        if (url !== '/media/player') {
+          this.Jarvis.say('What are you refering to human');
+          return;
+        } else {
+          this.publish('mediaControlls', i);
+        }
       }
     }
     this.Jarvis.addCommands(command);

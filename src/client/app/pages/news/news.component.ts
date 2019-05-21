@@ -20,6 +20,7 @@ export class NewsComponent implements OnInit {
   clickableElements: Array<string> = [];
   @ViewChild('slickModal') carousel: any;
   modalTitle: string;
+  retrieved: any;
 
   slideConfig = {
     slidesToShow: 1,
@@ -50,18 +51,18 @@ export class NewsComponent implements OnInit {
     });
 
     this.assistant.subscribe('search', (data) => {
-      console.log(data.topic);
       this.modalTitle = data.topic;
-      this.assistant.say('Fuck you');
-      this.openModal();
-      // this.searchNews(data.topic)
-      //   .then((news) => {
-      //     console.log(news);
-      //   })
-      //   .catch((err) => {
-      //     console.error(err);
-      //     //FIXME: Jarvis to be able to say not found or error
-      //   });
+      this.searchNews(data.topic)
+        .then((news: []) => {
+          if (news.length > 0) {
+            this.openModal();
+            this.retrieved = news;
+          } else this.assistant.say('Could not retrieve any news');
+        })
+        .catch((err) => {
+          console.error(err);
+          this.assistant.say('Something went really wrong');
+        });
     });
 
     this.Events.subscribe('animate', (data) => {

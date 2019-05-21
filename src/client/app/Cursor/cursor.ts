@@ -1,5 +1,4 @@
 import { EventsService } from '../services/events.service';
-
 export class Cursor {
     selectableDivs: Array<string>;
     animatingDivs: Array<string>;
@@ -7,8 +6,10 @@ export class Cursor {
     isLoadingCursor = false;  // indicates whether the cursor is loading
     LoadingTimeout;           // loading timeout until click
     private isVisible = false;        // indicates whether the cursor is visible
+    debug: boolean;
 
     constructor(private events: EventsService, debug?) {
+        this.debug = debug;
         if (debug) {
             $(document).on('mousemove', (e) => {
                 var mousetop = e.pageY;
@@ -67,7 +68,8 @@ export class Cursor {
             if (tmpId) {
                 //change cursor to tap
                 this.setTapIcon()
-            }else this.SetOrientation('left');//TODO: this remove it when having leap
+            } else if (this.debug)
+                this.SetOrientation('left');//TODO: this remove it when having leap
         }
     }
 

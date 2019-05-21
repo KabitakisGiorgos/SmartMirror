@@ -82,6 +82,32 @@ export class MediaPlayerComponent {
       this.playSong(song);
     });
 
+    this.assistant.subscribe('mediaControlls', (data) => {
+      switch (data) {
+        case 0:
+          this.nextSong();
+          break;
+        case 1:
+          this.previousSong();
+          break;
+        case 2:
+          if (this.plyr.player.playing) {
+            let tmp = this.plyr.player.volume;
+            this.plyr.player.volume = this.plyr.player.volume - 0.6; // Sets volume at 50%
+            this.assistant.say('Already playing idiot');
+            setTimeout(() => {
+              this.plyr.player.volume = tmp;
+            }, 2000)
+          } else this.togglePlayer()
+          break;
+        case 3:
+          //FIXME:
+          break;
+        default:
+          this.assistant.say('George messed up really bad');
+      }
+    });
+
     this.videoSources.forEach((song) => {
       this.clickableElements.push('suggestion' + song.id);
     });
@@ -110,24 +136,17 @@ export class MediaPlayerComponent {
   }
 
   ngOnInit() {
-
   }
 
   ngAfterViewInit() {
     this.plyr.player.config.autoplay = true;
     this.plyr.player.config.hideControls = false;
     this.player.on('ended', () => {
-      this.autoplay++;
-      try {
-        this.playSong(this.videoSources[this.autoplay]);
-      } catch (e) {
-        this.autoplay = 0;
-        this.playSong(this.videoSources[this.autoplay]);
-      }
-      this.plyr.player.play()
+      this.nextSong();
     });
     $('.plyr__video-wrapper.plyr__video-wrapper--fixed-ratio').append('<div class="plyr_title">' + this.title + '</div>');//Add title 
     this.plyr.player.play();
+    this.playerHideControlls();
   }
 
   // play() {
@@ -148,21 +167,24 @@ export class MediaPlayerComponent {
     }
   }
 
-  play(event?) {//Eventlisteners
-    this.ComponentsHide();
-    // this.playerHideControlls(); FIXME:
+  play(event?, manual?) {//Eventlisteners TODO:not usable anymore
+    if (event && !manual) {
+      this.ComponentsHide();
+      this.playerHideControlls();
+    }
   }
 
   togglePlayer() {
-    if (!debugMode.Cursor) {//When we dont have leap
-      if (this.plyr.player.playing) {
-        this.pause();
-        this.plyr.player.pause()
-      }
-      else {
-        this.play();
-        this.plyr.player.play()
-      }
+    if (this.plyr.player.playing) {
+      this.pause();
+      this.ComponentsDisplay();
+      this.playerDisplayControlls();
+      this.plyr.player.pause()
+    }
+    else {
+      this.play(null, true);
+      this.plyr.player.play();
+      this.ComponentsHide();
     }
   }
 
@@ -172,6 +194,8 @@ export class MediaPlayerComponent {
     this.renderer.setStyle(document.body, 'background-color', '#0C3958');
     this.leap.unregisterDivs(this.clickableElements);
     this.assistant.unsubscribe('song');
+    this.assistant.unsubscribe('mediaControlls');
+    this.events.unsubscribe('cursor');
   }
 
   ComponentsDisplay() {
@@ -225,6 +249,39 @@ export class MediaPlayerComponent {
   }
 
   goBack() {
-    this.router.navigate(['/media']);
+    this.router.navigate(['/media']);//FIXME: the icon
+  }
+
+  nextSong() {
+    this.autoplay++;
+    try {
+      this.playSong(this.videoSources[this.autoplay]);
+    } catch (e) {
+      this.autoplay = 0;
+      this.playSong(this.videoSources[this.autoplay]);
+    }
+    this.plyr.player.play();
+    this.playerHideControlls();
+  }
+
+  previousSong() {
+    this.autoplay--;
+    try {
+      this.playSong(this.videoSources[this.autoplay]);
+    } catch (e) {
+      this.autoplay = this.videoSources.length-1;
+      this.playSong(this.videoSources[this.autoplay]);
+    }
+    this.plyr.player.play();
+    this.playerHideControlls();
+  }
+
+
+  volume() {
+
+  }
+
+  seek() {
+
   }
 }

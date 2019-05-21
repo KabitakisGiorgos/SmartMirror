@@ -15,8 +15,9 @@ export class LeapHandlerService {
   private cursorOn: boolean = false;
   private leapLastTimeNoHand: number = 0;
   private cursor: Cursor;
-  private cursorTimer: number = 0;
+  private cursorTimer: number = 0;//For not hinding and reappearing the cursor multiple times
   private delayTimer: number = 0;
+  private repeatedClick: boolean = false;
 
   constructor(private events: EventsService) {
     this.cursor = new Cursor(events, debugMode.Cursor);
@@ -76,13 +77,16 @@ export class LeapHandlerService {
     });
 
     this.controller.on('gesture', (gesture, frame) => {
-
-
       if (gesture.type == 'swipe' && !this.cursorOn) {
+
         console.log(gesture.type + " with ID " + gesture.id + " in frame " + frame.id);
       }
-      if (gesture.type === 'keyTap' && this.cursorOn) {
+      if (gesture.type === 'keyTap' && this.cursorOn && !this.repeatedClick) {
         this.cursor.clickElement();
+        this.repeatedClick = true;
+        setTimeout(() => {
+          this.repeatedClick = false;
+        }, 500);
       }
     });
   }
