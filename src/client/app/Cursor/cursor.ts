@@ -63,13 +63,12 @@ export class Cursor {
             $('#cursor').css({ 'top': x, 'left': y });
 
             this.collidableElement = undefined;
-            let tmpId = await this.checkCollisions() as string;
-            this.setSelectedElement(tmpId);
-            if (tmpId) {
-                //change cursor to tap
-                this.setTapIcon()
-            } else if (this.debug)
-                this.SetOrientation('left');//TODO: this remove it when having leap
+            let collision = await this.checkCollisions() as string;
+            this.setSelectedElement(collision);
+            if (collision)
+                this.setCursorIcon('tap');
+            else
+                this.setCursorIcon('normal');
         }
     }
 
@@ -80,26 +79,23 @@ export class Cursor {
     */
     SetOrientation(pos) {
         var cursor = $('#cursor .cursor');
-        if (pos == 'left') {
-            if (cursor.hasClass('tap')) {
-                cursor.removeClass('tap').addClass('left');
-            } else
-                cursor.removeClass('right').addClass('left');
-        }
-        else if (pos == 'right') {
-            if (cursor.hasClass('tap')) {
-                cursor.removeClass('tap').addClass('right');
-            } else
-                cursor.removeClass('left').addClass('right');
+        if (pos === 'left') {
+            if (cursor.hasClass('left')) return;
+            else cursor.removeClass('right').addClass('left');
+        } else if (pos === 'right') {
+            if (cursor.hasClass('right')) return;
+            else cursor.removeClass('left').addClass('right');
         }
     }
 
-    setTapIcon() {
+    setCursorIcon(type) {
         var cursor = $('#cursor .cursor');
-        if (cursor.hasClass('right')) {
-            $('#cursor .cursor').removeClass('right').addClass('tap');
-        } else if (cursor.hasClass('left')) {
-            $('#cursor .cursor').removeClass('left').addClass('tap');
+        if (type === 'normal') {
+            if (cursor.hasClass('normal')) return;
+            else cursor.removeClass('tap').addClass('normal');
+        } else if (type === 'tap') {
+            if (cursor.hasClass('tap')) return;
+            else cursor.removeClass('normal').addClass('tap');
         }
     }
 

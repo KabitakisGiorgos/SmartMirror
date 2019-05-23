@@ -66,6 +66,7 @@ export class MediaPlayerComponent {
   ];
   player: Plyr;
   clickableElements: Array<string> = ['plyrPlayer', 'back'];
+  volume: Number = 100;
 
   constructor(
     private route: ActivatedRoute,
@@ -83,7 +84,7 @@ export class MediaPlayerComponent {
     });
 
     this.assistant.subscribe('mediaControlls', (data) => {
-      switch (data) {
+      switch (data.index) {
         case 0:
           this.nextSong();
           break;
@@ -96,12 +97,34 @@ export class MediaPlayerComponent {
             this.plyr.player.volume = this.plyr.player.volume - 0.6; // Sets volume at 50%
             this.assistant.say('Already playing idiot');
             setTimeout(() => {
-              this.plyr.player.volume = tmp;
+              this.volume = this.plyr.player.volume = tmp;
             }, 2000)
           } else this.togglePlayer()
           break;
         case 3:
-          //FIXME:
+          if (this.plyr.player.paused)
+            this.assistant.say('Already paused idiot');
+          else this.togglePlayer()
+          break;
+        case 4:
+          this.plyr.player.volume = this.volume;
+          break;
+        case 5:
+          this.volume = this.plyr.player.volume;
+          this.plyr.player.volume = 0;
+          break;
+        case 6:
+          let volume = parseInt(data.data);
+          if (volume && volume <= 100 && volume >= 0) this.plyr.player.volume = volume * 0.01;
+          else this.assistant.say('What are you talking about');
+          break;
+        case 7:
+        case 8:
+          let duration = this.plyr.player.duration;
+          let seekPercent = parseInt(data.data);
+
+          if (seekPercent && seekPercent <= 100 && seekPercent >= 0) this.plyr.player.currentTime = duration * seekPercent*0.01;
+          else this.assistant.say('What are you talking about');
           break;
         default:
           this.assistant.say('George messed up really bad');
@@ -269,16 +292,11 @@ export class MediaPlayerComponent {
     try {
       this.playSong(this.videoSources[this.autoplay]);
     } catch (e) {
-      this.autoplay = this.videoSources.length-1;
+      this.autoplay = this.videoSources.length - 1;
       this.playSong(this.videoSources[this.autoplay]);
     }
     this.plyr.player.play();
     this.playerHideControlls();
-  }
-
-
-  volume() {
-
   }
 
   seek() {

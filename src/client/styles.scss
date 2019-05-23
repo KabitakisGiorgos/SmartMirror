@@ -19,7 +19,7 @@ body {
   background-color: #0C3958;
   overflow: hidden;
   color: white;
-  // cursor: none;
+  // cursor: none;//FIXME:
 }
 
 
@@ -31,6 +31,22 @@ body {
   top: 35px;
   left: 30px;
   background-repeat: no-repeat;
+
+  &.normal.right {
+    background-image: url("./assets/images/cursor_right.png");
+  }
+
+  &.normal.left {
+    background-image: url("./assets/images/cursor_left.png");
+  }
+
+  &.tap.right {
+    background-image: url("./assets/images/right_tap.png");
+  }
+
+  &.tap.left {
+    background-image: url("./assets/images/left_tap.png");
+  }
 }
 
 #cursor {
@@ -45,18 +61,6 @@ body {
 
 .progressLoading>svg {
   height: 100%;
-}
-
-.cursor.right {
-  background-image: url("./assets/images/cursor_right.png");
-}
-
-.cursor.left {
-  background-image: url("./assets/images/cursor_left.png");
-}
-
-.cursor.tap {
-  background-image: url("./assets/images/tap.png");
 }
 
 .footer {

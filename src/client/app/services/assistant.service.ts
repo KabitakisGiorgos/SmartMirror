@@ -79,7 +79,7 @@ export class AssistantService {
       debug: this.debug, // Show everything in the console
       speed: 1,// talk normally
       name: 'Jarvis',
-     
+
     }).then(() => {
       this.logger.log('Ready to work', 'AssistantService');
       this.isListening = true;
@@ -102,6 +102,7 @@ export class AssistantService {
     this.playSongs();
     this.NewsSearch();
     this.mediaPlayerControlling();
+    this.mediaPlayerControllingV2();
   }
 
 
@@ -197,7 +198,7 @@ export class AssistantService {
 
   mediaPlayerControlling() {
     let command = {//Cant understand :Previous
-      indexes: ['Next', 'Previews', 'Play', 'Pause'],//FIXME:Seek time too maybe and volume
+      indexes: ['Next', 'Previews', 'Play', 'Pause', 'Unmute', 'Mute'],
       action: (i) => {
         let index = this.router.url.indexOf(';');
         let url = this.router.url.slice(0, index);
@@ -205,7 +206,31 @@ export class AssistantService {
           this.Jarvis.say('What are you refering to human');
           return;
         } else {
-          this.publish('mediaControlls', i);
+          this.publish('mediaControlls', {
+            index: i
+          });
+        }
+      }
+    }
+    this.Jarvis.addCommands(command);
+  }
+
+  mediaPlayerControllingV2() {
+    let command = {
+      smart: true,
+      indexes: ['Volume *', 'Fast forward to *','Go backward to *'],
+      action: (i, wildcard) => {
+        console.log(wildcard);
+        let index = this.router.url.indexOf(';');
+        let url = this.router.url.slice(0, index);
+        if (url !== '/media/player') {
+          this.Jarvis.say('What are you refering to human');
+          return;
+        } else {
+          this.publish('mediaControlls', {
+            index: (i + 6),
+            data: wildcard
+          });
         }
       }
     }
