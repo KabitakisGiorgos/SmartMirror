@@ -1,10 +1,8 @@
 import { EventsService } from '../services/events.service';
 export class Cursor {
-    selectableDivs: Array<string>;
-    animatingDivs: Array<string>;
+    private selectableDivs: Array<string>;
+    private animatingDivs: Array<string>;
     private collidableElement: string;
-    isLoadingCursor = false;  // indicates whether the cursor is loading
-    LoadingTimeout;           // loading timeout until click
     private isVisible = false;        // indicates whether the cursor is visible
     debug: boolean;
 
@@ -199,5 +197,11 @@ export class Cursor {
     clickElement() {
         $('#' + this.collidableElement).click();
         this.collidableElement = undefined;
+    }
+
+    tapping() {
+        var cursor = $('#cursor .cursor');
+        if (cursor.hasClass('normal')) return false;
+        else return true;
     }
 }

@@ -5,6 +5,8 @@ import { LoggerService } from '../../services/logger.service';
 import { Http } from '@angular/http';
 import { slideInUpOnEnterAnimation } from 'angular-animations';
 import { EventsService } from '../../services/events.service';
+import * as _ from 'lodash';
+
 @Component({
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
@@ -20,27 +22,37 @@ export class HomeComponent implements OnInit {
   @ViewChild('slickModal') carousel: any;
   slides = [
     {
-      img: '../../../assets/images/homeWidgets/Hypnos.png',
+      img: '/assets/images/homeWidgets/Hypnos.png',
       class: 'hypnos'
     },
     {
-      img: '../../../assets/images/homeWidgets/Traffic.png',
+      img: '/assets/images/homeWidgets/breakfast.png',
+      class: 'hypnos'
+    },
+    {
+      img: '/assets/images/homeWidgets/Traffic.png',
       class: 'commute'
     },
     {
-      img: '../../../assets/images/homeWidgets/Work.png',
+      img: '/assets/images/homeWidgets/Work.png',
       class: 'work'
     },
-    { img: 'https://via.placeholder.com/150' },
-    { img: 'https://via.placeholder.com/150' },
-    { img: 'https://via.placeholder.com/150' },
-    { img: 'https://via.placeholder.com/150' },
-    { img: 'https://via.placeholder.com/150' },
-    { img: 'https://via.placeholder.com/150' }
+    {
+      img: '/assets/images/homeWidgets/Traffic2.png',
+      class: 'commute'
+    },
+    {
+      img: '/assets/images/homeWidgets/relax.png',
+      class: 'hypnos'
+    },
+    {
+      img: '/assets/images/homeWidgets/dinner.png',
+      class: 'hypnos'
+    }
   ];
 
   slideConfig = {
-    slidesToShow: 4,
+    slidesToShow: 1,
     slidesToScroll: 1,
     arrows: false,
     infinite: false,
@@ -59,6 +71,7 @@ export class HomeComponent implements OnInit {
   async ngOnInit() {
     try {
       this.events = await this.retrieveEvents();
+      this.events = _.sortBy(this.events, ['start']);
       this.selectedEvent = 0;
       for (let i = 0; i < this.events.length; i++) {
         this.clickableElements.push(this.events[i]._id);
@@ -114,6 +127,7 @@ export class HomeComponent implements OnInit {
   }
 
   select(slide, id) {
+    console.log(slide)
     this.carousel.slickGoTo(slide);
     this.selectedEvent = slide;
   }

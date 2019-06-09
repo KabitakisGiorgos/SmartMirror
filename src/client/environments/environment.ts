@@ -10,10 +10,10 @@ export const environment = {
 
 export const debugMode = {
   AssistantService: true,
-  LeapHandlerService: false,
-  Jarvis: true,
+  LeapHandlerService: true,
+  Jarvis: false,
   Home: true,
   Navbar: true,
   NotificationsComp: true,
-  Cursor: true
+  Cursor: false
 };

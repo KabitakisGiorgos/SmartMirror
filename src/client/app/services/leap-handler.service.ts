@@ -15,9 +15,9 @@ export class LeapHandlerService {
   private cursorOn: boolean = false;
   private leapLastTimeNoHand: number = 0;
   private cursor: Cursor;
-  private cursorTimer: number = 0;//For not hinding and reappearing the cursor multiple times
-  private delayTimer: number = 0;
-  private repeatedClick: boolean = false;
+  private repeatedAction: boolean = false;
+  private swipeThreshold: boolean = false;
+  private enableThreshold: number = 0;
 
   constructor(private events: EventsService) {
     this.cursor = new Cursor(events, debugMode.Cursor);
@@ -26,18 +26,17 @@ export class LeapHandlerService {
       this.init();
   }
 
-  init() {
+  private init() {
     this.controller = new Leap.Controller({ enableGestures: true });
     this.controller.loop(async (frame) => {
       var pointable = frame.hands[0];
       if (pointable) {
-        if (this.delayTimer > 0)
-          this.cursorTimer += performance.now() - this.delayTimer;
-        this.delayTimer = performance.now();
 
         var detect = await this.detectFingers(pointable.fingers);
-        if (detect === 'closed' && this.cursorTimer > config.leap.cursorHide) {
-          this.cursorTimer = 0;
+        if (detect === 'closed') this.enableThreshold++;
+
+        if (this.enableThreshold > 100) {
+          this.enableThreshold = 0;
           if (this.cursorOn)
             this.disableCursor();
           else this.enableCursor();
@@ -78,34 +77,41 @@ export class LeapHandlerService {
 
     this.controller.on('gesture', (gesture, frame) => {
       if (gesture.type == 'swipe' && !this.cursorOn) {
-
-        console.log(gesture.type + " with ID " + gesture.id + " in frame " + frame.id);
-      }
-      if (gesture.type === 'keyTap' && this.cursorOn && !this.repeatedClick) {
-        this.cursor.clickElement();
-        this.repeatedClick = true;
+        if (!this.swipeThreshold) {
+          if (debugMode.LeapHandlerService) console.log(this.swipeDirection(gesture));
+          this.events.publish('swipe', this.swipeDirection(gesture));
+        }
+        this.enableThreshold = 0;
+        this.swipeThreshold = true;
         setTimeout(() => {
-          this.repeatedClick = false;
+          this.swipeThreshold = false;
+        }, 2500);
+      }
+      if (gesture.type === 'keyTap' && this.cursorOn && !this.repeatedAction) {
+        this.cursor.clickElement();
+        this.repeatedAction = true;
+        setTimeout(() => {
+          this.repeatedAction = false;
         }, 500);
       }
     });
   }
 
 
-  enableCursor() {
+  private enableCursor() {
     this.cursorOn = true;
     this.cursor.Show();
     this.events.publish('cursor', { visibility: this.cursorOn });
   }
 
-  disableCursor() {
+  private disableCursor() {
     this.cursor.Hide();
     this.cursorOn = false;
     this.events.publish('cursor', { visibility: this.cursorOn });
     this.cursor.setSelectedElement(null);
   }
 
-  detectFingers(fingersArray) {
+  private detectFingers(fingersArray) {
     return new Promise((resolve, reject) => {
       fingersArray.forEach((element, index) => {
         if (element.extended) resolve('open');
@@ -132,5 +138,30 @@ export class LeapHandlerService {
 
   isCursorVisible() {
     return this.cursor.IsVisible();
+  }
+
+  private swipeDirection(gesture) {
+    if (gesture.type !== 'swipe') {
+      throw 'Not swipe gesture';
+    } else {
+      let isHorizontal = Math.abs(gesture.direction[0]) > Math.abs(gesture.direction[1]);
+      if (isHorizontal) {
+        if (gesture.direction[0] > 0) {
+          return 'right';
+        } else {
+          return 'left';
+        }
+      } else {//Vertical swipe
+        if (gesture.direction[1] > 0) {
+          return 'up';
+        } else {
+          return 'down';
+        }
+      }
+    }
+  }
+
+  cursorTapping() {
+    return this.cursor.tapping();
   }
 }

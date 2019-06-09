@@ -83,6 +83,11 @@ export class MediaPlayerComponent {
       this.playSong(song);
     });
 
+    this.events.subscribe('swipe', (data) => {
+      if (data === 'right') this.previousSong();
+      if (data === 'left') this.nextSong();
+    });
+
     this.assistant.subscribe('mediaControlls', (data) => {
       switch (data.index) {
         case 0:
@@ -123,7 +128,7 @@ export class MediaPlayerComponent {
           let duration = this.plyr.player.duration;
           let seekPercent = parseInt(data.data);
 
-          if (seekPercent && seekPercent <= 100 && seekPercent >= 0) this.plyr.player.currentTime = duration * seekPercent*0.01;
+          if (seekPercent && seekPercent <= 100 && seekPercent >= 0) this.plyr.player.currentTime = duration * seekPercent * 0.01;
           else this.assistant.say('What are you talking about');
           break;
         default:
@@ -219,6 +224,7 @@ export class MediaPlayerComponent {
     this.assistant.unsubscribe('song');
     this.assistant.unsubscribe('mediaControlls');
     this.events.unsubscribe('cursor');
+    this.events.unsubscribe('swipe');
   }
 
   ComponentsDisplay() {
