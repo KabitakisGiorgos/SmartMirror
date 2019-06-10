@@ -54,7 +54,7 @@
 
 .list {
   overflow-y: auto;
-  height: 47vh;
+  height: 43vh;
   width: 975px;
   margin: auto;
   margin-top: 10px;
@@ -82,13 +82,13 @@
 
     span {
       font-weight: 600;
-      overflow-wrap: break-word;
-      font-weight: 600;
-      overflow-wrap: break-word;
-      width: 260px;
       position: relative;
       left: 25px;
       top: 20px;
+      width: 270px;
+      text-overflow: ellipsis;
+      max-height: 63px;
+      display: inline-block;
     }
   }
 
@@ -182,4 +182,40 @@
 
 :host ::ng-deep .nsm-dialog-btn-close.ng-star-inserted {
   display: none;
+}
+
+.scrollbutton {
+  position: absolute;
+  border-radius: 100%;
+  width: 180px;
+  height: 180px;
+  background-color: #0B1D2A;
+  border: none;
+  -webkit-box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
+  box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
+  color: white;
+  font-size: 30px;
+
+  &.down {
+    right: 90px;
+    top: 830px;
+
+    &.active {
+      -webkit-box-shadow: 3px 3px 2px 0px rgba(0, 0, 0, 0.75);
+      -moz-box-shadow: 3px 3px 2px 0px rgba(0, 0, 0, 0.75);
+      box-shadow: 3px 3px 2px 0px rgba(0, 0, 0, 0.75);
+    }
+  }
+
+  &.up {
+    top: 220px;
+    right: 90px;
+
+    &.active {
+      -webkit-box-shadow: 3px 3px 2px 0px rgba(0, 0, 0, 0.75);
+      -moz-box-shadow: 3px 3px 2px 0px rgba(0, 0, 0, 0.75);
+      box-shadow: 3px 3px 2px 0px rgba(0, 0, 0, 0.75);
+    }
+  }
 }

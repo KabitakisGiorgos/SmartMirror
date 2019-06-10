@@ -164,4 +164,8 @@ export class LeapHandlerService {
   cursorTapping() {
     return this.cursor.tapping();
   }
+
+  getSelectedElem() {
+    return this.cursor.getSelectedElement();
+  }
 }

@@ -28,12 +28,8 @@
     </div>
   </div>
 
-  <!-- TODO: Placeholder for leap -->
-  <!-- <button style="position: absolute;top:10px;" (click)="up()">Up</button>
-  <button style="position: absolute;top:30px" (click)="down()">Down</button> -->
   <ngx-smart-modal #searchModal identifier="searchModal">
     <h1 *ngIf="modalTitle">Results for {{modalTitle}}</h1>
-    <!-- FIXME:retrieved -->
 
     <div class="newslist" (click)="closeModal()">
       <div *ngFor="let article of retrieved" class="row customContainer">
@@ -51,7 +47,10 @@
       </div>
     </div>
   </ngx-smart-modal>
-
-  <button style="position: absolute;top:10px;" (click)="openModal()">Modal</button>
+  <!-- TODO: For debuggin -->
+  <!-- <button style="position: absolute;top:10px;" (click)="openModal()">Modal</button> -->
 
 </div>
+
+<button class="scrollbutton up" id="uplist">Scroll Up</button>
+<button class="scrollbutton down" id="downlist">Scroll Down</button>

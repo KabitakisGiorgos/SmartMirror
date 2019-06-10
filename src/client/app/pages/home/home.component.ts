@@ -127,7 +127,6 @@ export class HomeComponent implements OnInit {
   }
 
   select(slide, id) {
-    console.log(slide)
     this.carousel.slickGoTo(slide);
     this.selectedEvent = slide;
   }

@@ -2,7 +2,6 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { slideInUpOnEnterAnimation } from 'angular-animations';
 import { Http } from '@angular/http';
 import { EventsService } from '../../services/events.service';
-import * as $ from 'jquery';
 import { LeapHandlerService } from '../../services/leap-handler.service';
 import { AssistantService } from '../../services/assistant.service';
 import { NgxSmartModalService } from 'ngx-smart-modal';
@@ -21,6 +20,7 @@ export class NewsComponent implements OnInit {
   @ViewChild('slickModal') carousel: any;
   modalTitle: string;
   retrieved: any;
+  timeoutHandler: any;
 
   slideConfig = {
     slidesToShow: 1,
@@ -48,6 +48,8 @@ export class NewsComponent implements OnInit {
       }
       this.leap.registerDivs(this.clickableElements);
       this.leap.registerAnimatingDivs(this.clickableElements);
+      this.leap.registerAnimatingDivs(['uplist', 'downlist']);
+      this.leap.registerDivs(['uplist', 'downlist']);
     });
 
     this.assistant.subscribe('search', (data) => {
@@ -68,9 +70,12 @@ export class NewsComponent implements OnInit {
     this.Events.subscribe('animate', (data) => {
       if (this.clickableElements.includes(data.element)) {//A way to animate the inside of the clickable element
         this.animateCSS('Image' + data.element, 'pulse');
+      } else if (data.element === 'uplist') {
+        this.up();//Added up and down button to animate in order to add custom handlers
+      } else if (data.element === 'downlist') {
+        this.down();
       }
     });
-
   }
 
   ngOnInit() {
@@ -107,20 +112,59 @@ export class NewsComponent implements OnInit {
   }
 
   down() {
-    var elmnt = document.getElementById('newslist');
-    var y = elmnt.scrollTop;
-    elmnt.scroll(0, y + 335);
+    if (!this.timeoutHandler) {
+      $('#downlist').addClass('active');
+      this.timeoutHandler = setInterval(() => {
+        if (!this.leap.getSelectedElem()) {
+          this.mouseleave();
+          return;
+        }
+
+        var elmnt = document.getElementById('newslist');
+        var y = elmnt.scrollTop;
+        elmnt.scroll({
+          left: 0,
+          top: y + 160,
+          behavior: 'smooth'
+        });
+      }, 400);
+    }
+  }
+
+  mouseleave() {
+    if (this.timeoutHandler) {
+      $('#uplist').removeClass('active');
+      $('#downlist').removeClass('active');
+      clearTimeout(this.timeoutHandler);
+      this.timeoutHandler = null;
+    }
   }
 
   up() {
-    var elmnt = document.getElementById('newslist');
-    var y = elmnt.scrollTop;
-    elmnt.scroll(0, y - 335);
+    if (!this.timeoutHandler) {
+      $('#uplist').addClass('active');
+      this.timeoutHandler = setInterval(() => {
+        if (!this.leap.getSelectedElem()) {
+          this.mouseleave();
+          return;
+        }
+
+        var elmnt = document.getElementById('newslist');
+        var y = elmnt.scrollTop;
+        elmnt.scroll({
+          left: 0,
+          top: y - 160,
+          behavior: 'smooth'
+        });
+      }, 400);
+    }
   }
 
   ngOnDestroy() {
     this.leap.unregisterDivs(this.clickableElements);
     this.leap.unregisterAnimatingDivs(this.clickableElements);
+    this.leap.unregisterAnimatingDivs(['uplist', 'downlist']);
+    this.leap.unregisterDivs(['uplist', 'downlist']);
   }
 
   animateCSS(element, animationName, callback?) {//TODO:  this works with animateCSS Helper function placeholder here
@@ -134,14 +178,6 @@ export class NewsComponent implements OnInit {
       if (typeof callback === 'function') callback()
     }
     node.addEventListener('animationend', handleAnimationEnd)
-  }
-  // <!-- TODO: Placeholder for leap 
-  next() {
-    this.carousel.slickNext();
-  }
-
-  previous() {
-    this.carousel.slickPrev();
   }
 
   openModal() {
