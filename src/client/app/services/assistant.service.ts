@@ -218,7 +218,7 @@ export class AssistantService {
   mediaPlayerControllingV2() {
     let command = {
       smart: true,
-      indexes: ['Volume *', 'Fast forward to *','Go backward to *'],
+      indexes: ['Volume *', 'Fast forward to *', 'Go backward to *'],
       action: (i, wildcard) => {
         console.log(wildcard);
         let index = this.router.url.indexOf(';');
@@ -241,8 +241,19 @@ export class AssistantService {
     this.Jarvis.emptyCommands();
   }
 
-  say(string) {
-    this.Jarvis.say(string);
+  say(string, next?, ) {
+    if (next) {
+      this.Jarvis.say(string, {
+        onStart: () => { },
+        onEnd: () => { next() }
+      });
+    } else {
+      this.Jarvis.say(string);
+    }
+  }
+
+  isSpeaking() {
+    this.Jarvis.isSpeaking();
   }
 
   IsListening() {

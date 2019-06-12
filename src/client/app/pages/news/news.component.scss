@@ -165,6 +165,14 @@
     border-radius: 2%;
   }
 
+  .autocuelist {
+    overflow-y: auto;
+    height: 770px;
+    color: black;
+    position: absolute;
+    border-radius: 2%;
+  }
+
   .row.customContainer {
     -webkit-box-shadow: 0px 0px 5px 4px rgba(194, 194, 194, 0.62);
     -moz-box-shadow: 0px 0px 5px 4px rgba(194, 194, 194, 0.62);
@@ -222,7 +230,7 @@
   font-size: 30px;
 
   &.down {
-    right: 90px;
+    left: 130px;
     top: 750px;
 
     &.active {
@@ -234,7 +242,7 @@
 
   &.up {
     top: 220px;
-    right: 90px;
+    left: 130px;
 
     &.active {
       -webkit-box-shadow: 3px 3px 2px 0px rgba(0, 0, 0, 0.75);
@@ -246,7 +254,7 @@
 
 .autocue {
   position: absolute;
-  top: 455px;
+  top: 485px;
   left: 130px;
   width: 180px;
   height: 180px;

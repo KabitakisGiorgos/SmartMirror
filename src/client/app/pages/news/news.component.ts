@@ -22,6 +22,7 @@ export class NewsComponent {
   retrieved: any;
   timeoutHandler: any;
   modalOpen: boolean = false;
+  autocueArticles: Array<any> = [];
 
   slideConfig = {
     slidesToShow: 1,
@@ -196,5 +197,27 @@ export class NewsComponent {
 
   closeModal() {
     this.ngxSmartModalService.getModal('searchModal').close();
+  }
+
+  autocueModalOpen() {
+    this.ngxSmartModalService.getModal('autocueModal').open();
+    this.readTest(this.news.length - 2);//TODO: all  the news 
+    //TODO: also fix the retrieve modal news
+  }
+
+  autocueModalClose() {
+    this.ngxSmartModalService.getModal('autocueModal').close();
+    //TODO:Make artyom shut up and clear the array
+    this.autocueArticles = [];
+  }
+
+  readTest(i) {
+    if (i < this.news.length) {
+      this.autocueArticles.unshift(this.news[i]);
+      this.assistant.say(this.news[i].title);
+      this.assistant.say(this.news[i].description, () => {
+        this.readTest(i + 1);
+      });
+    }
   }
 }

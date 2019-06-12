@@ -4,6 +4,7 @@ import { Http } from '@angular/http';
 import config from '../services/config.json';
 import { EventsService } from '../services/events.service';
 import { slideInDownOnEnterAnimation } from 'angular-animations';
+import Typed from 'typed.js';
 
 @Component({
   selector: 'app-navbar',
@@ -14,16 +15,13 @@ import { slideInDownOnEnterAnimation } from 'angular-animations';
   ]
 })
 export class NavbarComponent {
-  news: any;
+  news: Array<any> = [];
   today = new Date();
   show: boolean = true;
 
   constructor(
     private http: Http,
     private events: EventsService) {
-    this.retrieveNews().then((data) => {
-      this.news = data;
-    });
     this.events.subscribe('navbar-display', (data) => {
       if (data.action === 'toggle') {
         this.toggleNavbar();
@@ -44,47 +42,20 @@ export class NavbarComponent {
   }
 
   ngAfterViewInit() {
-    function newsTicker($ele) {
-      var $eles = $ele.find('ul > li'),
-        $current = $eles.hide().first(),
-        rotateCharsTimer;
-
-      function rotateChars($ele) {
-        var indexCut = 0;
-        var title = $ele.data('title');
-        rotateCharsTimer = setInterval(function () {
-          if ($ele.text().length >= title.length) {
-            clearInterval(rotateCharsTimer);
-          } else {
-            $ele.text(title.substr(0, indexCut++));
-          }
-        }, 90);
+    this.retrieveNews().then((data: Array<any>) => {
+      for (let i = 0; i < data.length; i++) {
+        this.news.push(data[i].title);
       }
 
-      function loopLs($eles) {
-        if (typeof rotateCharsTimer != 'undefined') {
-          clearInterval(rotateCharsTimer);
-        }
-        $current.find('span').fadeOut('slow', function () {
-          $eles.hide();
-          $current = $current.next().length ? $current.next()
-            : $eles.first();
-          rotateChars($current.show()
-            .find('span')
-            .text('')
-            .fadeIn());
-        });
-      }
-
-      $eles.find('span').each(function () {
-        $(this).data('title', $(this).text());
+      var types = new Typed('#news-ticker', {
+        strings: this.news,
+        loopCount: Infinity,
+        backDelay: 5000,
+        typeSpeed: 70,
+        showCursor: false,
+        fadeOut: true,
+        loop: true
       });
-      loopLs($eles);
-      setInterval(function () { loopLs($eles); }, config.news.changeDelay);
-    }
-
-    setTimeout(() => {
-      newsTicker($('#news-ticker'));
     });
   }
 
