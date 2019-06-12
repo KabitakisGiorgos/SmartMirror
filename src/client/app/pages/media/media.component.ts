@@ -88,56 +88,6 @@ export class MediaComponent implements OnInit {
       image: '../../../assets/images/night.png',
       repeats: '9',
       duration: '4:46'
-    },
-    {
-      id: 8,
-      title: 'Iron Maiden - Alexander The Great',
-      image: '../../../assets/images/alexander.png',
-      repeats: '22',
-      duration: '8:34',
-    },
-    {
-      id: 9,
-      title: 'Scorpions - Love of my life',
-      image: '../../../assets/images/love.png',
-      repeats: '12',
-      duration: '2:20'
-    },
-    {
-      id: 10,
-      title: 'Iron Maiden - Fear of the dark',
-      image: '../../../assets/images/fear.png',
-      repeats: '9',
-      duration: '7:19'
-    },
-    {
-      id: 11,
-      title: 'Iron Maiden - The Mercenary',
-      image: '../../../assets/images/mercenary.png',
-      repeats: '5',
-      duration: '8:56'
-    },
-    {
-      id: 12,
-      title: 'Metallica: Dream No More',
-      image: '../../../assets/images/dream.png',
-      repeats: '11',
-      duration: '6:38'
-    },
-    {
-      id: 13,
-      title: 'Metallica - Sad But True',
-      image: '../../../assets/images/sad.png',
-      repeats: '9',
-      duration: '5:28',
-      url: '../../../assets/video/sad.mp4'
-    },
-    {
-      id: 14,
-      title: 'Iron maiden - the legacy',
-      image: '../../../assets/images/legacy.png',
-      repeats: '11',
-      duration: '9:23'
     }
   ];
 

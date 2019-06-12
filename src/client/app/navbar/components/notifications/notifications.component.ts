@@ -67,7 +67,7 @@ export class NotificationsComponent implements OnInit {
 
   notificationAudio() {
     let audio = new Audio();
-    audio.src = '../../../../../assets/sounds/notification.mp3';
+    audio.src = '/assets/sounds/notification.mp3';
     audio.load();
     audio.play();
   }

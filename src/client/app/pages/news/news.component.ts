@@ -14,13 +14,14 @@ import { NgxSmartModalService } from 'ngx-smart-modal';
   templateUrl: './news.component.html',
   styleUrls: ['./news.component.scss']
 })
-export class NewsComponent implements OnInit {
+export class NewsComponent {
   news: any;
   clickableElements: Array<string> = [];
   @ViewChild('slickModal') carousel: any;
   modalTitle: string;
   retrieved: any;
   timeoutHandler: any;
+  modalOpen: boolean = false;
 
   slideConfig = {
     slidesToShow: 1,
@@ -78,7 +79,14 @@ export class NewsComponent implements OnInit {
     });
   }
 
-  ngOnInit() {
+  ngAfterViewInit() {
+    this.ngxSmartModalService.getModal('searchModal').onOpen.subscribe(() => {
+      this.modalOpen = true;
+    });
+
+    this.ngxSmartModalService.getModal('searchModal').onClose.subscribe(() => {
+      this.modalOpen = false;
+    });
   }
 
   retrieveNews() {
@@ -112,15 +120,16 @@ export class NewsComponent implements OnInit {
   }
 
   down() {
+    let list = this.modalOpen ? 'modallist' : 'newslist';
     if (!this.timeoutHandler) {
-      $('#downlist').addClass('active');
+      $('#downlist').addClass('active');//TODO: test with leap
       this.timeoutHandler = setInterval(() => {
         if (!this.leap.getSelectedElem()) {
           this.mouseleave();
           return;
         }
 
-        var elmnt = document.getElementById('newslist');
+        var elmnt = document.getElementById(list);
         var y = elmnt.scrollTop;
         elmnt.scroll({
           left: 0,
@@ -141,15 +150,16 @@ export class NewsComponent implements OnInit {
   }
 
   up() {
+    let list = this.modalOpen ? 'modallist' : 'newslist';
     if (!this.timeoutHandler) {
-      $('#uplist').addClass('active');
+      $('#uplist').addClass('active');//The button
       this.timeoutHandler = setInterval(() => {
         if (!this.leap.getSelectedElem()) {
           this.mouseleave();
           return;
         }
 
-        var elmnt = document.getElementById('newslist');
+        var elmnt = document.getElementById(list);
         var y = elmnt.scrollTop;
         elmnt.scroll({
           left: 0,

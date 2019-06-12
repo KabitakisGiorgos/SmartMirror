@@ -158,8 +158,11 @@
 
   .newslist {
     overflow-y: auto;
-    height: 680px;
+    height: 715px;
     color: black;
+    top: 55px;
+    position: absolute;
+    border-radius: 2%;
   }
 
   .row.customContainer {
@@ -171,10 +174,31 @@
     margin-bottom: 10px;
     width: 99%;
 
-    .col-4 {
+    .title {
+      font-weight: 600;
+      padding-top: 25px;
+      font-size: 18px;
+      justify-content: center;
+      text-align: center;
+      margin: auto;
+    }
+
+    .description {
+      padding-top: 10px;
+      font-size: 14px;
+      justify-content: center;
+      text-align: center;
+      margin: auto;
+    }
+
+    .col-3 {
       img {
-        width: 230px;
-        height: 150px;
+        margin-top: 20px;
+        margin-bottom: 20px;
+        width: 210px;
+        padding: 10px 10px 10px 10px;
+        height: 155px;
+
       }
     }
   }
@@ -199,7 +223,7 @@
 
   &.down {
     right: 90px;
-    top: 830px;
+    top: 750px;
 
     &.active {
       -webkit-box-shadow: 3px 3px 2px 0px rgba(0, 0, 0, 0.75);
@@ -217,5 +241,32 @@
       -moz-box-shadow: 3px 3px 2px 0px rgba(0, 0, 0, 0.75);
       box-shadow: 3px 3px 2px 0px rgba(0, 0, 0, 0.75);
     }
+  }
+}
+
+.autocue {
+  position: absolute;
+  top: 455px;
+  left: 130px;
+  width: 180px;
+  height: 180px;
+  background-color: #0B1D2A;
+  border: none;
+  border-radius: 30%;
+  -webkit-box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
+  box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
+
+  img {
+    width: 100px;
+    height: 100px;
+    border-radius: 35%;
+  }
+
+  .title {
+    color: white;
+    display: block;
+    font-size: 25px;
+    margin-bottom: -10px;
   }
 }

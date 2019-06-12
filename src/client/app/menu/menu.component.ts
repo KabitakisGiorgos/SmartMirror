@@ -32,23 +32,23 @@ export class MenuComponent implements OnInit {
   visible: boolean = false;
   menu: Array<any> = [
     {
-      src: '../../../assets/icons/news.png',
+      src: '/assets/icons/news.png',
       component: 'news'
     },
     {
-      src: '../../../assets/icons/media.png',
+      src: '/assets/icons/media.png',
       component: 'media'
     },
     {
-      src: '../../../assets/icons/timeline.png',
+      src: '/assets/icons/timeline.png',
       component: 'home'
     },
     {
-      src: '../../../assets/icons/health.png',
+      src: '/assets/icons/health.png',
       component: 'health'
     },
     {
-      src: '../../../assets/icons/calendar.png',
+      src: '/assets/icons/calendar.png',
       component: 'calendar'
     }
   ];
