@@ -180,10 +180,11 @@ export class AssistantService {
       action: (i, wildcard) => {
         let index = wildcard.indexOf(' ');
         let song = wildcard.slice(0, index) + wildcard.slice(index + ' '.length);
-        console.log(this.router.url);
-        index = this.router.url.indexOf(';');
-        let url = this.router.url.slice(0, index);
-        console.log(url);
+        let url;
+        if (this.router.url !== '/media') {
+          index = this.router.url.indexOf(';');
+          url = this.router.url.slice(0, index);
+        } else url = this.router.url;
 
         if (url !== '/media' && url !== '/media/player') {
           this.Jarvis.say('Sorry cant help you, you must go to media or player');
