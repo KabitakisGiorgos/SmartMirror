@@ -6,6 +6,7 @@ import { LeapHandlerService } from '../../services/leap-handler.service';
 import { AssistantService } from '../../services/assistant.service';
 import { NgxSmartModalService } from 'ngx-smart-modal';
 import { trigger, transition, style, animate, query, stagger, animateChild } from '@angular/animations';
+import * as _ from 'lodash';
 
 @Component({
   animations: [
@@ -27,7 +28,6 @@ export class NewsComponent {
   clickableElements: Array<string> = [];
   @ViewChild('slickModal') carousel: any;
   modalTitle: string;
-  retrieved: any;
   timeoutHandler: any;
   modalOpen: boolean = false;
   autocueOpen: boolean = false;
@@ -69,13 +69,27 @@ export class NewsComponent {
         .then((news: []) => {
           if (news.length > 0) {
             this.openModal();
-            this.retrieved = news;
+            this.autocueArticles = news;
           } else this.assistant.say('Could not retrieve any news');
         })
         .catch((err) => {
           console.error(err);
           this.assistant.say('Something went really wrong');
         });
+    });
+
+    this.assistant.subscribe('autocue', (i) => {
+      if (i === 'Stop') {
+        this.autocueModalClose();
+        this.closeModal();
+      } else if (i === 'Pause') {
+        //FIXME:
+      } else if (i === 'Start') {
+        this.autocueStart();
+      }
+      else {
+        this.assistant.say('Ooops George messed up');
+      }
     });
 
     this.Events.subscribe('animate', (data) => {
@@ -96,6 +110,8 @@ export class NewsComponent {
 
     this.ngxSmartModalService.getModal('searchModal').onClose.subscribe(() => {
       this.modalOpen = false;
+      this.autocueArticles = [];
+      this.assistant.shutUp();
     });
 
     this.ngxSmartModalService.getModal('autocueModal').onOpen.subscribe(() => {
@@ -218,26 +234,41 @@ export class NewsComponent {
     this.ngxSmartModalService.getModal('searchModal').close();
   }
 
-  autocueModalOpen() {
-    this.ngxSmartModalService.getModal('autocueModal').open();
-    this.readTest(0);
-    //TODO: also fix the retrieve modal news
+  autocueStart() {
+    if (!this.autocueOpen && !this.modalOpen) {
+      this.ngxSmartModalService.getModal('autocueModal').open();
+      this.readAutocue(0, this.news);
+    } else if (this.modalOpen) {
+      let tmp = [];
+      tmp = _.cloneDeep(this.autocueArticles);
+      this.autocueArticles = [];
+      this.readAutocue(0, tmp);
+    } else {
+      //TODO: pause or stop
+    }
   }
 
   autocueModalClose() {
     this.ngxSmartModalService.getModal('autocueModal').close();
-    //TODO:Make artyom shut up and clear the array and stop the recursion
+  }
+
+  autocuePause() {
+
   }
 
   //a function to pause autocue
 
-  readTest(i) {
-    if (i < this.news.length && this.autocueOpen) {
-      this.autocueArticles.unshift(this.news[i]);
-      this.assistant.say(this.news[i].title);
-      this.assistant.say(this.news[i].description, () => {
-        this.readTest(i + 1);
-      });
+  readAutocue(i, array) {
+    if (i < array.length) {
+      this.autocueArticles.unshift(array[i]);
+      if (array[i].title)
+        this.assistant.say(array[i].title);
+
+      if (array[i].description)
+        this.assistant.say(array[i].description, () => {
+          this.readAutocue(i + 1, array);
+        });
+      else this.readAutocue(i + 1, array);
     }
   }
 }

@@ -79,7 +79,7 @@ export class AssistantService {
       debug: this.debug, // Show everything in the console
       speed: 1,// talk normally
       name: 'Jarvis',
-
+      executionKeyword: "now",
     }).then(() => {
       this.logger.log('Ready to work', 'AssistantService');
       this.isListening = true;
@@ -103,6 +103,7 @@ export class AssistantService {
     this.NewsSearch();
     this.mediaPlayerControlling();
     this.mediaPlayerControllingV2();
+    this.autocueCommands();
   }
 
 
@@ -153,13 +154,38 @@ export class AssistantService {
     this.Jarvis.addCommands(commandHello);
   }
 
+  autocueCommands() {
+    let command = {
+      smart: true,
+      indexes: ['Start reading *', 'Read *', 'Tell me *'],
+      action: (i, wildcard) => {
+        let index = wildcard.indexOf(' ');
+        let topic = wildcard.slice(0, index) + wildcard.slice(index + ' '.length);
+        if (this.router.url === '/news') {
+          this.publish('autocue', 'Start');
+        } else this.Jarvis.say('Sorry cant help you, you must go to news');
+      }
+    }
+
+    this.Jarvis.addCommands(command);
+    let indexes = ['Stop', 'Pause'];
+    command = {
+      indexes: indexes,
+      smart: false,
+      action: (i) => {
+        if (this.router.url === '/news') {
+          this.publish('autocue', indexes[i]);
+        } else this.Jarvis.say('Sorry cant help you, you must go to news');
+      }
+    }
+    this.Jarvis.addCommands(command);
+  }
+
   NewsSearch() {
     let searchNews = {
       smart: true,
       indexes: ['Find news about *', 'What about *', 'Search for *'],
       action: (i, wildcard) => {
-        console.log(this.router.url);
-
         let index = wildcard.indexOf(' ');
         let topic = wildcard.slice(0, index) + wildcard.slice(index + ' '.length);
         if (this.router.url === '/news') {

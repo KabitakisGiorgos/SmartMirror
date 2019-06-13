@@ -29,12 +29,9 @@
   </div>
 
   <ngx-smart-modal #searchModal identifier="searchModal">
-    <!-- <h1 *ngIf="modalTitle">Results for {{modalTitle}}</h1> -->
-    <h1 id="test"></h1>
-    <!-- TODO:Fixme -->
+    <h1 *ngIf="modalTitle">Results for {{modalTitle}}</h1>
     <div class="newslist" (click)="closeModal()" id="modallist">
-      <!-- retrieved -->
-      <div *ngFor="let article of news" class="row customContainer">
+      <div @items *ngFor="let article of autocueArticles" class="row customContainer">
         <div class="col-3">
           <img src="{{article.urlToImage}}">
         </div>
@@ -69,13 +66,13 @@
   </ngx-smart-modal>
 
   <!-- TODO: For debuggin -->
-  <button style="position: absolute;top:10px;" (click)="openModal()">Modal</button>
+  <!-- <button style="position: absolute;top:10px;" (click)="openModal()">Modal</button> -->
 
 </div>
 
 <button class="scrollbutton up" id="uplist">Scroll Up</button>
 <button class="scrollbutton down" id="downlist">Scroll Down</button>
-<button id="autocue" class="autocue" (click)="autocueModalOpen()">
+<button id="autocue" class="autocue" (click)="autocueStart()">
   <img src="./assets/icons/autocue.png" alt="">
   <span class="title">Autocue</span>
 </button>
