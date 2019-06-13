@@ -52,7 +52,7 @@
 
   <ngx-smart-modal #autocueModal identifier="autocueModal">
     <div class="autocuelist" (click)="autocueModalClose()" id="modallist">
-      <div *ngFor="let article of autocueArticles" class="row customContainer">
+      <div @items *ngFor="let article of autocueArticles" class="row customContainer">
         <div class="col-3">
           <img src="{{article.urlToImage}}">
         </div>

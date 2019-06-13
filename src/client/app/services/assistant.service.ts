@@ -260,4 +260,8 @@ export class AssistantService {
   IsListening() {
     return this.isListening;
   }
+
+  shutUp() {
+    this.Jarvis.shutUp();
+  }
 }

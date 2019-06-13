@@ -5,10 +5,18 @@ import { EventsService } from '../../services/events.service';
 import { LeapHandlerService } from '../../services/leap-handler.service';
 import { AssistantService } from '../../services/assistant.service';
 import { NgxSmartModalService } from 'ngx-smart-modal';
+import { trigger, transition, style, animate, query, stagger, animateChild } from '@angular/animations';
 
 @Component({
   animations: [
-    slideInUpOnEnterAnimation({ anchor: 'enter', duration: 1000 })
+    slideInUpOnEnterAnimation({ anchor: 'enter', duration: 1000 }),
+    trigger('items', [
+      transition(':enter', [
+        style({ transform: 'scale(0.5)', opacity: 0 }),  // initial
+        animate('1s cubic-bezier(.8, -0.6, 0.2, 1.5)',
+          style({ transform: 'scale(1)', opacity: 1 }))  // final
+      ])
+    ])
   ],
   selector: 'app-news',
   templateUrl: './news.component.html',
@@ -22,6 +30,7 @@ export class NewsComponent {
   retrieved: any;
   timeoutHandler: any;
   modalOpen: boolean = false;
+  autocueOpen: boolean = false;
   autocueArticles: Array<any> = [];
 
   slideConfig = {
@@ -87,6 +96,16 @@ export class NewsComponent {
 
     this.ngxSmartModalService.getModal('searchModal').onClose.subscribe(() => {
       this.modalOpen = false;
+    });
+
+    this.ngxSmartModalService.getModal('autocueModal').onOpen.subscribe(() => {
+      this.autocueOpen = true;
+    });
+
+    this.ngxSmartModalService.getModal('autocueModal').onClose.subscribe(() => {
+      this.autocueArticles = [];
+      this.autocueOpen = false;
+      this.assistant.shutUp();
     });
   }
 
@@ -201,18 +220,19 @@ export class NewsComponent {
 
   autocueModalOpen() {
     this.ngxSmartModalService.getModal('autocueModal').open();
-    this.readTest(this.news.length - 2);//TODO: all  the news 
+    this.readTest(0);
     //TODO: also fix the retrieve modal news
   }
 
   autocueModalClose() {
     this.ngxSmartModalService.getModal('autocueModal').close();
-    //TODO:Make artyom shut up and clear the array
-    this.autocueArticles = [];
+    //TODO:Make artyom shut up and clear the array and stop the recursion
   }
 
+  //a function to pause autocue
+
   readTest(i) {
-    if (i < this.news.length) {
+    if (i < this.news.length && this.autocueOpen) {
       this.autocueArticles.unshift(this.news[i]);
       this.assistant.say(this.news[i].title);
       this.assistant.say(this.news[i].description, () => {
