@@ -60,7 +60,7 @@ export class NewsComponent {
       this.leap.registerDivs(this.clickableElements);
       this.leap.registerAnimatingDivs(this.clickableElements);
       this.leap.registerAnimatingDivs(['uplist', 'downlist']);
-      this.leap.registerDivs(['uplist', 'downlist']);
+      this.leap.registerDivs(['uplist', 'downlist', 'autocue', 'autocueModal', 'searchModal']);
     });
 
     this.assistant.subscribe('search', (data) => {
@@ -169,10 +169,10 @@ export class NewsComponent {
         var y = elmnt.scrollTop;
         elmnt.scroll({
           left: 0,
-          top: y + 160,
+          top: y + 80,
           behavior: 'smooth'
         });
-      }, 400);
+      }, 100);
     }
   }
 
@@ -199,10 +199,10 @@ export class NewsComponent {
         var y = elmnt.scrollTop;
         elmnt.scroll({
           left: 0,
-          top: y - 160,
+          top: y - 80,
           behavior: 'smooth'
         });
-      }, 400);
+      }, 100);
     }
   }
 
@@ -210,7 +210,7 @@ export class NewsComponent {
     this.leap.unregisterDivs(this.clickableElements);
     this.leap.unregisterAnimatingDivs(this.clickableElements);
     this.leap.unregisterAnimatingDivs(['uplist', 'downlist']);
-    this.leap.unregisterDivs(['uplist', 'downlist']);
+    this.leap.unregisterDivs(['uplist', 'downlist', 'autocue', 'autocueModal', 'searchModal']);
   }
 
   animateCSS(element, animationName, callback?) {//TODO:  this works with animateCSS Helper function placeholder here
