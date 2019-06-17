@@ -11,7 +11,7 @@
 </ng-template>
 
 
-<div id="screensaver" *ngIf="screenSaver; else app" class="container-fluid particles" (click)="open()">
+<div [@enter] id="screensaver" *ngIf="screenSaver; else app" class="container-fluid particles" (click)="open()">
   <div class="info">
     <span class="time">{{today | date:'hh:mm'}}</span>
     <span class="date">{{ today| date:'EEEE, MMMM d'}}</span>

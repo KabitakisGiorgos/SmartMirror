@@ -60,7 +60,7 @@ export class NewsComponent {
       this.leap.registerDivs(this.clickableElements);
       this.leap.registerAnimatingDivs(this.clickableElements);
       this.leap.registerAnimatingDivs(['uplist', 'downlist']);
-      this.leap.registerDivs(['uplist', 'downlist', 'autocue', 'autocueModal', 'searchModal']);
+      this.leap.registerDivs(['uplist', 'downlist', 'autocue', 'modallist']);
     });
 
     this.assistant.subscribe('search', (data) => {
@@ -158,7 +158,7 @@ export class NewsComponent {
   down() {
     let list = this.modalOpen ? 'modallist' : 'newslist';
     if (!this.timeoutHandler) {
-      $('#downlist').addClass('active');//TODO: test with leap
+      $('#downlist').addClass('active');
       this.timeoutHandler = setInterval(() => {
         if (!this.leap.getSelectedElem()) {
           this.mouseleave();
@@ -210,7 +210,7 @@ export class NewsComponent {
     this.leap.unregisterDivs(this.clickableElements);
     this.leap.unregisterAnimatingDivs(this.clickableElements);
     this.leap.unregisterAnimatingDivs(['uplist', 'downlist']);
-    this.leap.unregisterDivs(['uplist', 'downlist', 'autocue', 'autocueModal', 'searchModal']);
+    this.leap.unregisterDivs(['uplist', 'downlist', 'autocue', 'modallist']);
   }
 
   animateCSS(element, animationName, callback?) {//TODO:  this works with animateCSS Helper function placeholder here
@@ -244,7 +244,8 @@ export class NewsComponent {
       this.autocueArticles = [];
       this.readAutocue(0, tmp);
     } else {
-      //TODO: pause or stop
+      this.closeModal();
+      this.autocueModalClose()
     }
   }
 

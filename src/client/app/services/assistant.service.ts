@@ -104,6 +104,7 @@ export class AssistantService {
     this.mediaPlayerControlling();
     this.mediaPlayerControllingV2();
     this.autocueCommands();
+    this.sleepCommands();
   }
 
 
@@ -136,28 +137,64 @@ export class AssistantService {
     */
     let commandHello = [
       {
-        indexes: ['hello', 'good morning', 'hey'], // These spoken words will trigger the execution of the command
-        action: () => { // Action to be executed when a index match with spoken word
-          this.Jarvis.say('Hey buddy ! How are you today?');
-          this.publish('interaction', true);
-          // this.  .next('test');//EMit an event of what to do maybe
-        }
-      },
-      {
         indexes: ['test', 'Do you listen'],
         action: () => {
           this.Jarvis.say('I can hear you');
           this.publish('interaction', true);
         }
+      },
+      {
+        indexes: ['hello', 'good morning', 'hey', 'Wake'],
+        action: () => {
+          this.Jarvis.say('Hey buddy ! How are you today?');
+          this.publish('interaction', true);
+        }
       }
     ];
+
     this.Jarvis.addCommands(commandHello);
+
+    let commands = {
+      smart: true,
+      indexes: ['hello *', 'good morning *', 'hey *', 'Wake *'], // These spoken words will trigger the execution of the command
+      action: (i, wildcard) => { // Action to be executed when a index match with spoken word
+        this.Jarvis.say('Hey buddy ! How are you today?');
+        this.publish('interaction', true);
+      }
+    };
+
+    this.Jarvis.addCommands(commands);
+  }
+
+  sleepCommands() {
+    let command = [
+      {
+        indexes: ['Bye *', 'See you *', 'Sleep *'],
+        smart: true,
+        action: (i, wildcard) => {
+          this.Jarvis.say('Bye human, have a nice day');
+          this.publish('sleep');
+        }
+      }
+    ];
+
+    this.Jarvis.addCommands(command);
+
+    let singleCommand = {
+      indexes: ['bye-bye', 'Go sleep', 'Sleep '],
+      action: () => {
+        this.Jarvis.say('Bye human, have a nice day');
+        this.publish('sleep');
+      }
+    };
+
+    this.Jarvis.addCommands(singleCommand);
   }
 
   autocueCommands() {
     let command = {
       smart: true,
-      indexes: ['Start reading *', 'Read *', 'Tell me *'],
+      indexes: ['Start reading', 'Read *', 'Tell me *'],
       action: (i, wildcard) => {
         let index = wildcard.indexOf(' ');
         let topic = wildcard.slice(0, index) + wildcard.slice(index + ' '.length);
@@ -168,7 +205,20 @@ export class AssistantService {
     }
 
     this.Jarvis.addCommands(command);
-    let indexes = ['Stop', 'Pause'];
+
+    let singleCommand = [
+      {
+        indexes: ['Start', 'Read', 'autocue'],
+        action: () => {
+          if (this.router.url === '/news') {
+            this.publish('autocue', 'Start');
+          } else this.Jarvis.say('Sorry cant help you, you must go to news');
+        }
+      }
+    ]
+
+
+    let indexes = ['Stop'];
     command = {
       indexes: indexes,
       smart: false,
@@ -289,5 +339,9 @@ export class AssistantService {
 
   shutUp() {
     this.Jarvis.shutUp();
+  }
+
+  test() {
+    this.publish('sleep');
   }
 }

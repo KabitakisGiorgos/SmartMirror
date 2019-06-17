@@ -4,10 +4,14 @@ import { Cursor } from './Cursor/cursor';
 import * as $ from 'jquery';
 import { EventsService } from './services/events.service';
 import { LeapHandlerService } from './services/leap-handler.service';
+import { fadeInExpandOnEnterAnimation, slideOutDownOnLeaveAnimation } from 'angular-animations';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
+  animations: [
+    fadeInExpandOnEnterAnimation({ anchor: 'enter', duration: 1500 })
+  ]
 })
 export class AppComponent implements OnInit {
   cursor: Cursor;
@@ -66,18 +70,17 @@ export class AppComponent implements OnInit {
         this.displayMenu();
       }
     });
-    this.events.subscribe('screensaver', (data) => {
-      if (data.action === 'hide') {
-        this.screenSaver = false;
-      } else if (data.action === 'display') {
-        this.screenSaver = true;
-      }
-    });
 
     this.assistant.subscribe('interaction', (data) => {
       if (data) {
         this.screenSaver = false;
+        this.events.publish('state', this.screenSaver);
       }
+    });
+
+    this.assistant.subscribe('sleep', () => {
+      this.screenSaver = true;
+      this.events.publish('state', this.screenSaver);
     });
   }
 
@@ -104,6 +107,7 @@ export class AppComponent implements OnInit {
 
   open() {
     this.screenSaver = false;
+    this.events.publish('state', this.screenSaver);
   }
 
   ngOnDestroy() {

@@ -229,6 +229,7 @@ export class MediaPlayerComponent {
 
   ComponentsDisplay() {
     this.fullScreen = false;
+    this.events.publish('state', !this.fullScreen);
     this.events.publish('navbar-display', { action: 'display' });
     this.events.publish('menu-display', { action: 'display' });
     $('#plyrPlayer').css('width', '1662px')//fix size
@@ -237,6 +238,7 @@ export class MediaPlayerComponent {
 
   ComponentsHide() {
     this.fullScreen = true;
+    this.events.publish('state', !this.fullScreen);
     this.events.publish('navbar-display', { action: 'hide' });
     this.events.publish('menu-display', { action: 'hide' });
     $('#plyrPlayer').css('width', '1920px')
@@ -278,7 +280,7 @@ export class MediaPlayerComponent {
   }
 
   goBack() {
-    this.router.navigate(['/media']);//FIXME: the icon
+    this.router.navigate(['/media']);
   }
 
   nextSong() {

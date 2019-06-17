@@ -6,8 +6,7 @@ import config from '../../../services/config.json';
 import * as d3 from 'd3';
 import { NgxSmartModalService } from 'ngx-smart-modal';
 import { LeapHandlerService } from '../../../services/leap-handler.service';
-import { BrowserPlatformLocation } from '@angular/platform-browser/src/browser/location/browser_platform_location';
-
+import { EventsService } from '../../../services/events.service';
 @Component({
   selector: 'app-notifications',
   templateUrl: './notifications.component.html',
@@ -19,13 +18,19 @@ export class NotificationsComponent implements OnInit {
     'children': []
   };
   clickableElements: Array<string> = ['notifications', 'notification_modal'];
-
+  appState: boolean = true;//If screensaver exists or not and if music player on fullscreen
+  //Meaning if the app is in a state to handle messages
   constructor(
     private socketService: SocketService,
     private logger: LoggerService,
     private http: HttpClient,
+    private events: EventsService,
     public ngxSmartModalService: NgxSmartModalService,
     private leap: LeapHandlerService) {
+
+    this.events.subscribe('state', (data) => {
+      this.appState = data;
+    })
 
     this.leap.registerDivs(this.clickableElements);
     this.http.get('/api/notifications')
@@ -44,7 +49,8 @@ export class NotificationsComponent implements OnInit {
           this.chartJson['children'].push(data);
           this.newsNotifications.unshift(data);
           this.updateChart('#chart2', 600, true);
-          this.showNot();//Bubble Calling
+          if (this.appState)
+            this.showNot();//Bubble Calling
           this.logger.log(data, 'NotificationsComp');
         });
 
@@ -61,6 +67,7 @@ export class NotificationsComponent implements OnInit {
 
   ngOnDestroy() {
     this.leap.unregisterDivs(this.clickableElements);
+    this.events.unsubscribe('state');
     this.socketService.unsyncUpdates('notification');
     this.socketService.unsubscribeMessages();
   }
