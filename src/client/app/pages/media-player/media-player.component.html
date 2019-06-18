@@ -18,3 +18,11 @@
 <div id="back" (click)="goBack()" *ngIf="!fullScreen" class="backIcon">
   <img src="/assets/icons/back.svg">
 </div>
+
+<ngc-float-button class="media_controllers" [ngClass]="fullScreen?'minimized':''" (click)="open.next(true)"
+  spaceBetweenButtons="100" *ngIf="controllers" direction="right" icon="apps">
+  <ngc-float-item-button icon="skip_previous" (click)="previousSong()" content="float item 1">
+  </ngc-float-item-button>
+  <ngc-float-item-button icon="play_arrow" (click)="togglePlayer()" content="float item 2"></ngc-float-item-button>
+  <ngc-float-item-button icon="skip_next" (click)="nextSong()" content="float item 3"></ngc-float-item-button>
+</ngc-float-button>

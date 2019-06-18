@@ -14,7 +14,7 @@ import { AssistantService } from '../../services/assistant.service';
   ]
 })
 export class MediaComponent implements OnInit {
-  @ViewChild('slickModal') carousel: any;
+  @ViewChild('slickModal', { static: false }) carousel: any;
   slides = [
     { img: '../../../assets/images/rock.png' },
     { img: '../../../assets/images/motivation.png' },

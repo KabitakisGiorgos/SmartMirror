@@ -19,7 +19,7 @@ export class HomeComponent implements OnInit {
   selectedEvent: number;
   clickableElements: Array<string> = [];
   animatingElements: Array<string> = [];
-  @ViewChild('slickModal') carousel: any;
+  @ViewChild('slickModal', { static: false }) carousel: any;
   slides = [
     {
       img: '/assets/images/homeWidgets/Hypnos.png',

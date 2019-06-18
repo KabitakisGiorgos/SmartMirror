@@ -4,7 +4,7 @@ plyr {
 
 :host ::ng-deep .plyr__controls {
   background: unset !important;
-  margin-bottom: 50px !important;
+  margin-bottom: 80px !important;
   transition: all 0.5s;
 }
 
@@ -65,7 +65,7 @@ plyr {
 
 .suggested {
   position: absolute;
-  top: 85px;
+  top: 58px;
   right: 30px;
   background-color: #ffffff38;
   width: 350px;
@@ -118,4 +118,51 @@ plyr {
 
 :host ::ng-deep .plyr__controls {
   // display: none; FIXME:
+}
+
+.media_controllers {
+  bottom: 5px;
+  left: 136px;
+
+  &.minimized {
+    transition: all 0.5s;
+    transform: translate(-116px, 0px);
+  }
+}
+
+:host ::ng-deep .fab-menu {
+  width: 75px !important;
+  height: 75px !important;
+
+  .hiddenItem {
+    display: none;
+  }
+
+  .item {
+    width: unset;
+    left: 50px;
+  }
+}
+
+:host ::ng-deep .fab-toggle {
+  width: 75px !important;
+  height: 75px !important;
+
+  .material-icons {
+    position: absolute;
+    left: 18px;
+    top: 15px;
+    font-size: 40px !important;
+  }
+}
+
+:host ::ng-deep .fab-item {
+  width: 60px !important;
+  background-color: rgba(228, 6, 6, 0.712) !important;
+  height: 60px !important;
+
+  .material-icons {
+    line-height: 2 !important;
+    font-size: 30px !important;
+  }
 }

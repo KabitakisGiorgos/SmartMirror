@@ -7,18 +7,21 @@ import * as $ from 'jquery';
 import { LeapHandlerService } from '../../services/leap-handler.service';
 import { debugMode } from '../../../environments/environment';
 import { AssistantService } from '../../services/assistant.service';
+import { BehaviorSubject } from 'rxjs';
+
 @Component({
   selector: 'app-media-player',
   templateUrl: './media-player.component.html',
   styleUrls: ['./media-player.component.scss']
 })
 export class MediaPlayerComponent {
-  @ViewChild(PlyrComponent)
+  @ViewChild(PlyrComponent, { static: false })
   plyr: PlyrComponent;
   title: string;
   autoplay: number = 0;
   fullScreen: boolean = true;
   controllers: boolean = false;
+  public open: BehaviorSubject<boolean> = new BehaviorSubject(true); // true is the initial state of FAB
 
   videoSources = [
     {
@@ -202,7 +205,7 @@ export class MediaPlayerComponent {
     }
   }
 
-  togglePlayer() {
+  togglePlayer() {//FIXME:
     if (this.plyr.player.playing) {
       this.pause();
       this.ComponentsDisplay();

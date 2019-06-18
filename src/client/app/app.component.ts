@@ -5,6 +5,9 @@ import * as $ from 'jquery';
 import { EventsService } from './services/events.service';
 import { LeapHandlerService } from './services/leap-handler.service';
 import { fadeInExpandOnEnterAnimation, slideOutDownOnLeaveAnimation } from 'angular-animations';
+import { debugMode } from '../environments/environment';
+import config from '../app/services/config.json';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Component({
   selector: 'app-root',
@@ -52,7 +55,8 @@ export class AppComponent implements OnInit {
   constructor(
     private assistant: AssistantService,
     private events: EventsService,
-    private leap: LeapHandlerService) {
+    private leap: LeapHandlerService,
+    private http: HttpClient) {
     setInterval(() => {
       this.today = new Date();
     }, 1000);
@@ -84,8 +88,23 @@ export class AppComponent implements OnInit {
     });
   }
 
-  ngOnInit() {//TODO:maybe when on demo mode running add  the retrieve news here at initialazation
+  async ngOnInit() {
     this.assistant.assistantInit();
+
+    if (!debugMode.app) {
+      try {
+        this.retrieveFreshNews();
+        setTimeout(() => {
+          this.sendNotification('Dont forget to call Papadakis', 'High');
+        }, config.demo['1stNotification']);
+
+        setTimeout(() => {
+          this.sendNotification('Water the plants before leaving', 'Normal');
+        }, config.demo['2ndNotification']);
+      } catch (e) {
+        console.error(e);
+      }
+    }
   }
 
 
@@ -114,5 +133,43 @@ export class AppComponent implements OnInit {
     this.events.unsubscribe('menu-display');
     this.assistant.unsubscribe('interaction');
     this.leap.unregisterDivs(this.clickableElements);
+  }
+
+  retrieveFreshNews() {
+    return new Promise((resolve, reject) => {
+      this.http.get('/api/news/renew')
+        .toPromise()
+        .then((data) => {
+          if (data) resolve();
+          else reject(new Error('Unknown error'));
+        })
+        .catch(err => {
+          reject(err);
+        })
+    });
+  }
+
+  sendNotification(message: string, severity: string) {
+    return new Promise((resolve, reject) => {
+
+      let headers = new HttpHeaders({
+        'Content-Type': 'application/json',
+      });
+
+      let body = {
+        type: 'Schedule',
+        severity: severity,
+        text: message
+      };
+
+      this.http.post('/api/notifications', body, { headers: headers })
+        .toPromise()
+        .then((data) => {
+          resolve(data);
+        })
+        .catch((err) => {
+          reject(err);
+        });
+    });
   }
 }

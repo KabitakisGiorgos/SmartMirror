@@ -2,13 +2,17 @@
   "leap": {
     "hideTimer": 14500
   },
-  "notification":{
-    "delay":27000
+  "notification": {
+    "delay": 27000
   },
-  "news":{
-    "changeDelay":10000
+  "news": {
+    "changeDelay": 10000
   },
-  "chart":{
-    "animation":2000
+  "chart": {
+    "animation": 2000
+  },
+  "demo": {
+    "1stNotification": 30000,
+    "2ndNotification": 70000
   }
 }

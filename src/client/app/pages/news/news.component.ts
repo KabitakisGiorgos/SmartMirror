@@ -26,7 +26,7 @@ import * as _ from 'lodash';
 export class NewsComponent {
   news: any;
   clickableElements: Array<string> = [];
-  @ViewChild('slickModal') carousel: any;
+  @ViewChild('slickModal', { static: false }) carousel: any;
   modalTitle: string;
   timeoutHandler: any;
   modalOpen: boolean = false;

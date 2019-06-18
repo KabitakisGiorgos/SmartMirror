@@ -13,7 +13,7 @@ import { MediaComponent } from './media/media.component';
 import { MediaPlayerComponent } from './media-player/media-player.component';
 import { PlyrModule } from 'ngx-plyr';
 import { NgxSmartModalModule } from 'ngx-smart-modal';
-
+import { NgcFloatButtonModule } from 'ngc-float-button';
 @NgModule({
   declarations: [
     HealthComponent,
@@ -31,6 +31,7 @@ import { NgxSmartModalModule } from 'ngx-smart-modal';
     PageRoutingModule,
     SlickCarouselModule,
     PlyrModule,
+    NgcFloatButtonModule,
     NgxSmartModalModule
   ],
   exports: [
