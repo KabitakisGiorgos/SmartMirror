@@ -31,8 +31,8 @@
 
 
         <ng-template #eventSpan>
-          <div class="eventSpanWrapper" (click)="select(i,event._id)" id="{{event._id}}"
-            [style.left]="setPosition(event)" [style.width]="setEventWidth(event)">
+          <div class="eventSpanWrapper" (click)="select(i)" id="{{event._id}}" [style.left]="setPosition(event)"
+            [style.width]="setEventWidth(event)">
             <img class="eventSpanIcon" src="/assets/icons/{{event.icon}}.png" alt="">
             <div class="spanEvent" [ngClass]="{'selected':i==selectedEvent}">{{event.title}}
             </div>
@@ -43,7 +43,8 @@
   </div>
 
   <ngx-slick-carousel class="carousel" #slickModal="slick-carousel" [config]="slideConfig">
-    <div ngxSlickItem *ngFor="let slide of slides" class="slide myslide">
+    <div id="event{{i}}" ngxSlickItem (click)="select(i)" *ngFor="let slide of slides;let i=index"
+      class="slide myslide">
       <img src="{{ slide.img }}" class="widget" [ngClass]="slide.class" width="100%">
     </div>
   </ngx-slick-carousel>

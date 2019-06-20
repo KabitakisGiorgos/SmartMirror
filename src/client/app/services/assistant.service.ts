@@ -169,7 +169,7 @@ export class AssistantService {
   sleepCommands() {
     let command = [
       {
-        indexes: ['Bye *', 'See you *', 'Sleep *'],
+        indexes: ['Bye *', 'See you *'],
         smart: true,
         action: (i, wildcard) => {
           this.Jarvis.say('Bye human, have a nice day');
@@ -181,7 +181,7 @@ export class AssistantService {
     this.Jarvis.addCommands(command);
 
     let singleCommand = {
-      indexes: ['bye-bye', 'Go sleep', 'Sleep '],
+      indexes: ['bye-bye', 'Go sleep', 'Sleep'],
       action: () => {
         this.Jarvis.say('Bye human, have a nice day');
         this.publish('sleep');
@@ -194,7 +194,7 @@ export class AssistantService {
   autocueCommands() {
     let command = {
       smart: true,
-      indexes: ['Start reading', 'Read *', 'Tell me *'],
+      indexes: ['Read *', 'Tell me *'],
       action: (i, wildcard) => {
         let index = wildcard.indexOf(' ');
         let topic = wildcard.slice(0, index) + wildcard.slice(index + ' '.length);
@@ -208,7 +208,7 @@ export class AssistantService {
 
     let singleCommand = [
       {
-        indexes: ['Start', 'Read', 'autocue'],
+        indexes: ['Start', 'Read', 'autocue', 'Start reading'],
         action: () => {
           if (this.router.url === '/news') {
             this.publish('autocue', 'Start');
@@ -217,6 +217,7 @@ export class AssistantService {
       }
     ]
 
+    this.Jarvis.addCommands(singleCommand);
 
     let indexes = ['Stop'];
     command = {

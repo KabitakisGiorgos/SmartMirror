@@ -173,6 +173,7 @@ export class NotificationsComponent implements OnInit {
           .attr('y', '0')
           .attr('text-anchor', 'middle')
           .attr('fill', 'white')
+          .attr('font-size', '30px')
           .text((d) => {
             return d.data.text;
           })

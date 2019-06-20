@@ -242,7 +242,7 @@ export class NewsComponent {
       this.reading = true;
       this.ngxSmartModalService.getModal('autocueModal').open();
       this.readAutocue(0, this.news);
-    } else if (this.modalOpen) {
+    } else if (this.modalOpen && !this.reading) {
       this.reading = true;
       let tmp = [];
       tmp = _.cloneDeep(this.autocueArticles);

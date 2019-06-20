@@ -75,7 +75,8 @@ export class HomeComponent implements OnInit {
       this.selectedEvent = 0;
       for (let i = 0; i < this.events.length; i++) {
         this.clickableElements.push(this.events[i]._id);
-      //   this.animatingElements.push(this.events[i]._id);
+        this.clickableElements.push('event' + i);
+        //   this.animatingElements.push(this.events[i]._id);
       }
       this.leap.registerDivs(this.clickableElements);
       this.leap.registerAnimatingDivs(this.animatingElements);
@@ -126,7 +127,7 @@ export class HomeComponent implements OnInit {
     return percentage + '%';
   }
 
-  select(slide, id) {
+  select(slide) {
     this.carousel.slickGoTo(slide);
     this.selectedEvent = slide;
   }
