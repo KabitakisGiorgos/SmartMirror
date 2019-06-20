@@ -12,7 +12,7 @@
     "animation": 2000
   },
   "demo": {
-    "1stNotification": 30000,
+    "1stNotification": 20000,
     "2ndNotification": 70000
   }
 }

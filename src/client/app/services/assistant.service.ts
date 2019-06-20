@@ -341,7 +341,7 @@ export class AssistantService {
     this.Jarvis.shutUp();
   }
 
-  test() {
+  test() {//Testing the sleep function
     this.publish('sleep');
   }
 }

@@ -4,7 +4,7 @@ plyr {
 
 :host ::ng-deep .plyr__controls {
   background: unset !important;
-  margin-bottom: 80px !important;
+  margin-bottom: 100px !important;
   transition: all 0.5s;
 }
 
@@ -60,7 +60,7 @@ plyr {
   position: absolute;
   margin-top: 50px;
   margin-left: 50px;
-  display: none;
+  display: block;
 }
 
 .suggested {
@@ -172,7 +172,7 @@ plyr {
 
 .mediaController {
   position: absolute;
-  bottom: 5px;
+  bottom: 22px;
   display: inline-block;
   width: 75px !important;
   height: 75px !important;
@@ -193,38 +193,38 @@ plyr {
   }
 
   &#fullscreen {
-    left: 145px;
+    left: 1280px;
 
     &.minimized {
       transition: all 0.5s;
-      transform: translate(-116px, 0px);
+      transform: translate(105px, 0px);
     }
   }
 
   &#prevSong {
-    left: 285px;
+    left: 1420px;
 
     &.minimized {
       transition: all 0.5s;
-      transform: translate(-116px, 0px);
+      transform: translate(105px, 0px);
     }
   }
 
   &#playSong {
-    left: 425px;
+    left: 1560px;
 
     &.minimized {
       transition: all 0.5s;
-      transform: translate(-116px, 0px);
+      transform: translate(105px, 0px);
     }
   }
 
   &#nextSong {
-    left: 565px;
+    left: 1700px;
 
     &.minimized {
       transition: all 0.5s;
-      transform: translate(-116px, 0px);
+      transform: translate(105px, 0px);
     }
   }
 }

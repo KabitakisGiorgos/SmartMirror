@@ -20,7 +20,7 @@ export class MediaPlayerComponent {
   title: string;
   autoplay: number = 0;
   fullScreen: boolean = true;
-  controllers: boolean = false;
+  controllers: boolean = true;
   public open: BehaviorSubject<boolean> = new BehaviorSubject(true); // true is the initial state of FAB
 
   videoSources = [
@@ -180,7 +180,7 @@ export class MediaPlayerComponent {
     });
     $('.plyr__video-wrapper.plyr__video-wrapper--fixed-ratio').append('<div class="plyr_title">' + this.title + '</div>');//Add title 
     this.plyr.player.play();
-    this.playerHideControlls();
+    // this.playerHideControlls();
   }
 
   // play() {
@@ -317,7 +317,7 @@ export class MediaPlayerComponent {
       this.playSong(this.videoSources[this.autoplay]);
     }
     this.plyr.player.play();
-    this.playerHideControlls();
+    // this.playerHideControlls();
   }
 
   previousSong() {
@@ -329,7 +329,7 @@ export class MediaPlayerComponent {
       this.playSong(this.videoSources[this.autoplay]);
     }
     this.plyr.player.play();
-    this.playerHideControlls();
+    // this.playerHideControlls();
   }
 
   setVolume(value: number) {

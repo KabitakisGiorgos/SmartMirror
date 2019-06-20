@@ -75,7 +75,7 @@ export class HomeComponent implements OnInit {
       this.selectedEvent = 0;
       for (let i = 0; i < this.events.length; i++) {
         this.clickableElements.push(this.events[i]._id);
-        this.animatingElements.push(this.events[i]._id);
+      //   this.animatingElements.push(this.events[i]._id);
       }
       this.leap.registerDivs(this.clickableElements);
       this.leap.registerAnimatingDivs(this.animatingElements);

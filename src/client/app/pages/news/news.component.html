@@ -29,6 +29,8 @@
   </div>
 
   <ngx-smart-modal #searchModal identifier="searchModal">
+    <button id="closeIcon" (click)="closeModal()" class="closeModal"><img src="./assets/icons/stopreading.svg"
+        alt=""></button>
     <h1 *ngIf="modalTitle">Results for {{modalTitle}}</h1>
     <div class="newslist" (click)="closeModal()" id="modallist">
       <div @items *ngFor="let article of autocueArticles" class="row customContainer">
@@ -66,13 +68,17 @@
   </ngx-smart-modal>
 
   <!-- TODO: For debuggin -->
-  <button style="position: absolute;top:10px;" (click)="openModal()">Modal</button>
-  <button style="position: absolute;top:50px;" (click)="assistant.test()">Modal</button>
+  <!-- <button style="position: absolute;top:10px;" (click)="openModal()">Modal</button> -->
+  <!-- <button style="position: absolute;top:50px;" (click)="assistant.test()">Modal</button> -->
 </div>
 
 <button class="scrollbutton up" id="uplist">Scroll Up</button>
 <button class="scrollbutton down" id="downlist">Scroll Down</button>
 <button id="autocue" class="autocue" (click)="autocueStart()">
-  <img src="./assets/icons/autocue.png" alt="">
-  <span class="title">Autocue</span>
+  <img *ngIf="!reading; else stopIcon" src="./assets/icons/autocue.png" alt="">
+  <span *ngIf="!reading" class="title">Autocue</span>
+  <ng-template #stopIcon>
+    <img src="./assets/icons/stopreading.svg" alt="">
+    <span class="title">Stop</span>
+  </ng-template>
 </button>

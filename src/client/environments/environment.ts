@@ -9,12 +9,12 @@ export const environment = {
 
 
 export const debugMode = {
-  app: true,
+  app: false,
   AssistantService: true,
-  LeapHandlerService: true,
+  LeapHandlerService: false,
   Jarvis: true,
-  Home: true,
-  Navbar: true,
-  NotificationsComp: true,
+  Home: false,
+  Navbar: false,
+  NotificationsComp: false,
   Cursor: false
 };

@@ -102,7 +102,7 @@
   border-radius: 100%;
   width: 21px;
   height: 21px;
-  background-image: linear-gradient(to right top, #0066ff, #4b66ff, #6c66ff, #8566ff, #9b66ff);
+  background-color: #0B1D2A;
   position: relative;
 
   &.selected {
@@ -125,7 +125,7 @@
 .spanEvent {
   width: 100%;
   height: 21px;
-  background-image: linear-gradient(to right top, #0066ff, #4b66ff, #6c66ff, #8566ff, #9b66ff);
+  background-color: #0B1D2A;
   position: relative;
   border-radius: 70px;
   text-align: center;

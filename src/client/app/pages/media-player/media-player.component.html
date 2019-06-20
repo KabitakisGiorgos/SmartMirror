@@ -18,7 +18,7 @@
 <div id="back" (click)="goBack()" *ngIf="!fullScreen" class="backIcon">
   <img src="/assets/icons/back.svg">
 </div>
-
+<!-- SPEEDDIAL butttons cant use the leap with them -->
 <!-- <ngc-float-button class="media_controllers" id="mediaController" [ngClass]="fullScreen?'minimized':''" (click)="test()"
   spaceBetweenButtons="100" *ngIf="controllers" direction="right" icon="apps">
   <ngc-float-item-button icon="fullscreen" (click)="fullScreenToggle()" id="fullscreen" content="float item 3">
@@ -39,9 +39,9 @@
   <mat-icon>skip_previous</mat-icon>
 </button>
 <button class="mediaController" [ngClass]="fullScreen?'minimized':''" (click)="simplePlayPause()" id="playSong">
-  <mat-icon *ngIf="player && player.playing; else pause">play_arrow</mat-icon>
+  <mat-icon *ngIf="player && player.playing; else pause">pause</mat-icon>
   <ng-template #pause>
-    <mat-icon>pause</mat-icon>
+    <mat-icon>play_arrow</mat-icon>
   </ng-template>
 </button>
 <button class="mediaController" [ngClass]="fullScreen?'minimized':''" id="nextSong" (click)="nextSong()">

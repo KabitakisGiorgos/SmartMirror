@@ -93,14 +93,10 @@ export class AppComponent implements OnInit {
 
     if (!debugMode.app) {
       try {
-        this.retrieveFreshNews();
+        // this.retrieveFreshNews();
         setTimeout(() => {
           this.sendNotification('Dont forget to call Papadakis', 'High');
         }, config.demo['1stNotification']);
-
-        setTimeout(() => {
-          this.sendNotification('Water the plants before leaving', 'Normal');
-        }, config.demo['2ndNotification']);
       } catch (e) {
         console.error(e);
       }

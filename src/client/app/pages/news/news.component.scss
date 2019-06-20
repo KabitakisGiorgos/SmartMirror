@@ -210,6 +210,17 @@
       }
     }
   }
+
+  .closeModal {
+    right: 0px;
+    position: absolute;
+    background-color: transparent;
+    border: none;
+
+    img {
+      width: 85px;
+    }
+  }
 }
 
 :host ::ng-deep .nsm-dialog-btn-close.ng-star-inserted {
@@ -271,6 +282,7 @@
     width: 100px;
     height: 100px;
     border-radius: 35%;
+    transition: all 0.5s;
   }
 
   .title {

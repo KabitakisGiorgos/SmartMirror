@@ -32,6 +32,7 @@ export class NewsComponent {
   modalOpen: boolean = false;
   autocueOpen: boolean = false;
   autocueArticles: Array<any> = [];
+  reading: boolean = false;
 
   slideConfig = {
     slidesToShow: 1,
@@ -60,7 +61,7 @@ export class NewsComponent {
       this.leap.registerDivs(this.clickableElements);
       this.leap.registerAnimatingDivs(this.clickableElements);
       this.leap.registerAnimatingDivs(['uplist', 'downlist']);
-      this.leap.registerDivs(['uplist', 'downlist', 'autocue', 'modallist']);
+      this.leap.registerDivs(['uplist', 'downlist', 'autocue', 'modallist', 'closeIcon']);
     });
 
     this.assistant.subscribe('search', (data) => {
@@ -112,6 +113,7 @@ export class NewsComponent {
       this.modalOpen = false;
       this.autocueArticles = [];
       this.assistant.shutUp();
+      this.reading = false;
     });
 
     this.ngxSmartModalService.getModal('autocueModal').onOpen.subscribe(() => {
@@ -122,6 +124,7 @@ export class NewsComponent {
       this.autocueArticles = [];
       this.autocueOpen = false;
       this.assistant.shutUp();
+      this.reading = false;
     });
   }
 
@@ -210,7 +213,7 @@ export class NewsComponent {
     this.leap.unregisterDivs(this.clickableElements);
     this.leap.unregisterAnimatingDivs(this.clickableElements);
     this.leap.unregisterAnimatingDivs(['uplist', 'downlist']);
-    this.leap.unregisterDivs(['uplist', 'downlist', 'autocue', 'modallist']);
+    this.leap.unregisterDivs(['uplist', 'downlist', 'autocue', 'modallist', 'closeIcon']);
   }
 
   animateCSS(element, animationName, callback?) {//TODO:  this works with animateCSS Helper function placeholder here
@@ -236,14 +239,17 @@ export class NewsComponent {
 
   autocueStart() {
     if (!this.autocueOpen && !this.modalOpen) {
+      this.reading = true;
       this.ngxSmartModalService.getModal('autocueModal').open();
       this.readAutocue(0, this.news);
     } else if (this.modalOpen) {
+      this.reading = true;
       let tmp = [];
       tmp = _.cloneDeep(this.autocueArticles);
       this.autocueArticles = [];
       this.readAutocue(0, tmp);
     } else {
+      this.reading = false;
       this.closeModal();
       this.autocueModalClose()
     }
