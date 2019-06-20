@@ -68,8 +68,9 @@ export class MediaPlayerComponent {
     }
   ];
   player: Plyr;
-  clickableElements: Array<string> = ['plyrPlayer', 'back'];
-  volume: Number = 100;
+  clickableElements: Array<string> = ['plyrPlayer', 'back', 'fullscreen', 'prevSong', 'playSong', 'nextSong'];
+  Tmpvolume: number = 1;
+  currentVolume: number = 1;
 
   constructor(
     private route: ActivatedRoute,
@@ -86,10 +87,10 @@ export class MediaPlayerComponent {
       this.playSong(song);
     });
 
-    this.events.subscribe('swipe', (data) => {
-      if (data === 'right') this.previousSong();
-      if (data === 'left') this.nextSong();
-    });
+    // this.events.subscribe('swipe', (data) => {
+    //   if (data === 'right') this.previousSong();
+    //   if (data === 'left') this.nextSong();
+    // });
 
     this.assistant.subscribe('mediaControlls', (data) => {
       switch (data.index) {
@@ -102,28 +103,30 @@ export class MediaPlayerComponent {
         case 2:
           if (this.plyr.player.playing) {
             let tmp = this.plyr.player.volume;
-            this.plyr.player.volume = this.plyr.player.volume - 0.6; // Sets volume at 50%
+
+            this.setVolume(this.plyr.player.volume - 0.6);
             this.assistant.say('Already playing idiot');
             setTimeout(() => {
-              this.volume = this.plyr.player.volume = tmp;
+              this.Tmpvolume = tmp;
+              this.setVolume(tmp);
             }, 2000)
-          } else this.togglePlayer()
+          } else this.simplePlayPause()
           break;
         case 3:
           if (this.plyr.player.paused)
             this.assistant.say('Already paused idiot');
-          else this.togglePlayer()
+          else this.simplePlayPause()
           break;
         case 4:
-          this.plyr.player.volume = this.volume;
+          this.setVolume(this.Tmpvolume);
           break;
         case 5:
-          this.volume = this.plyr.player.volume;
-          this.plyr.player.volume = 0;
+          this.Tmpvolume = this.plyr.player.volume;
+          this.setVolume(0);
           break;
         case 6:
           let volume = parseInt(data.data);
-          if (volume && volume <= 100 && volume >= 0) this.plyr.player.volume = volume * 0.01;
+          if (volume && volume <= 100 && volume >= 0) this.setVolume(volume * 0.01);
           else this.assistant.say('What are you talking about');
           break;
         case 7:
@@ -205,7 +208,7 @@ export class MediaPlayerComponent {
     }
   }
 
-  togglePlayer() {//FIXME:
+  togglePlayer() {
     if (this.plyr.player.playing) {
       this.pause();
       this.ComponentsDisplay();
@@ -215,6 +218,23 @@ export class MediaPlayerComponent {
     else {
       this.play(null, true);
       this.plyr.player.play();
+      this.ComponentsHide();
+    }
+  }
+
+  simplePlayPause() {
+    if (this.plyr.player.playing) {
+      this.plyr.player.pause();
+    }
+    else {
+      this.plyr.player.play();
+    }
+  }
+
+  fullScreenToggle() {
+    if (this.fullScreen) {
+      this.ComponentsDisplay();
+    } else {
       this.ComponentsHide();
     }
   }
@@ -253,12 +273,14 @@ export class MediaPlayerComponent {
     this.controllers = true;
     $('.plyr__controls').css('display', 'flex');//display controlls 
     $('.plyr_title').css('display', 'block');
+    $('.mediaController').css('display', 'block');
   }
 
   playerHideControlls() {
     this.controllers = false;
     $('.plyr__controls').css('display', 'none');//hide controlls
     $('.plyr_title').css('display', 'none');
+    $('.mediaController').css('display', 'none');
   }
 
   playSong(song) {
@@ -310,7 +332,12 @@ export class MediaPlayerComponent {
     this.playerHideControlls();
   }
 
-  seek() {
-
+  setVolume(value: number) {
+    this.currentVolume = value;
+    this.plyr.player.volume = value;
+    $('.volume').css('display', 'block');
+    setTimeout(() => {
+      $('.volume').css('display', 'none');
+    }, 5000)
   }
 }

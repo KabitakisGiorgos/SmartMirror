@@ -14,6 +14,8 @@ import { MediaPlayerComponent } from './media-player/media-player.component';
 import { PlyrModule } from 'ngx-plyr';
 import { NgxSmartModalModule } from 'ngx-smart-modal';
 import { NgcFloatButtonModule } from 'ngc-float-button';
+import { MatIconModule, MatProgressBarModule } from '@angular/material';
+
 @NgModule({
   declarations: [
     HealthComponent,
@@ -27,12 +29,14 @@ import { NgcFloatButtonModule } from 'ngc-float-button';
     MediaPlayerComponent
   ],
   imports: [
+    MatIconModule,
     CommonModule,
     PageRoutingModule,
     SlickCarouselModule,
     PlyrModule,
     NgcFloatButtonModule,
-    NgxSmartModalModule
+    NgxSmartModalModule,
+    MatProgressBarModule
   ],
   exports: [
     PageRoutingModule

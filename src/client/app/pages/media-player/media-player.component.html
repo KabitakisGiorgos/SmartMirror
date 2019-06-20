@@ -1,5 +1,5 @@
 <plyr id="plyrPlayer" style="display: block; width: 1920px;" plyrTitle="Video 1" (click)="togglePlayer()"
-  [plyrSources]="videoSources" (plyrInit)="player = $event" (plyrPause)="pause($event)">test
+  [plyrSources]="videoSources" (plyrInit)="player = $event">test
 </plyr>
 
 <div class="suggested" *ngIf="controllers" [ngClass]="!fullScreen?'minimized':''">
@@ -19,10 +19,36 @@
   <img src="/assets/icons/back.svg">
 </div>
 
-<ngc-float-button class="media_controllers" [ngClass]="fullScreen?'minimized':''" (click)="open.next(true)"
+<!-- <ngc-float-button class="media_controllers" id="mediaController" [ngClass]="fullScreen?'minimized':''" (click)="test()"
   spaceBetweenButtons="100" *ngIf="controllers" direction="right" icon="apps">
-  <ngc-float-item-button icon="skip_previous" (click)="previousSong()" content="float item 1">
+  <ngc-float-item-button icon="fullscreen" (click)="fullScreenToggle()" id="fullscreen" content="float item 3">
   </ngc-float-item-button>
-  <ngc-float-item-button icon="play_arrow" (click)="togglePlayer()" content="float item 2"></ngc-float-item-button>
-  <ngc-float-item-button icon="skip_next" (click)="nextSong()" content="float item 3"></ngc-float-item-button>
-</ngc-float-button>
+  <ngc-float-item-button icon="skip_previous" (click)="previousSong()" id="prevSong" content="float item 1">
+  </ngc-float-item-button>
+  <ngc-float-item-button icon="play_arrow" (click)="simplePlayPause()" id="playSong" content="float item 2">
+  </ngc-float-item-button>
+  <ngc-float-item-button icon="skip_next" (click)="nextSong()" id="nextSong" content="float item 3">
+  </ngc-float-item-button>
+</ngc-float-button> -->
+
+<button class="mediaController" mat-fab [ngClass]="fullScreen?'minimized':''" (click)="fullScreenToggle()"
+  id="fullscreen">
+  <mat-icon>fullscreen</mat-icon>
+</button>
+<button class="mediaController" [ngClass]="fullScreen?'minimized':''" (click)="previousSong()" id="prevSong">
+  <mat-icon>skip_previous</mat-icon>
+</button>
+<button class="mediaController" [ngClass]="fullScreen?'minimized':''" (click)="simplePlayPause()" id="playSong">
+  <mat-icon *ngIf="player && player.playing; else pause">play_arrow</mat-icon>
+  <ng-template #pause>
+    <mat-icon>pause</mat-icon>
+  </ng-template>
+</button>
+<button class="mediaController" [ngClass]="fullScreen?'minimized':''" id="nextSong" (click)="nextSong()">
+  <mat-icon>skip_next</mat-icon>
+</button>
+
+<!-- FIXME: add mute and unmute icon -->
+
+<mat-progress-bar class="volume" [ngClass]="fullScreen?'minimized':''" mode="determinate" [value]="currentVolume*100">
+</mat-progress-bar>
