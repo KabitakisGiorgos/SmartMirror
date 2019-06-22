@@ -115,7 +115,101 @@
 
     Part of AmI-Solertis project. See [AMI ICS-FORTH] .
 
-    
+
+    ### 1.5 Future Work
+
+    Still there is a bug when assistant reads news and user stops him he keeps talking.
+    Features:
+        Remove the hardcoded and local files.Connect media player with a music api like youtube and have dynamic content as well as the libraries for 
+        playlists and favorites songs.
+
+        Assistant should provide an indication somehow from the UI when he hears his name.It should be implemented a custom way of hearing the name so 
+        we could have a bigger "hearing time" so when you say his name there is bigger period for responding.
+
+        Leap should be calibrated in order the interaction at the lowest points of the screen to be easier.
+
+        Then we could keep connecting more services to enrich the mirror.Like google calendar/rocket chat/ weather/ dynamic activities in timeline/news and the
+        components under timeline.
+
+    Demo Data 
+
+    ```
+    { 
+    "_id" : ObjectId("5cc476abf1e08b72e5474979"), 
+    "type" : "Hypnos", 
+    "start" : NumberInt(23400000), 
+    "icon" : "awaken", 
+    "__v" : NumberInt(0)
+}
+// ----------------------------------------------
+{ 
+    "_id" : ObjectId("5cc4784ef1e08b72e547497a"), 
+    "type" : "Food", 
+    "start" : NumberInt(27000000), 
+    "icon" : "food_prep", 
+    "__v" : NumberInt(0)
+}
+// ----------------------------------------------
+{ 
+    "_id" : ObjectId("5cc479cdf1e08b72e547497b"), 
+    "type" : "Commute", 
+    "start" : NumberInt(35100000), 
+    "icon" : "commute", 
+    "end" : NumberInt(40500000), 
+    "title" : "ETA: 1h 30min", 
+    "__v" : NumberInt(0)
+}
+// ----------------------------------------------
+{ 
+    "_id" : ObjectId("5cc47eb5f1e08b72e547497c"), 
+    "type" : "Work", 
+    "start" : NumberInt(41400000), 
+    "icon" : "work", 
+    "end" : NumberInt(70200000), 
+    "title" : "11:30-19:30", 
+    "__v" : NumberInt(0)
+}
+// ----------------------------------------------
+{ 
+    "_id" : ObjectId("5cc47f57f1e08b72e547497d"), 
+    "type" : "Commute", 
+    "start" : NumberInt(72000000), 
+    "icon" : "commute", 
+    "end" : NumberInt(74700000), 
+    "title" : "Pick Kids", 
+    "__v" : NumberInt(0)
+}
+// ----------------------------------------------
+{ 
+    "_id" : ObjectId("5cc47fcc354dbd7dee1cdf5e"), 
+    "type" : "Sleep", 
+    "start" : NumberInt(85500000), 
+    "icon" : "sleep", 
+    "__v" : NumberInt(0)
+}
+// ----------------------------------------------
+{ 
+    "_id" : ObjectId("5cc481384a91527f6e67cd22"), 
+    "type" : "Food", 
+    "start" : NumberInt(80100000), 
+    "icon" : "lunch", 
+    "end" : NumberInt(83700000), 
+    "title" : "Dinner", 
+    "__v" : NumberInt(0)
+}
+// ----------------------------------------------
+{ 
+    "_id" : ObjectId("5cc482194a91527f6e67cd23"), 
+    "type" : "Relax", 
+    "start" : NumberInt(75600000), 
+    "icon" : "relax", 
+    "end" : NumberInt(79200000), 
+    "title" : "Relax", 
+    "__v" : NumberInt(0)
+}
+// ----------------------------------------------
+
+    ```
     
 
     [//]: #  (These are reference links used in the body of this note and get stripped out when the markdown processor does its job. There is no need to format nicely because it shouldn't be seen. Thanks SO - http://stackoverflow.com/questions/4823468/store-comments-in-markdown-syntax)
