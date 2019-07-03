@@ -1,0 +1,523 @@
+{
+	"info": {
+		"_postman_id": "09689699-088a-465c-b07b-12561b763092",
+		"name": "smartMirror",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "events",
+			"item": [
+				{
+					"name": "Create Event",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "type",
+									"value": "Commute",
+									"type": "text"
+								},
+								{
+									"key": "start",
+									"value": "85500000",
+									"type": "text"
+								},
+								{
+									"key": "icon",
+									"value": "commute",
+									"type": "text"
+								},
+								{
+									"key": "end",
+									"value": "74700000",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "title",
+									"value": "Pick Kids",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/events",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"events"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Event",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "icon",
+									"value": "awaken",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/events/5cc476abf1e08b72e5474979",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"events",
+								"5cc476abf1e08b72e5474979"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Retrieve Events",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/events",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"events"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "notifications",
+			"item": [
+				{
+					"name": "Notification Ping",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "type",
+									"value": "Schedule",
+									"type": "text"
+								},
+								{
+									"key": "severity",
+									"value": "red",
+									"type": "text"
+								},
+								{
+									"key": "text",
+									"value": "kalimera",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/notifications",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"notifications"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Notification",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "type",
+									"value": "Schedule",
+									"type": "text"
+								},
+								{
+									"key": "severity",
+									"value": "High",
+									"type": "text"
+								},
+								{
+									"key": "text",
+									"value": "Dont forget to call Papadakis",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/notifications",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"notifications"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Retrieve last X notifications",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "type",
+									"value": "Schedule",
+									"type": "text"
+								},
+								{
+									"key": "severity",
+									"value": "red",
+									"type": "text"
+								},
+								{
+									"key": "text",
+									"value": "test23",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/notifications/last/4",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"notifications",
+								"last",
+								"4"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "thing",
+			"item": [
+				{
+					"name": "Create Thing",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "update test",
+									"type": "text"
+								},
+								{
+									"key": "info",
+									"value": "test info",
+									"type": "text"
+								},
+								{
+									"key": "active",
+									"value": "true",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/things",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"things"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Retrieve things",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/things",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"things"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Thing",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "update test",
+									"type": "text"
+								},
+								{
+									"key": "info",
+									"value": "test info",
+									"type": "text"
+								},
+								{
+									"key": "active",
+									"value": "true",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/things/{{id}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"things",
+								"{{id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Retrieve thing",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/things/5cc4573408197b216421e89a",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"things",
+								"5cc4573408197b216421e89a"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Request",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "George",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/things/5cc4573408197b216421e89a",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"things",
+								"5cc4573408197b216421e89a"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "a1a24ac6-dfb7-400f-ba66-52d2fb92ad45",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "db16beb7-0b98-46c4-9167-dc62364b88b4",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "News",
+			"item": [
+				{
+					"name": "Retrieve Cached news",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/news",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"news"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Retrieve news and cache",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/news/renew",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"news",
+								"renew"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Retrieve articles for a topic ",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/news/retrieve?topic=war",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"news",
+								"retrieve"
+							],
+							"query": [
+								{
+									"key": "topic",
+									"value": "war"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "weather api",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "api.openweathermap.org/data/2.5/forecast?q=Heraklion&APPID=847a9c6cb1ff15c0cd6a8f3062a9c45e",
+					"host": [
+						"api",
+						"openweathermap",
+						"org"
+					],
+					"path": [
+						"data",
+						"2.5",
+						"forecast"
+					],
+					"query": [
+						{
+							"key": "q",
+							"value": "Heraklion"
+						},
+						{
+							"key": "APPID",
+							"value": "847a9c6cb1ff15c0cd6a8f3062a9c45e"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
